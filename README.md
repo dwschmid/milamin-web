@@ -67,10 +67,15 @@ so: apps worth sharing get a place on the site.
 
 ## Citing
 
-Schmid, D. W. (2026). MilAMin: MILAMIN in the browser. Zenodo,
+The note on the browser version: Schmid, D. W. (2026). MilAMin in the
+browser: a million unknowns a minute in TypeScript and WebAssembly.
+EarthArXiv, [doi:10.31223/X5NF8T](https://doi.org/10.31223/X5NF8T).
+
+The software: Schmid, D. W. (2026). MilAMin: MILAMIN in the browser. Zenodo,
 [doi:10.5281/zenodo.22895505](https://doi.org/10.5281/zenodo.22895505)
-(all versions; each release has its own DOI). Please cite the 2008 paper
-alongside it. `CITATION.cff` carries the same in machine-readable form.
+(all versions; each release has its own DOI). Please cite the note and the
+2008 paper alongside it. `CITATION.cff` carries the software citation in
+machine-readable form.
 
 ## License
 
