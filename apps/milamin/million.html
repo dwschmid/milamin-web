@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Million A Minute – MilAMin</title>
+    <meta
+      name="description"
+      content="One million degrees of freedom, set up, solved and postprocessed live in your browser: an inclusion benchmark using MILAMIN's solver strategy."
+    />
+    <script type="module" src="./src/million-page.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main>
+      <header class="site">
+        <nav class="crumbs"><a href="./index.html">MilAMin</a> / Million A Minute</nav>
+        <h1>One million unknowns, one minute</h1>
+        <p class="sub">
+          The 2008 MILAMIN claim, live: one million degrees of freedom set up,
+          solved and post-processed in about a minute, now in your browser.
+          The problem is the original benchmark, a viscous circular inclusion
+          (viscosity ratio 1000) in simple shear, and everything below happens
+          locally when you press Run.
+        </p>
+      </header>
+
+      <div class="controls bench-controls">
+        <div class="control">
+          <label for="in-target">Problem size</label>
+          <select id="in-target">
+            <option value="250000">~250 000 unknowns</option>
+            <option value="1000000" selected>~1 000 000 unknowns (the claim)</option>
+            <option value="2800000">~2 800 000 unknowns (~4 GB)</option>
+          </select>
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-threads">Solver threads</label>
+          <select id="in-threads"></select>
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-cmap">Colormap</label>
+          <select id="in-cmap"></select>
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-levels">Colors</label>
+          <select id="in-levels">
+            <option value="0">Smooth</option>
+            <option value="64" selected>64</option>
+            <option value="32">32</option>
+            <option value="16">16</option>
+            <option value="8">8</option>
+          </select>
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-mesh">Show mesh</label>
+          <input id="in-mesh" type="checkbox" />
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-crange">Color range</label>
+          <select id="in-crange">
+            <option value="auto" selected>Automatic</option>
+            <option value="manual">Set below</option>
+          </select>
+          <span></span>
+        </div>
+        <div class="control" data-crange>
+          <label for="in-pmin">Pressure min / max</label>
+          <input id="in-pmin" type="number" step="any" />
+          <input id="in-pmax" type="number" step="any" />
+        </div>
+        <div class="control" data-crange>
+          <label for="in-tmin">Shear stress min / max</label>
+          <input id="in-tmin" type="number" step="any" />
+          <input id="in-tmax" type="number" step="any" />
+        </div>
+        <div class="control">
+          <button type="button" id="run">Run</button>
+          <span id="status">idle</span>
+        </div>
+      </div>
+
+      <div id="summary"></div>
+
+      <div class="panels">
+        <div class="panel">
+          <h2>Pressure p</h2>
+          <canvas id="cv-p" class="field"></canvas>
+          <div class="cbar">
+            <canvas id="cb-p"></canvas>
+            <div class="ticks"><span id="tick-p-min"></span><span id="tick-p-mid"></span><span id="tick-p-max"></span></div>
+          </div>
+          <div class="panel-tools">
+            <button type="button" id="dl-p" title="Download this panel as PNG">Save PNG</button>
+            <button type="button" class="zoom-in" title="Zoom in">+</button>
+            <button type="button" class="zoom-out" title="Zoom out">−</button>
+            <button type="button" class="zoom-reset" title="Reset view">1:1</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Maximum shear stress τ</h2>
+          <canvas id="cv-tau" class="field"></canvas>
+          <div class="cbar">
+            <canvas id="cb-tau"></canvas>
+            <div class="ticks"><span id="tick-tau-min"></span><span id="tick-tau-mid"></span><span id="tick-tau-max"></span></div>
+          </div>
+          <div class="panel-tools">
+            <button type="button" id="dl-tau" title="Download this panel as PNG">Save PNG</button>
+            <button type="button" class="zoom-in" title="Zoom in">+</button>
+            <button type="button" class="zoom-out" title="Zoom out">−</button>
+            <button type="button" class="zoom-reset" title="Reset view">1:1</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="notes">
+        <h2>What runs where</h2>
+        <p>
+          MILAMIN was never one trick. The 2008 paper showed that a general
+          unstructured finite element code reaches a million unknowns per
+          minute when every stage gets equal care: meshing, assembly,
+          factorization and postprocessing all have to scale, because the
+          moment one of them is neglected it dominates the total time. That
+          strategy, not any single component, is what this page carries into
+          the browser: the same pipeline, stage by stage, now sandboxed,
+          installation-free and threaded on whatever device opens it, at
+          rates that match and often beat the 2008 native-MATLAB numbers.
+        </p>
+        <p>
+          The stages: meshing with Shewchuk's Triangle in our own WebAssembly
+          build; element matrices and assembly in one fused loop, as in the
+          original; CHOLMOD's supernodal Cholesky in WebAssembly, threaded;
+          Powell&ndash;Hestenes pressure iterations; and the fields drawn per
+          pixel from the element solution. Unknowns are counted as in 2008,
+          the bubble node included. The <a href="./about/how.html">how it works</a>
+          page has the details of each stage, of the counting and of what is
+          outside the five timers.
+        </p>
+        <p>
+          Two details of the setup. The computational domain is a disc of
+          radius 2.5 (inclusion radius 1) with the analytical far-field
+          velocity prescribed on its rim; the panels frame that disc in a
+          square, so their corners stay empty. And the default thread count
+          is deliberately not the maximum your machine offers: 2D
+          factorizations are memory-bandwidth-bound, gain little beyond about
+          four threads and lose ground when every hardware thread is used,
+          so the page starts at four on a desktop and at two on a phone, and
+          lets you try more. Where the optimum lies depends on the machine: on
+          the one phone we measured, with its mix of large and small cores,
+          two threads were the fastest setting.
+        </p>
+        <p>
+          The solution is not just fast but checked: the same solver is
+          verified against an independent banded Cholesky backend to 10 digits,
+          and against the analytical inclusion solution, on every build
+          (46 checks); the <a href="./convergence.html">convergence lab</a>
+          runs that comparison live on finer and finer meshes. See the
+          <a href="./bench.html">benchmark page</a> for how the time scales
+          with size, and the
+          <a href="./notes.html">2011 technical notes</a> for the original
+          native-MATLAB analysis this mirrors.
+        </p>
+        <p>
+          Reference: Dabrowski, M., Krotkiewski, M. &amp; Schmid, D. W. (2008),
+          <a href="https://doi.org/10.1029/2007GC001719">MILAMIN: MATLAB-based
+          finite element method solver for large problems</a>,
+          <em>Geochemistry, Geophysics, Geosystems</em> 9, Q04030,
+          doi:10.1029/2007GC001719.
+        </p>
+      </section>
+
+    </main>
+  <!-- site:footer -->
+  </body>
+</html>

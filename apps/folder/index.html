@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Folder – MilAMin</title>
+    <meta
+      name="description"
+      content="Folding of a stiff viscous layer under layer-parallel shortening, simulated live in your browser: finite elements, remeshing and time stepping as in the Folder tool."
+    />
+    <script type="module" src="./src/folding-page.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main>
+      <header class="site">
+        <nav class="crumbs"><a href="../index.html">MilAMin</a> / Apps / Folder</nav>
+        <h1>Folding and boudinage of viscous layers</h1>
+        <p class="sub">
+          One or more stiff viscous layers embedded in a weaker matrix are
+          shortened or extended parallel to the layers. Under shortening,
+          small deflections of the interfaces amplify into folds, fastest at
+          the dominant wavelength predicted by Biot and Fletcher; under
+          extension, power-law layers neck into pinch-and-swell structures
+          and boudins. Everything below runs in your browser when you press
+          Run: the box is remeshed with Triangle at every step, the Stokes
+          equations are solved with 7-node Crouzeix&ndash;Raviart elements
+          (with Picard iterations for power-law rheology) and the
+          interfaces are advected with the computed velocities, the same
+          scheme as in the Folder tool this page is based on.
+        </p>
+      </header>
+
+      <div class="folder-layout">
+      <div class="folder-controls control-groups">
+        <div class="controls control-group">
+          <h3 class="group-title">Model</h3>
+          <div class="control">
+            <label for="in-mode">Deformation</label>
+            <select id="in-mode">
+              <option value="shortening" selected>Shortening (folding)</option>
+              <option value="extension">Extension (boudinage)</option>
+            </select>
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-r">Viscosity ratio</label>
+            <input id="in-r" type="number" min="2" max="10000" step="1" value="100" />
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-nl">Layer stress exponent</label>
+            <input id="in-nl" type="number" min="1" max="10" step="0.5" value="1" />
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-nm">Matrix stress exponent</label>
+            <input id="in-nm" type="number" min="1" max="10" step="0.5" value="1" />
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-layers">Layers</label>
+            <input id="in-layers" type="number" min="1" max="5" step="1" value="1" />
+            <span></span>
+          </div>
+          <div class="control" data-multi>
+            <label for="in-spacing">Spacing / thickness</label>
+            <input id="in-spacing" type="number" min="1.5" max="6" step="0.25" value="3" />
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-margin">Matrix above and below / thickness</label>
+            <input id="in-margin" type="number" min="2" max="40" step="0.5" value="7.5" />
+            <span></span>
+          </div>
+        </div>
+
+        <div class="controls control-group">
+          <h3 class="group-title">Perturbation</h3>
+          <div class="control">
+            <label for="in-pert">Type</label>
+            <select id="in-pert">
+              <option value="sine" selected>Sine</option>
+              <option value="white">White noise</option>
+              <option value="red">Red noise</option>
+              <option value="fractal">Fractal noise</option>
+              <option value="step">Step</option>
+              <option value="triangle">Triangle wave</option>
+              <option value="bell">Bell</option>
+            </select>
+            <span></span>
+          </div>
+          <div class="control" data-for="sine triangle">
+            <label for="in-wl">Wavelength / thickness</label>
+            <input id="in-wl" type="range" min="4" max="64" step="1" value="16" />
+            <input id="num-wl" type="number" min="4" max="64" step="1" value="16" />
+          </div>
+          <div class="control" data-for="fractal">
+            <label for="in-hurst">Hurst exponent</label>
+            <input id="in-hurst" type="number" min="0" max="1" step="0.05" value="0.5" />
+            <span></span>
+          </div>
+          <div class="control" data-for="bell">
+            <label for="in-bell">Bell width / thickness</label>
+            <input id="in-bell" type="number" min="0.5" max="20" step="0.5" value="4" />
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-amp">Amplitude / thickness</label>
+            <input id="in-amp" type="number" min="0.001" max="0.2" step="0.001" value="0.02" />
+            <span></span>
+          </div>
+          <div class="control-note" id="note-wl"></div>
+          <details class="growth" id="growth">
+            <summary>Growth-rate curve</summary>
+            <div class="control growth-axis">
+              <label for="in-gaxis">Wavelength axis</label>
+              <select id="in-gaxis">
+                <option value="linear" selected>Linear, 1 to 50</option>
+                <option value="log">Logarithmic, 2 to 200</option>
+              </select>
+              <span></span>
+            </div>
+            <canvas id="cv-growth" class="growth-chart"></canvas>
+            <div class="growth-legend" id="growth-legend"></div>
+            <p class="control-note" id="growth-note"></p>
+          </details>
+        </div>
+
+        <div class="controls control-group">
+          <h3 class="group-title">Run</h3>
+          <div class="control">
+            <label for="in-strain">Strain %</label>
+            <input id="in-strain" type="range" min="10" max="70" step="1" value="50" />
+            <input id="num-strain" type="number" min="10" max="70" step="1" value="50" />
+          </div>
+          <div class="control">
+            <label for="in-steps">Time steps</label>
+            <input id="in-steps" type="range" min="5" max="60" step="1" value="20" />
+            <input id="num-steps" type="number" min="5" max="60" step="1" value="20" />
+          </div>
+          <div class="control">
+            <label for="in-res">Resolution</label>
+            <select id="in-res">
+              <option value="coarse">Coarse</option>
+              <option value="medium" selected>Medium</option>
+              <option value="fine">Fine</option>
+            </select>
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-threads">Solver threads</label>
+            <select id="in-threads"></select>
+            <span></span>
+          </div>
+          <div class="control">
+            <button type="button" id="run">Run</button>
+            <span id="status">idle</span>
+          </div>
+          <div class="control-note">Your inputs are remembered in this browser. <button type="button" id="share" class="linklike">Share link</button> <span id="share-note"></span> <button type="button" id="reset" class="linklike">Reset to defaults</button></div>
+        </div>
+
+        <div class="controls control-group">
+          <h3 class="group-title">Display</h3>
+          <div class="control">
+            <label for="in-field">Field</label>
+            <select id="in-field">
+              <option value="mu" selected>Viscosity</option>
+              <option value="p">Pressure</option>
+              <option value="tau">Maximum shear stress</option>
+              <option value="eII">Strain rate</option>
+              <option value="vel">Velocity magnitude</option>
+              <option value="pvel">Perturbing velocity magnitude</option>
+              <option value="vort">Vorticity</option>
+            </select>
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-cmap">Colormap</label>
+            <select id="in-cmap"></select>
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-levels">Colors</label>
+            <select id="in-levels">
+              <option value="0">Smooth</option>
+              <option value="64" selected>64</option>
+              <option value="32">32</option>
+              <option value="16">16</option>
+              <option value="8">8</option>
+            </select>
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-mesh">Show mesh</label>
+            <input id="in-mesh" type="checkbox" />
+            <span></span>
+          </div>
+          <div class="control">
+            <label for="in-crange">Color range</label>
+            <select id="in-crange">
+              <option value="auto" selected>Automatic</option>
+              <option value="manual">Set below</option>
+            </select>
+            <span></span>
+          </div>
+          <div class="control" data-crange>
+            <label for="in-cmin">Minimum</label>
+            <input id="in-cmin" type="number" step="any" />
+            <span></span>
+          </div>
+          <div class="control" data-crange>
+            <label for="in-cmax">Maximum</label>
+            <input id="in-cmax" type="number" step="any" />
+            <span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="folder-results">
+      <div class="panels single">
+        <div class="panel">
+          <h2 id="panel-title">Viscosity</h2>
+          <canvas id="cv-field" class="field"></canvas>
+          <div class="cbar">
+            <canvas id="cb-field"></canvas>
+            <div class="ticks"><span id="tick-min"></span><span id="tick-mid"></span><span id="tick-max"></span></div>
+          </div>
+          <div class="panel-tools">
+            <button type="button" id="dl-field" title="Download this panel as PNG">Save PNG</button>
+            <button type="button" class="zoom-in" title="Zoom in">+</button>
+            <button type="button" class="zoom-out" title="Zoom out">&minus;</button>
+            <button type="button" class="zoom-reset" title="Reset view">1:1</button>
+            <button type="button" class="enlarge" title="Show the panel full width at full resolution">Enlarge</button>
+          </div>
+        </div>
+      </div>
+      <div class="controls bench-controls">
+        <div class="control wide">
+          <button type="button" id="play" disabled>Play</button>
+          <input id="in-frame" type="range" min="0" max="0" value="0" step="1" disabled style="flex: 1" />
+          <span id="frame-label">no frames yet</span>
+        </div>
+      </div>
+
+      <div id="summary"></div>
+
+      </div>
+      </div>
+
+      <section class="notes">
+        <h2>What this shows</h2>
+        <p>
+          The model is a rectangular box of viscous fluid with one or more
+          embedded layers of the same fluid, only more viscous by the chosen
+          ratio. Both layer and matrix can be linear viscous or power-law
+          (stress exponent above 1), with the viscosity ratio defined at the
+          background strain rate. The box is deformed horizontally at a
+          constant logarithmic strain rate under free-slip pure shear: the
+          walls move in or out, and material slides along them freely. The
+          layer interfaces start with a small perturbation of the chosen
+          type, the types of the original Folder: a sine, white, red or
+          fractal noise (all box modes with random phases, at equal
+          amplitude, amplitude 1/n or n<sup>&minus;(H+&frac12;)</sup> with
+          the Hurst exponent H), a step, a triangle wave or a bell, each
+          scaled to the chosen amplitude. The matrix above and below the
+          layer stack is set explicitly, since the free-slip walls act back on
+          the layers when they are close.
+        </p>
+        <p>
+          In each time step the domain is triangulated
+          from the current interface positions, the Stokes equations are
+          solved (with Picard iterations updating the effective viscosity
+          for power-law materials, each step starting from the previous
+          solution, and the strain rate entering the viscosity floored at 1%
+          of the background rate so that hinges stay finite) and the
+          interfaces are moved with the
+          computed velocity field (a second-order Heun step, two solves per
+          step), then redistributed along their arc length when advection
+          has stretched them. Shortening makes interface deflections grow
+          into folds; extension of a power-law layer localizes into
+          pinch-and-swell and boudins, while a linear viscous layer just
+          thins. Of the fields on offer, the perturbing velocity is what
+          remains after the background pure shear is subtracted, the part the
+          layer adds. The amplitude A quoted next to the time slider is, for every
+          interface, half its peak-to-peak deflection, averaged over all
+          interfaces, divided by its initial value A0. The dominant wavelength
+          shown under the perturbation controls comes from the analytical
+          small-amplitude theory for a single layer: Fletcher (1977) for
+          linear folding, Fletcher (1974) for power-law folding, Johnson
+          &amp; Fletcher (1994) for linear thinning and Pollard &amp; Fletcher
+          (2005) for power-law necking; Biot (1961) gives the classic
+          thin-plate estimate. The solver reproduces these rates, which is
+          checked in the build.
+        </p>
+        <p>
+          This page is a browser version of Folder:
+          Adamuszek, M., Dabrowski, M. &amp; Schmid, D. W. (2016),
+          <a href="https://doi.org/10.1016/j.jsg.2016.01.001">FOLDER: A
+          numerical tool to simulate the development of structures in
+          layered media</a>, <em>Journal of Structural Geology</em> 84,
+          85&ndash;101, doi:10.1016/j.jsg.2016.01.001. The original MATLAB tool, including power-law
+          rheologies, multilayer stacks and boudinage, is available at
+          <a href="https://github.com/dwschmid/folder">github.com/dwschmid/folder</a>
+          (BSD 3-Clause). This page is a re-implementation, not a port: the
+          effective viscosity of a power-law material is one value per element,
+          taken at its centroid and updated by Picard iteration rather than
+          the original's integration-point rheology and Newton iteration; the
+          fractal noise is a spectral synthesis with the given Hurst exponent
+          rather than the original's correlated random field; and the Stokes
+          element writes the viscous term as 2μ ε(u):ε(v), which equals the
+          original's deviatoric form for exactly incompressible fields.
+        </p>
+        <h2>References</h2>
+        <ul class="refs">
+          <li>Adamuszek, M., Dabrowski, M. &amp; Schmid, D. W. (2016), FOLDER: A numerical tool to simulate the development of structures in layered media, <em>Journal of Structural Geology</em> 84, 85&ndash;101, doi:10.1016/j.jsg.2016.01.001.</li>
+          <li>Biot, M. A. (1961), Theory of folding of stratified viscoelastic media and its implications in tectonics and orogenesis, <em>Geological Society of America Bulletin</em> 72, 1595&ndash;1620.</li>
+          <li>Fletcher, R. C. (1974), Wavelength selection in the folding of a single layer with power-law rheology, <em>American Journal of Science</em> 274, 1029&ndash;1043.</li>
+          <li>Fletcher, R. C. (1977), Folding of a single viscous layer: exact infinitesimal-amplitude solution, <em>Tectonophysics</em> 39, 593&ndash;606.</li>
+          <li>Johnson, A. M. &amp; Fletcher, R. C. (1994), <em>Folding of Viscous Layers</em>, Columbia University Press, New York.</li>
+          <li>Pollard, D. D. &amp; Fletcher, R. C. (2005), <em>Fundamentals of Structural Geology</em>, Cambridge University Press.</li>
+        </ul>
+      </section>
+
+    </main>
+    <!-- site:footer -->
+  </body>
+</html>

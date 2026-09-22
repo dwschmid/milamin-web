@@ -1,0 +1,2482 @@
+[
+ {
+  "title": "Key New Evidence for the Hainan Mantle Plume Head: Ongoing Formation of a Large Igneous Province?",
+  "year": 2026,
+  "doi": "10.1029/2025gc012869",
+  "authors": [
+   "F. Yang",
+   "XJ Huang",
+   "L. Liu",
+   "Y.G. Xu",
+   "Yi Hua",
+   "P.L. He",
+   "L. Zhang",
+   "W. F. Zhang",
+   "Y. Yu",
+   "Hui Li"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "How ice apron loss and permafrost degradation promoted the Platteikogel rock slope failure: a thermo-mechanical reconstruction",
+  "year": 2026,
+  "doi": "10.5194/esurf-14-601-2026",
+  "authors": [
+   "Felix Pfluger",
+   "Samuel Weber",
+   "Natalie Barbosa",
+   "Florentin Hofmeister",
+   "Johannes Leinauer",
+   "Peter Wegmann",
+   "Michael Krautblatter"
+  ],
+  "venue": "Earth Surface Dynamics"
+ },
+ {
+  "title": "Built to last: Long-term stability of steep deglaciated slopes of alpine karst plateaus (Northern Calcareous Alps, Austria)",
+  "year": 2026,
+  "doi": "10.1016/j.enggeo.2026.108924",
+  "authors": [
+   "Jacek Szczygieł",
+   "Marcin Dąbrowski",
+   "Oscar Fernandez",
+   "John Hellstrom",
+   "Bernhard Grasemann"
+  ],
+  "venue": "Engineering Geology"
+ },
+ {
+  "title": "Folding of a single layer in an effectively anisotropic host: the role of viscosity stratification and confinement on growth rates and fold patterns",
+  "year": 2026,
+  "doi": "10.1016/j.jsg.2026.105635",
+  "authors": [
+   "Marta Adamuszek",
+   "Weronika Wiesławska",
+   "Jerzy Gamdzyk",
+   "Marcin Dabrowski"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Vibro-Acoustic Analysis of Systems with Complex Geometries Using an Improved Wavelet-Based Finite Element Approach",
+  "year": 2026,
+  "doi": "10.1142/s2591728526500118",
+  "authors": [
+   "Shuailong Ni",
+   "Tiangui Ye",
+   "Yuehua Chen",
+   "Guoyong Jin",
+   "Xiang Xie"
+  ],
+  "venue": "Journal of Theoretical and Computational Acoustics"
+ },
+ {
+  "title": "Automatic tuning of iterative pseudo-transient solvers for modeling the deformation of heterogeneous media",
+  "year": 2026,
+  "doi": "10.5194/gmd-19-5343-2026",
+  "authors": [
+   "Thibault Duretz",
+   "Albert de Montserrat",
+   "Rubén Sevilla",
+   "Ludovic Räss",
+   "Ivan Utkin",
+   "Arne Spang"
+  ],
+  "venue": "Geoscientific model development"
+ },
+ {
+  "title": "Advances and perspectives in numerical modeling for geodynamics",
+  "year": 2026,
+  "doi": "10.1007/s11430-025-1791-3",
+  "authors": [
+   "Zebin Cao",
+   "Lijun Liu"
+  ],
+  "venue": "Science China Earth Sciences"
+ },
+ {
+  "title": "A dilatant visco-elasto-viscoplasticity model with globally continuous tensile cap: stable two-field mixed formulation",
+  "year": 2025,
+  "doi": "10.5194/gmd-18-7035-2025",
+  "authors": [
+   "Anton A. Popov",
+   "Nicolas Berlie",
+   "Boris Kaus"
+  ],
+  "venue": "Geoscientific model development"
+ },
+ {
+  "title": "On the choice of finite element for applications in geodynamics – Part 2: A comparison of simplex and hypercube elements",
+  "year": 2025,
+  "doi": "10.5194/se-16-457-2025",
+  "authors": [
+   "Cédric Thieulot",
+   "Wolfgang Bangerth"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "Application of defined auxiliary system in the method of layer potentials for solving the stokes flow problem",
+  "year": 2025,
+  "doi": "10.1016/j.enganabound.2024.106102",
+  "authors": [
+   "Kue-Hong Chen",
+   "Yi-Kui Liu",
+   "Jeng‐Tzong Chen"
+  ],
+  "venue": "Engineering Analysis with Boundary Elements"
+ },
+ {
+  "title": "Lens effect of remnant blocks on deep mantle upwelling causing anomalous subsidence",
+  "year": 2025,
+  "doi": "10.1038/s41467-025-62987-1",
+  "authors": [
+   "Liang Liu",
+   "Zebin Cao",
+   "Jason Phipps Morgan",
+   "Yuanyuan Hua",
+   "Lijun Liu",
+   "Fan Yang",
+   "Shi-Mai Long",
+   "Yi‐Gang Xu"
+  ],
+  "venue": "Nature Communications"
+ },
+ {
+  "title": "Revisiting the scale of mantle plume–induced hot spot swells",
+  "year": 2025,
+  "doi": "10.1126/sciadv.ady1276",
+  "authors": [
+   "Liang Liu",
+   "Jason Phipps Morgan",
+   "Yi‐Gang Xu",
+   "Shi-Mai Long",
+   "Albert de Montserrat",
+   "W. Jason Morgan"
+  ],
+  "venue": "Science Advances"
+ },
+ {
+  "title": "Underworld3: Mathematically Self-Describing Modelling in Python for Desktop, HPC and Cloud",
+  "year": 2025,
+  "doi": "10.21105/joss.07831",
+  "authors": [
+   "Louis Moresi",
+   "John Mansour",
+   "Julian Giordani",
+   "Matthew G. Knepley",
+   "Ben Knight",
+   "Juan Carlos Graciosa",
+   "Thyagarajulu Gollapalli",
+   "Neng Lu",
+   "Romain Beucher"
+  ],
+  "venue": "The Journal of Open Source Software"
+ },
+ {
+  "title": "29Chapter 2 Compressible fluid flow and heat transfer",
+  "year": 2025,
+  "doi": "10.1515/9783111661674-002",
+  "authors": [
+   "Suleiman A. Wali",
+   "Abdulhalim Musa Abubakar",
+   "Hayatuddeen Abubakar",
+   "Semiu Adebayo Kareem",
+   "M. Ellouze"
+  ],
+  "venue": null
+ },
+ {
+  "title": "地球动力学数值模拟方法进展与展望",
+  "year": 2025,
+  "doi": "10.1360/sste-2025-0180",
+  "authors": [
+   "Zebin Cao",
+   "Lijun Liu"
+  ],
+  "venue": "SCIENTIA SINICA Terrae"
+ },
+ {
+  "title": "How Hydrothermal Cooling and Magmatic Sill Intrusions Control Flip‐Flop Faulting at Ultraslow‐Spreading Mid‐Ocean Ridges",
+  "year": 2024,
+  "doi": "10.1029/2023gc011331",
+  "authors": [
+   "Arne Glink",
+   "Jörg Hasenclever"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Introduction to Topology Optimization for the Design of High Voltage Insulators",
+  "year": 2024,
+  "doi": "10.33686/pwj.v19i2.1130",
+  "authors": [
+   "Balaji Sriram",
+   "Harivinay Varadaraju",
+   "Nandini Gupta"
+  ],
+  "venue": "Power Research"
+ },
+ {
+  "title": "Vectfem: a generalized MATLAB-based vectorized algorithm for the computation of global matrix/force for finite elements of any type and approximation order in linear elasticity",
+  "year": 2024,
+  "doi": "10.1007/s00033-024-02293-w",
+  "authors": [
+   "Baurice Sylvain Sadjiep Tchuigwa",
+   "Ján Krmela",
+   "Jan Pokorný",
+   "Vladimíra Krmelová",
+   "Petr Jílek"
+  ],
+  "venue": "Zeitschrift für angewandte Mathematik und Physik"
+ },
+ {
+  "title": "Introduction to the Distributional Finite Difference Method for 3D Seismic Wave Propagation and Comparison With the Spectral Element Method",
+  "year": 2024,
+  "doi": "10.1029/2023jb027576",
+  "authors": [
+   "Chao Lyu",
+   "Yder Masson",
+   "Barbara Romanowicz",
+   "Liang Zhao"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "On the choice of finite element for applications in geodynamics. Part II: A comparison of simplex and hypercube elements",
+  "year": 2024,
+  "doi": "10.5194/egusphere-2024-1668",
+  "authors": [
+   "Cédric Thieulot",
+   "Wolfgang Bangerth"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Application of Error Estimation Technique in the Method of Layer Potentials for Stokes Flow",
+  "year": 2024,
+  "doi": "10.2139/ssrn.4690692",
+  "authors": [
+   "K.H. Chen",
+   "Yi-Kui Liu"
+  ],
+  "venue": "SSRN Electronic Journal"
+ },
+ {
+  "title": "Tectonic controls on melt production and crustal architecture during magma-poor seafloor spreading",
+  "year": 2024,
+  "doi": "10.1016/j.epsl.2024.118569",
+  "authors": [
+   "Leila Mezri",
+   "Javier García‐Pintado",
+   "Marta Pérez‐Gussinyé",
+   "Zhonglan Liu",
+   "Wolfgang Bach",
+   "Mathilde Cannat"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "Julia Language Implementation of the Finite Element Method for Linear Instability of Plane Frames: An Efficient Alternative for Structural Analysis",
+  "year": 2024,
+  "doi": "10.1590/1679-78257958",
+  "authors": [
+   "Leon Vale Lobo",
+   "Edilson Morais Lima e Silva"
+  ],
+  "venue": "Latin American Journal of Solids and Structures"
+ },
+ {
+  "title": "Horizontally forced initiation of the Izu-Bonin-Mariana subduction zone",
+  "year": 2024,
+  "doi": "10.1038/s43247-024-01263-4",
+  "authors": [
+   "Liang Liu",
+   "Hongyan Li",
+   "Lijun Liu",
+   "Lijun Liu",
+   "Lijun Liu",
+   "Jeffrey G. Ryan",
+   "Jason Phipps Morgan",
+   "Ke-Xin Ren",
+   "Yi‐Gang Xu"
+  ],
+  "venue": "Communications Earth & Environment"
+ },
+ {
+  "title": "Intermittent terrane arrival induces pulses of inland tectonic cycles",
+  "year": 2024,
+  "doi": "10.1016/j.epsl.2024.118861",
+  "authors": [
+   "Liang Liu",
+   "Liang Liu",
+   "Lijun Liu",
+   "Lijun Liu",
+   "Yi‐Gang Xu",
+   "Jason Phipps Morgan"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "Face‐centred finite volume methods for Stokes flows with variable viscosity",
+  "year": 2024,
+  "doi": "10.1002/nme.7450",
+  "authors": [
+   "Rubén Sevilla",
+   "Thibault Duretz"
+  ],
+  "venue": "International Journal for Numerical Methods in Engineering"
+ },
+ {
+  "title": "2D numerical experiments on a plume-fed asthenosphere: Necessary preconditions and implications for geoid and dynamic topography",
+  "year": 2024,
+  "doi": "10.1016/j.epsl.2024.119068",
+  "authors": [
+   "Yanan Shi",
+   "Jason Phipps Morgan",
+   "Chao Shi"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "Resolving Strain Localization in Frictional and Time‐Dependent Plasticity: Two‐ and Three‐Dimensional Numerical Modeling Study Using Graphical Processing Units (GPUs)",
+  "year": 2024,
+  "doi": "10.1029/2023jb028566",
+  "authors": [
+   "Yury Alkhimenkov",
+   "Lyudmila Khakimova",
+   "Ivan Utkin",
+   "Yury Podladchikov"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "A dynamic rifting model of the Caroline Ridge, West Pacific",
+  "year": 2024,
+  "doi": "10.1016/j.jseaes.2024.106218",
+  "authors": [
+   "Zhengyi Zhang",
+   "Dongdong Dong",
+   "Sanzhong Li",
+   "Marta Pérez‐Gussinyé",
+   "Xiujuan Wang",
+   "Jianke Fan",
+   "Cuilin Li"
+  ],
+  "venue": "Journal of Asian Earth Sciences"
+ },
+ {
+  "title": "Rifting Venus: Insights From Numerical Modeling",
+  "year": 2023,
+  "doi": "10.1029/2022je007588",
+  "authors": [
+   "Alessandro Regorda",
+   "Cédric Thieulot",
+   "Iris van Zelst",
+   "Zoltán Erdös",
+   "Julia Maia",
+   "Susanne Buiter"
+  ],
+  "venue": "Journal of Geophysical Research Planets"
+ },
+ {
+  "title": "An introductory review of the thermal structure of subduction zones: II—numerical approach and validation",
+  "year": 2023,
+  "doi": "10.1186/s40645-023-00588-6",
+  "authors": [
+   "C. R. Wilson",
+   "Peter E. van Keken"
+  ],
+  "venue": "Progress in Earth and Planetary Science"
+ },
+ {
+  "title": "Numerical Modeling of Subduction",
+  "year": 2023,
+  "doi": "10.1016/b978-0-323-85733-8.00020-2",
+  "authors": [
+   "Dave A. May",
+   "Matthew G. Knepley"
+  ],
+  "venue": "Elsevier eBooks"
+ },
+ {
+  "title": "Development of quadratic enhanced assumed strain elements for three-dimensional linear elasticity",
+  "year": 2023,
+  "doi": "10.1016/j.compstruc.2023.107217",
+  "authors": [
+   "Dhiraj S. Bombarde",
+   "Manish Agrawal",
+   "Sachin Singh Gautam",
+   "Arup Nandy"
+  ],
+  "venue": "Computers & Structures"
+ },
+ {
+  "title": "Asymmetry and evolution of craton-influenced rifted margins",
+  "year": 2023,
+  "doi": "10.1130/g51370.1",
+  "authors": [
+   "G. Raghuram",
+   "Marta Pérez‐Gussinyé",
+   "Miguel Andrés‐Martínez",
+   "Javier García‐Pintado",
+   "Mario Araújo",
+   "Jason Phipps Morgan"
+  ],
+  "venue": "Geology"
+ },
+ {
+  "title": "A Three‐Field Formulation for Two‐Phase Flow in Geodynamic Modeling: Toward the Zero‐Porosity Limit",
+  "year": 2023,
+  "doi": "10.1029/2023jb027469",
+  "authors": [
+   "Gang Lü",
+   "Dave A. May",
+   "Ritske S. Huismans"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "The effect of temperature-dependent material properties on simple thermal models of subduction zones",
+  "year": 2023,
+  "doi": "10.5194/se-14-683-2023",
+  "authors": [
+   "Iris van Zelst",
+   "Cédric Thieulot",
+   "T. J. Craig"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "Erosion‐Driven Isostatic Flow and Crustal Diapirism: Analytical and Numerical Models With Implications for the Evolution of the Eastern Himalayan Syntaxis, Southern Tibet",
+  "year": 2023,
+  "doi": "10.1029/2022tc007717",
+  "authors": [
+   "Jiaming Yang",
+   "Jiaming Yang",
+   "Wenrong Cao",
+   "Xiaoping Yuan",
+   "Jianfeng Yang",
+   "Jianfeng Yang"
+  ],
+  "venue": "Tectonics"
+ },
+ {
+  "title": "Post-Little Ice Age rock wall permafrost evolution in Norway",
+  "year": 2023,
+  "doi": "10.5194/tc-17-2725-2023",
+  "authors": [
+   "Justyna Czekirda",
+   "Bernd Etzelmüller",
+   "Sebastian Westermann",
+   "Ketil Isaksen",
+   "Florence Magnin"
+  ],
+  "venue": "The cryosphere"
+ },
+ {
+  "title": "New constraints on Cenozoic subduction between India and Tibet",
+  "year": 2023,
+  "doi": "10.1038/s41467-023-37615-5",
+  "authors": [
+   "Liang Liu",
+   "Lijun Liu",
+   "Jason Phipps Morgan",
+   "Yi‐Gang Xu",
+   "Ling Chen"
+  ],
+  "venue": "Nature Communications"
+ },
+ {
+  "title": "Synrift and post-rift thermal evolution of rifted margins: a re-evaluation of classic models of extension",
+  "year": 2023,
+  "doi": "10.1144/sp547-2023-128",
+  "authors": [
+   "Marta Pérez‐Gussinyé",
+   "Yanfang Xin",
+   "Tiago Cunha",
+   "R. K. Ram",
+   "Miguel Andrés‐Martínez",
+   "Dongdong Dong",
+   "Javier García‐Pintado"
+  ],
+  "venue": "Geological Society London Special Publications"
+ },
+ {
+  "title": "How Fast Can Minibasins Translate Down a Slope? Observations from 2D Numerical Models",
+  "year": 2023,
+  "doi": "10.55575/tektonika2023.1.2.22",
+  "authors": [
+   "Naiara Fernández",
+   "Oliver B. Duffy",
+   "Christopher Jackson",
+   "Boris Kaus",
+   "Tim Dooley",
+   "Michael R. Hudec"
+  ],
+  "venue": "Tektonika"
+ },
+ {
+  "title": "A face‐centred finite volume method for high‐contrast Stokes interface problems",
+  "year": 2023,
+  "doi": "10.1002/nme.7294",
+  "authors": [
+   "Rubén Sevilla",
+   "Thibault Duretz"
+  ],
+  "venue": "International Journal for Numerical Methods in Engineering"
+ },
+ {
+  "title": "Permafrost in monitored unstable rock slopes in Norway – new insights from temperature and surface velocity measurements, geophysical surveying, and ground temperature modelling",
+  "year": 2022,
+  "doi": "10.5194/esurf-10-97-2022",
+  "authors": [
+   "Bernd Etzelmüller",
+   "Justyna Czekirda",
+   "Florence Magnin",
+   "Pierre‐Allain Duvillard",
+   "Ludovic Ravanel",
+   "Emanuelle Malet",
+   "Andreas Aspaas",
+   "Lene Kristensen",
+   "Ingrid Skrede",
+   "Gudrun D. Majala",
+   "Benjamin Jacobs",
+   "Johannes Leinauer",
+   "Christian Hauck",
+   "Christin Hilbich",
+   "Martina Böhme",
+   "Reginald L. Hermanns",
+   "Harald Øverli Eriksen",
+   "Tom Rune Lauknes",
+   "Michael Krautblatter",
+   "Sebastian Westermann"
+  ],
+  "venue": "Earth Surface Dynamics"
+ },
+ {
+  "title": "On the choice of finite element for applications in geodynamics",
+  "year": 2022,
+  "doi": "10.5194/se-13-229-2022",
+  "authors": [
+   "Cédric Thieulot",
+   "Wolfgang Bangerth"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "101 geodynamic modelling: how to design, interpret, and communicate numerical studies of the solid Earth",
+  "year": 2022,
+  "doi": "10.5194/se-13-583-2022",
+  "authors": [
+   "Iris van Zelst",
+   "Fabio Crameri",
+   "Adina E. Pusok",
+   "Anne Glerum",
+   "Juliane Dannberg",
+   "Cédric Thieulot"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "Acceleration strategies for Tridimensional Coupled hydromechanical problems based on CPU and GPU programming in MATLAB",
+  "year": 2022,
+  "doi": "10.1590/0001-3765202220211024",
+  "authors": [
+   "JEAN B. JOSEPH",
+   "Paulo Marcelo Vieira Ribeiro",
+   "Leonardo José do Nascimento Guimarães",
+   "CICERO VITOR CHAVES",
+   "Jonathan da Cunha Teixeira"
+  ],
+  "venue": "Anais da Academia Brasileira de Ciências"
+ },
+ {
+  "title": "Numerical model of late Pleistocene and Holocene ice-sheet and shoreline dynamics in the southern Baltic Sea, Poland",
+  "year": 2022,
+  "doi": "10.1017/qua.2021.64",
+  "authors": [
+   "Jerzy Frydel"
+  ],
+  "venue": "Quaternary Research"
+ },
+ {
+  "title": "A vectorized assembly-free FEM solver for image-based numerical homogenization",
+  "year": 2022,
+  "doi": "10.1007/s40430-022-03640-6",
+  "authors": [
+   "Pedro Cortez Fetter Lopes",
+   "Victor W. Sapucaia",
+   "André Pereira",
+   "Ricardo Leiderman"
+  ],
+  "venue": "Journal of the Brazilian Society of Mechanical Sciences and Engineering"
+ },
+ {
+  "title": "Sparse discrete least squares meshless method on multicore computers",
+  "year": 2022,
+  "doi": "10.1016/j.jocs.2022.101686",
+  "authors": [
+   "Seyed Mohammad Hassan Sefidgar",
+   "Ali Rahmani Firoozjaee",
+   "Mehdi Dehestani"
+  ],
+  "venue": "Journal of Computational Science"
+ },
+ {
+  "title": "Integrated Development of a Topology-Optimized Compliant Mechanism for Precise Positioning",
+  "year": 2022,
+  "doi": "10.3390/act11070179",
+  "authors": [
+   "Yaoyuan Hu",
+   "Bing‐Feng Ju",
+   "Wu-Le Zhu"
+  ],
+  "venue": "Actuators"
+ },
+ {
+  "title": "A Wavelet-Based Adaptive Finite Element Method for the Stokes Problems",
+  "year": 2022,
+  "doi": "10.3390/fluids7070221",
+  "authors": [
+   "Yury A. Mishin",
+   "Oleg V. Vasilyev",
+   "Taras Gerya"
+  ],
+  "venue": "Fluids"
+ },
+ {
+  "title": "Permafrost in monitored unstable rock slopes in Norway – New insights from rock wall temperature monitoring, geophysical surveying and numerical modelling",
+  "year": 2021,
+  "doi": "10.5194/esurf-2021-10",
+  "authors": [
+   "Bernd Etzelmüller",
+   "Justyna Czekirda",
+   "Florence Magnin",
+   "Pierre‐Allain Duvillard",
+   "Emmanuel Malet",
+   "Ludo Ravanel",
+   "Andreas Aspaas",
+   "Lene Kristensen",
+   "Ingrid Skrede",
+   "Gudrun D. Majala",
+   "Benjamin Jacobs",
+   "Johannes Leinauer",
+   "Christian Hauck",
+   "Christin Hilbich",
+   "Martina Böhme",
+   "Reginald L. Hermanns",
+   "Harald Øverli Eriksen",
+   "Michael Krautblatter",
+   "Sebastian Westermann"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Thermal Effects at Continent-Ocean Transform Margins: A 3D Perspective",
+  "year": 2021,
+  "doi": "10.3390/geosciences11050193",
+  "authors": [
+   "Daniel W. Schmid",
+   "Karthik Iyer",
+   "Ebbe H. Hartz"
+  ],
+  "venue": "Geosciences"
+ },
+ {
+  "title": "KineDyn: Thermomechanical forward method for validation of seismic interpretations and investigation of dynamics of rifts and rifted margins",
+  "year": 2021,
+  "doi": "10.1016/j.pepi.2021.106748",
+  "authors": [
+   "Iskander Muldashev",
+   "Marta Pérez‐Gussinyé",
+   "Mario Araújo"
+  ],
+  "venue": "Physics of The Earth and Planetary Interiors"
+ },
+ {
+  "title": "Movements, failure and climatic control of the Veslemannen rockslide, Western Norway",
+  "year": 2021,
+  "doi": "10.1007/s10346-020-01609-x",
+  "authors": [
+   "Lene Kristensen",
+   "Justyna Czekirda",
+   "Ivanna Penna",
+   "Bernd Etzelmüller",
+   "Pierrick Nicolet",
+   "José Pullarello",
+   "Lars Harald Blikra",
+   "Ingrid Skrede",
+   "Simon Oldani",
+   "Antonio Abellán"
+  ],
+  "venue": "Landslides"
+ },
+ {
+  "title": "Mesozoic intraplate tectonism of East Asia due to flat subduction of a composite terrane slab",
+  "year": 2021,
+  "doi": "10.1016/j.earscirev.2021.103505",
+  "authors": [
+   "Liang Liu",
+   "Liang Liu",
+   "Lijun Liu",
+   "Lijun Liu",
+   "Yi‐Gang Xu"
+  ],
+  "venue": "Earth-Science Reviews"
+ },
+ {
+  "title": "Intermittent Post‐Paleocene Continental Collision in South Asia",
+  "year": 2021,
+  "doi": "10.1029/2021gl094531",
+  "authors": [
+   "Liang Liu",
+   "Lijun Liu",
+   "Yi‐Gang Xu"
+  ],
+  "venue": "Geophysical Research Letters"
+ },
+ {
+  "title": "Rheological stratification in impure rock salt during long-term creep: morphology, microstructure, and numerical models of multilayer folds in the Ocnele Mari salt mine, Romania",
+  "year": 2021,
+  "doi": "10.5194/se-12-2041-2021",
+  "authors": [
+   "Marta Adamuszek",
+   "Dan Mircea Tămaș",
+   "Jessica Barabasch",
+   "János L. Urai"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "Rheological stratification in impure rocksalt during long-term creep: morphology, microstructure and numerical models of multilayer folds in the Ocnele Mari salt mine, Romania",
+  "year": 2021,
+  "doi": "10.5194/se-2021-57",
+  "authors": [
+   "Marta Adamuszek",
+   "Dan Mircea Tămaș",
+   "Jessica Barabasch",
+   "János L. Urai"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Crowd modeling based on purposiveness and a destination-driven analysis method",
+  "year": 2021,
+  "doi": "10.1631/fitee.2000312",
+  "authors": [
+   "Ning Ding",
+   "Weimin Qi",
+   "Huihuan Qian"
+  ],
+  "venue": "Frontiers of Information Technology & Electronic Engineering"
+ },
+ {
+  "title": "Fold geometry and folding – a review",
+  "year": 2021,
+  "doi": "10.1016/j.earscirev.2021.103812",
+  "authors": [
+   "Seyed Tohid Nabavi",
+   "Haakon Fossen"
+  ],
+  "venue": "Earth-Science Reviews"
+ },
+ {
+  "title": "Analytical solution for residual stress and strain preserved in anisotropic inclusion entrapped in an isotropic host",
+  "year": 2021,
+  "doi": "10.5194/se-12-817-2021",
+  "authors": [
+   "Xin Zhong",
+   "Marcin Dąbrowski",
+   "Bjørn Jamtveit"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "Lateral coexistence of ductile and brittle deformation shapes magma-poor distal margins: An example from the West Iberia-Newfoundland margins",
+  "year": 2021,
+  "doi": "10.1016/j.epsl.2021.117288",
+  "authors": [
+   "Zhonglan Liu",
+   "Marta Pérez‐Gussinyé",
+   "Lars Rüpke",
+   "Iskander Muldashev",
+   "T. A. Minshull",
+   "Gaye Bayrakci"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "A fast and efficient MATLAB-based MPM solver: fMPMM-solver v1.1",
+  "year": 2020,
+  "doi": "10.5194/gmd-13-6265-2020",
+  "authors": [
+   "Emmanuel Wyser",
+   "Yury Alkhimenkov",
+   "Michel Jaboyedoff",
+   "Yury Podladchikov"
+  ],
+  "venue": "Geoscientific model development"
+ },
+ {
+  "title": "Fast and efficient MATLAB-based MPM solver (fMPMM-solver v1.0)",
+  "year": 2020,
+  "doi": "10.5194/gmd-2020-183",
+  "authors": [
+   "Emmanuel Wyser",
+   "Michel Jaboyedoff",
+   "Yury Podladchikov"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Brine Formation and Mobilization in Submarine Hydrothermal Systems: Insights from a Novel Multiphase Hydrothermal Flow Model in the System H2O–NaCl",
+  "year": 2020,
+  "doi": "10.1007/s11242-020-01499-6",
+  "authors": [
+   "Falko Vehling",
+   "Jörg Hasenclever",
+   "Lars Rüpke"
+  ],
+  "venue": "Transport in Porous Media"
+ },
+ {
+  "title": "Interaction of folding and thrusting during fold-and-thrust-belt evolution: Insights from numerical simulations and application to the Swiss Jura and the Canadian Foothills",
+  "year": 2020,
+  "doi": "10.1016/j.tecto.2020.228474",
+  "authors": [
+   "Florian Humair",
+   "Arthur Bauville",
+   "Jean‐Luc Epard",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "Parallel computing for the topology optimization method: Performance metrics and energy consumption analysis in multiphysics problems",
+  "year": 2020,
+  "doi": "10.1016/j.suscom.2020.100481",
+  "authors": [
+   "Francisco Javier Ramírez-Gil",
+   "Claudia Marcela Pérez-Madrid",
+   "Emílio Carlos Nelli Silva",
+   "Wilfredo Montealegre Rubio"
+  ],
+  "venue": "Sustainable Computing Informatics and Systems"
+ },
+ {
+  "title": "Fresh Outlook on Numerical Methods for Geodynamics. Part 1: Introduction and Modeling",
+  "year": 2020,
+  "doi": "10.1016/b978-0-08-102908-4.00110-7",
+  "authors": [
+   "Gabriele Morra",
+   "David A. Yuen",
+   "Henry M. Tufo",
+   "Matthew G. Knepley"
+  ],
+  "venue": "Elsevier eBooks"
+ },
+ {
+  "title": "Advanced Newton Methods for Geodynamical Models of Stokes Flow With Viscoplastic Rheologies",
+  "year": 2020,
+  "doi": "10.1029/2020gc009059",
+  "authors": [
+   "Johann Rudi",
+   "Yu‐hsuan Shih",
+   "Georg Stadler"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Widening of the Andes: An interplay between subduction dynamics and crustal wedge tectonics",
+  "year": 2020,
+  "doi": "10.1016/j.earscirev.2020.103170",
+  "authors": [
+   "Joseph Martinod",
+   "Mélanie Gérault",
+   "Laurent Husson",
+   "Vincent Regard"
+  ],
+  "venue": "Earth-Science Reviews"
+ },
+ {
+  "title": "Lithospheric Strength and Rift Migration Controls on Synrift Stratigraphy and Breakup Unconformities at Rifted Margins: Examples From Numerical Models, the Atlantic and South China Sea Margins",
+  "year": 2020,
+  "doi": "10.1029/2020tc006255",
+  "authors": [
+   "Marta Pérez‐Gussinyé",
+   "Miguel Andrés‐Martínez",
+   "Mario Araújo",
+   "Y. Xin",
+   "John Armitage",
+   "Jason Phipps Morgan"
+  ],
+  "venue": "Tectonics"
+ },
+ {
+  "title": "Numerical study of tectonic structure evolution in a multi-layer evaporite sequence",
+  "year": 2020,
+  "doi": "10.1016/j.jsg.2020.104011",
+  "authors": [
+   "Michał Słotwiński",
+   "Marta Adamuszek",
+   "Stanisław Burliga"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "How fast can minibasins translate down a slope? Observations from 2D numerical models",
+  "year": 2020,
+  "doi": "10.31223/x55s31",
+  "authors": [
+   "Naiara Fernández",
+   "Oliver B. Duffy",
+   "Christopher Jackson",
+   "Tim P. Dooley",
+   "Michael R. Hudec",
+   "Boris Kaus"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Pragmatic solvers for 3D Stokes and elasticity problems with heterogeneous coefficients: evaluating modern incomplete LDL T preconditioners",
+  "year": 2020,
+  "doi": "10.5194/se-11-2031-2020",
+  "authors": [
+   "Patrick Sanan",
+   "Dave A. May",
+   "Matthias Bollhöfer",
+   "Olaf Schenk"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "Permafrost as a first order control on long-term rock-slope deformation in (Sub-)Arctic Norway",
+  "year": 2020,
+  "doi": "10.1016/j.quascirev.2020.106718",
+  "authors": [
+   "Paula Hilger",
+   "Reginald L. Hermanns",
+   "Justyna Czekirda",
+   "Kristin S. Myhra",
+   "John Gosse",
+   "Bernd Etzelmüller"
+  ],
+  "venue": "Quaternary Science Reviews"
+ },
+ {
+  "title": "Analytical solution for residual stress and strain preserved in anisotropic inclusion entrapped in isotropic host",
+  "year": 2020,
+  "doi": "10.5194/se-2020-180",
+  "authors": [
+   "Xin Zhong",
+   "Marcin Dąbrowski",
+   "Bjørn Jamtveit"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Impact of host rock heterogeneity on failure around pressurized conduits: Implications for finger-shaped magmatic intrusions",
+  "year": 2019,
+  "doi": "10.1016/j.tecto.2019.05.016",
+  "authors": [
+   "Alban Souche",
+   "Olivier Galland",
+   "Øystein Thordén Haug",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "LaCoDe: A Lagrangian two-dimensional thermo-mechanical code for large-strain compressible visco-elastic geodynamical modeling",
+  "year": 2019,
+  "doi": "10.1016/j.tecto.2019.228173",
+  "authors": [
+   "Albert de Montserrat",
+   "Jason Phipps Morgan",
+   "Jörg Hasenclever"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "geomIO: An Open‐Source MATLAB Toolbox to Create the Initial Configuration of 2‐D/3‐D Thermo‐Mechanical Simulations From 2‐D Vector Drawings",
+  "year": 2019,
+  "doi": "10.1029/2018gc008057",
+  "authors": [
+   "Arthur Bauville",
+   "Tobias Baumann"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "geomIO: an open-source MATLAB toolbox to create the initial configuration of 2D/3D thermo-mechanical simulations from 2D vector drawings",
+  "year": 2019,
+  "doi": "10.31223/osf.io/9kx5j",
+  "authors": [
+   "Arthur Bauville",
+   "Tobias Baumann"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Slab flattening and the rise of the Eastern Cordillera, Colombia",
+  "year": 2019,
+  "doi": "10.1016/j.epsl.2019.02.002",
+  "authors": [
+   "Gaia Siravo",
+   "Claudio Faccenna",
+   "Mélanie Gérault",
+   "T. W. Becker",
+   "Maria Giuditta Fellin",
+   "Frédéric Herman",
+   "Paola Molin"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "Shape‐preserving finite elements in cylindrical and spherical geometries: The double Jacobian approach",
+  "year": 2019,
+  "doi": "10.1002/fld.4799",
+  "authors": [
+   "Jason Phipps Morgan",
+   "Jorge M. Taramón",
+   "Jörg Hasenclever"
+  ],
+  "venue": "International Journal for Numerical Methods in Fluids"
+ },
+ {
+  "title": "Modeling Conductive Heat Flow Between Steep Rock Walls and Talus Slopes – Thermal Processes and Geomorphological Implications",
+  "year": 2019,
+  "doi": "10.3389/feart.2019.00192",
+  "authors": [
+   "Kristin S. Myhra",
+   "Sebastian Westermann",
+   "Bernd Etzelmüller"
+  ],
+  "venue": "Frontiers in Earth Science"
+ },
+ {
+  "title": "Numerical modelling of boudinage under pure shear: Implications for estimating viscosity ratios and finite strain from natural examples",
+  "year": 2019,
+  "doi": "10.1016/j.jsg.2019.05.009",
+  "authors": [
+   "Marcin Dąbrowski",
+   "Bernhard Grasemann"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Sinking of a fragmented anhydrite layer in rock salt",
+  "year": 2019,
+  "doi": "10.1016/j.tecto.2019.05.018",
+  "authors": [
+   "Marta Adamuszek",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "Thermomechanical Implications of Sediment Transport for the Architecture and Evolution of Continental Rifts and Margins",
+  "year": 2019,
+  "doi": "10.1029/2018tc005346",
+  "authors": [
+   "Miguel Andrés‐Martínez",
+   "Marta Pérez‐Gussinyé",
+   "John Armitage",
+   "Jason Phipps Morgan"
+  ],
+  "venue": "Tectonics"
+ },
+ {
+  "title": "The competition for salt and kinematic interactions between minibasins during density-driven subsidence: observations from numerical models",
+  "year": 2019,
+  "doi": "10.1144/petgeo2019-051",
+  "authors": [
+   "Naiara Fernández",
+   "Michael R. Hudec",
+   "Christopher Jackson",
+   "Tim P. Dooley",
+   "Oliver B. Duffy"
+  ],
+  "venue": "Petroleum Geoscience"
+ },
+ {
+  "title": "Rapid non-linear finite element analysis of continuous and discontinuous Galerkin methods in MATLAB",
+  "year": 2019,
+  "doi": "10.1016/j.camwa.2019.03.012",
+  "authors": [
+   "Stephen O’Sullivan",
+   "Robert E. Bird",
+   "William M. Coombs",
+   "Stefano Giani"
+  ],
+  "venue": "Computers & Mathematics with Applications"
+ },
+ {
+  "title": "Introduction to Numerical Geodynamic Modelling",
+  "year": 2019,
+  "doi": "10.1017/9781316534243",
+  "authors": [
+   "Taras Gerya"
+  ],
+  "venue": "Cambridge University Press eBooks",
+  "chapters": 26
+ },
+ {
+  "title": "On Lagrangian mechanics and the implicit material point method for large deformation elasto-plasticity",
+  "year": 2019,
+  "doi": "10.1016/j.cma.2019.112622",
+  "authors": [
+   "William M. Coombs",
+   "Charles E. Augarde",
+   "A. J. Brennan",
+   "Michael Brown",
+   "T.J. Charlton",
+   "Jonathan Knappett",
+   "Yousef Ghaffari Motlagh",
+   "Lei Wang"
+  ],
+  "venue": "Computer Methods in Applied Mechanics and Engineering"
+ },
+ {
+  "title": "Nonlinear viscoplasticity in ASPECT: benchmarking and applications to subduction",
+  "year": 2018,
+  "doi": "10.5194/se-9-267-2018",
+  "authors": [
+   "Anne Glerum",
+   "Cédric Thieulot",
+   "Menno Fraters",
+   "Constantijn Blom",
+   "Wim Spakman"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "Sense and non-sense of shear reloaded",
+  "year": 2018,
+  "doi": "10.1016/j.jsg.2018.05.028",
+  "authors": [
+   "Bernhard Grasemann",
+   "Marcin Dąbrowski",
+   "Martin Schöpfer"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "High-strain deformation of conglomerates: Numerical modelling, strain analysis, and an example from the Wutai Mountains, North China Craton",
+  "year": 2018,
+  "doi": "10.1016/j.jsg.2018.06.018",
+  "authors": [
+   "Hao Ran",
+   "Paul D. Bons",
+   "Genhou Wang",
+   "Florian Steinbach",
+   "Melanie Finch",
+   "Albert Griera",
+   "Enrique Gómez-Rivas",
+   "María-Gema Llorens",
+   "Shuming Ran",
+   "Xiao Liang",
+   "Jie Zhou"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Long term creep closure of salt cavities",
+  "year": 2018,
+  "doi": "10.1016/j.ijrmms.2018.01.025",
+  "authors": [
+   "Jan Cornet",
+   "Marcin Dąbrowski",
+   "Daniel W. Schmid"
+  ],
+  "venue": "International Journal of Rock Mechanics and Mining Sciences"
+ },
+ {
+  "title": "Topology optimization of stokes flow on dynamic meshes using simple optimizers",
+  "year": 2018,
+  "doi": "10.1016/j.compfluid.2018.07.011",
+  "authors": [
+   "K. Jensen"
+  ],
+  "venue": "Computers & Fluids"
+ },
+ {
+  "title": "Craton Destruction 1: Cratonic Keel Delamination Along a Weak Midlithospheric Discontinuity Layer",
+  "year": 2018,
+  "doi": "10.1029/2017jb015372",
+  "authors": [
+   "Liang Liu",
+   "Jason Phipps Morgan",
+   "Yi‐Gang Xu",
+   "Martin Menzies"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "The Effective Transmissivity of a Plane‐Walled Fracture With Circular Cylindrical Obstacles",
+  "year": 2018,
+  "doi": "10.1002/2017jb014509",
+  "authors": [
+   "Lukasz Jasinski",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "Depth-averaged Lattice Boltzmann and Finite Element methods for single-phase flows in fractures with obstacles",
+  "year": 2018,
+  "doi": "10.1016/j.camwa.2018.02.010",
+  "authors": [
+   "Michał Dzikowski",
+   "Lukasz Jasinski",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Computers & Mathematics with Applications"
+ },
+ {
+  "title": "Modeling Trench Sediment‐Controlled Flow in Subduction Channels: Implications for the Topographic Evolution of the Central Andean Fore Arc",
+  "year": 2018,
+  "doi": "10.1029/2018jb016109",
+  "authors": [
+   "Nicolás J. Cosentino",
+   "Jason Phipps Morgan",
+   "Teresa E. Jordan"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "Necking of the Lithosphere: A Reappraisal of Basic Concepts With Thermo‐Mechanical Numerical Modeling",
+  "year": 2018,
+  "doi": "10.1029/2017jb014155",
+  "authors": [
+   "Pauline Chenin",
+   "Stefan M. Schmalholz",
+   "Giänreto Manatschal",
+   "Garry D. Karner"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "The Benefits of Using a Consistent Tangent Operator for Viscoelastoplastic Computations in Geodynamics",
+  "year": 2018,
+  "doi": "10.1029/2018gc007877",
+  "authors": [
+   "Thibault Duretz",
+   "Alban Souche",
+   "René de Borst",
+   "Laëtitia Le Pourhiet"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Analytical solution for the stress field in elastic half-space with a spherical pressurized cavity or inclusion containing eigenstrain",
+  "year": 2018,
+  "doi": "10.1093/gji/ggy447",
+  "authors": [
+   "Xin Zhong",
+   "Marcin Dąbrowski",
+   "Bjørn Jamtveit"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "Implementing nonlinear viscoplasticity in ASPECT: benchmarking and applications to 3D subduction modeling",
+  "year": 2017,
+  "doi": "10.5194/se-2017-9",
+  "authors": [
+   "Anne Glerum",
+   "Cédric Thieulot",
+   "Menno Fraters",
+   "Constantijn Blom",
+   "Wim Spakman"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Tectonic inheritance and kinematic strain localization as trigger for the formation of the Helvetic nappes, Switzerland",
+  "year": 2017,
+  "doi": "10.1007/s00015-017-0260-9",
+  "authors": [
+   "Arthur Bauville",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Swiss Journal of Geosciences"
+ },
+ {
+  "title": "Faulting and off‐axis submarine massive sulfide accumulation at slow spreading mid‐ocean ridges: A numerical modeling perspective",
+  "year": 2017,
+  "doi": "10.1002/2017gc006880",
+  "authors": [
+   "Christine Andersen",
+   "Sonja Theissen‐Krah",
+   "Mark D. Hannington",
+   "Lars Rüpke",
+   "Sven Petersen"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Lower Crustal Strength Controls on Melting and Serpentinization at Magma‐Poor Margins: Potential Implications for the South Atlantic",
+  "year": 2017,
+  "doi": "10.1002/2017gc007212",
+  "authors": [
+   "Elena Ros",
+   "Marta Pérez‐Gussinyé",
+   "Mario Araújo",
+   "Marco Thoaldo Romeiro",
+   "Miguel Andrés‐Martínez",
+   "Jason Phipps Morgan"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Long-term cavity closure in non-linear rocks",
+  "year": 2017,
+  "doi": "10.1093/gji/ggx227",
+  "authors": [
+   "Jan Cornet",
+   "Marcin Dąbrowski",
+   "Daniel W. Schmid"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "Sea level fall during glaciation stabilized atmospheric CO2 by enhanced volcanic degassing",
+  "year": 2017,
+  "doi": "10.1038/ncomms15867",
+  "authors": [
+   "Jörg Hasenclever",
+   "Gregor Knorr",
+   "Lars Rüpke",
+   "Peter Köhler",
+   "Jason Phipps Morgan",
+   "Kristin Garofalo",
+   "S. Barker",
+   "Gerrit Lohmann",
+   "I.R. Hall"
+  ],
+  "venue": "Nature Communications"
+ },
+ {
+  "title": "Mixing of the fluid phase in slowly sheared particle suspensions of cylinders",
+  "year": 2017,
+  "doi": "10.1017/jfm.2017.159",
+  "authors": [
+   "Kjetil Thøgersen",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Journal of Fluid Mechanics"
+ },
+ {
+  "title": "M2Di: Concise and efficient MATLAB 2‐D S tokes solvers using the Finite Difference Method",
+  "year": 2017,
+  "doi": "10.1002/2016gc006727",
+  "authors": [
+   "Ludovic Räss",
+   "Thibault Duretz",
+   "Yury Podladchikov",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Modelling fluid flow in clastic eruptions: Application to the Lusi mud eruption",
+  "year": 2017,
+  "doi": "10.1016/j.marpetgeo.2017.08.011",
+  "authors": [
+   "Marine Collignon",
+   "Daniel W. Schmid",
+   "Christophe Y. Galerne",
+   "Matteo Lupi",
+   "Adriano Mazzini"
+  ],
+  "venue": "Marine and Petroleum Geology"
+ },
+ {
+  "title": "Fast native-MATLAB stiffness assembly for SIPG linear elasticity",
+  "year": 2017,
+  "doi": "10.1016/j.camwa.2017.08.022",
+  "authors": [
+   "Robert E. Bird",
+   "William M. Coombs",
+   "Stefano Giani"
+  ],
+  "venue": "Computers & Mathematics with Applications"
+ },
+ {
+  "title": "Formation of orogenic wedges and crustal shear zones by thermal softening, associated topographic evolution and application to natural orogens",
+  "year": 2017,
+  "doi": "10.1016/j.tecto.2017.07.021",
+  "authors": [
+   "Yoann Jaquet",
+   "Thibault Duretz",
+   "Djordje Grujić",
+   "Henri Masson",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "Spontaneous ductile crustal shear zone formation by thermal softening and related stress, temperature and strain rate evolution",
+  "year": 2017,
+  "doi": "10.1016/j.tecto.2017.01.012",
+  "authors": [
+   "Yoann Jaquet",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "Direct numerical simulations of gas–solid–liquid interactions in dilute fluids",
+  "year": 2017,
+  "doi": "10.1016/j.ijmultiphaseflow.2017.07.008",
+  "authors": [
+   "Zhipeng Qin",
+   "Jenny Suckale"
+  ],
+  "venue": "International Journal of Multiphase Flow"
+ },
+ {
+  "title": "Microstructural Analysis of Thermoelastic Response, Nonlinear Creep, and Pervasive Cracking in Heterogeneous Materials",
+  "year": 2016,
+  "doi": null,
+  "authors": [
+   "Alden C. Cook"
+  ],
+  "venue": "DigitalCommons (California Polytechnic State University)"
+ },
+ {
+  "title": "The Current Energetics of Earth's Interior: A Gravitational Energy Perspective",
+  "year": 2016,
+  "doi": "10.3389/feart.2016.00046",
+  "authors": [
+   "Jason Phipps Morgan",
+   "Lars Rüpke",
+   "William M. White"
+  ],
+  "venue": "Frontiers in Earth Science"
+ },
+ {
+  "title": "The role of elasticity in simulating long-term tectonic extension",
+  "year": 2016,
+  "doi": "10.1093/gji/ggw044",
+  "authors": [
+   "Jean‐Arthur Olive",
+   "M. D. Behn",
+   "E. L. Mittelstaedt",
+   "Garrett Ito",
+   "Benjamin Klein"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "Transient cluster formation in sheared non-Brownian suspensions",
+  "year": 2016,
+  "doi": "10.1103/physreve.93.022611",
+  "authors": [
+   "Kjetil Thøgersen",
+   "Marcin Dąbrowski",
+   "Anders Malthe‐Sørenssen"
+  ],
+  "venue": "Physical review. E"
+ },
+ {
+  "title": "Folder: A numerical tool to simulate the development of structures in layered media",
+  "year": 2016,
+  "doi": "10.1016/j.jsg.2016.01.001",
+  "authors": [
+   "Marta Adamuszek",
+   "Marcin Dąbrowski",
+   "Daniel W. Schmid"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Modes of crustal accretion and their implications for hydrothermal circulation",
+  "year": 2016,
+  "doi": "10.1002/2015gl067335",
+  "authors": [
+   "Sonja Theissen‐Krah",
+   "Lars Rüpke",
+   "Jörg Hasenclever"
+  ],
+  "venue": "Geophysical Research Letters"
+ },
+ {
+  "title": "Transition from thin- to thick-skinned tectonics and consequences for nappe formation: Numerical simulations and applications to the Helvetic nappe system, Switzerland",
+  "year": 2015,
+  "doi": "10.1016/j.tecto.2015.09.030",
+  "authors": [
+   "Arthur Bauville",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "Survival of LLSVPs for billions of years in a vigorously convecting mantle: Replenishment and destruction of chemical anomaly",
+  "year": 2015,
+  "doi": "10.1002/2014jb011688",
+  "authors": [
+   "Elvira Mulyukova",
+   "Bernhard Steinberger",
+   "Marcin Dąbrowski",
+   "S. V. Sobolev"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "Modelling The Geological Structure Of Poland - Approach, Recent Results And Roadmap",
+  "year": 2015,
+  "doi": null,
+  "authors": [
+   "Ewa Szynkaruk",
+   "Piotr Olkiewicz"
+  ],
+  "venue": null
+ },
+ {
+  "title": "Speculations on the impact of catastrophic subduction initiation on the Earth System",
+  "year": 2015,
+  "doi": "10.1016/j.jog.2015.09.003",
+  "authors": [
+   "F.O. Marques",
+   "Boris Kaus"
+  ],
+  "venue": "Journal of Geodynamics"
+ },
+ {
+  "title": "Topology optimization design of 3D electrothermomechanical actuators by using GPU as a co-processor",
+  "year": 2015,
+  "doi": "10.1016/j.cma.2015.12.021",
+  "authors": [
+   "Francisco Javier Ramírez-Gil",
+   "Emílio Carlos Nelli Silva",
+   "Wilfredo Montealegre Rubio"
+  ],
+  "venue": "Computer Methods in Applied Mechanics and Engineering"
+ },
+ {
+  "title": "An efficient way to assemble finite element matrices in vector languages",
+  "year": 2015,
+  "doi": "10.1007/s10543-015-0587-4",
+  "authors": [
+   "François Cuvelier",
+   "Caroline Japhet",
+   "Gilles Scarella"
+  ],
+  "venue": "BIT Numerical Mathematics"
+ },
+ {
+  "title": "Analysis and improvement of Brinkman lattice Boltzmann schemes: Bulk, boundary, interface. Similarity and distinctness with finite elements in heterogeneous porous media",
+  "year": 2015,
+  "doi": "10.1103/physreve.91.023307",
+  "authors": [
+   "Irina Ginzburg",
+   "Gonçalo Silva",
+   "Laurent Talon"
+  ],
+  "venue": "Physical Review E"
+ },
+ {
+  "title": "Modelled Distribution and Temporal Evolution of Permafrost in Steep Rock Walls Along a Latitudinal Transect in Norway by CryoGrid 2D",
+  "year": 2015,
+  "doi": "10.1002/ppp.1884",
+  "authors": [
+   "Kristin S. Myhra",
+   "Sebastian Westermann",
+   "Bernd Etzelmüller"
+  ],
+  "venue": "Permafrost and Periglacial Processes"
+ },
+ {
+  "title": "Lithospheric stresses in Rayleigh–Bénard convection: effects of a free surface and a viscoelastic Maxwell rheology",
+  "year": 2015,
+  "doi": "10.1093/gji/ggv436",
+  "authors": [
+   "Marcel Thielmann",
+   "Boris Kaus",
+   "Anton Popov"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "A new free-surface stabilization algorithm for geodynamical modelling: Theory and numerical tests",
+  "year": 2015,
+  "doi": "10.1016/j.pepi.2015.07.003",
+  "authors": [
+   "Miguel Andrés‐Martínez",
+   "Jason Phipps Morgan",
+   "Marta Pérez‐Gussinyé",
+   "Lars Rüpke"
+  ],
+  "venue": "Physics of The Earth and Planetary Interiors"
+ },
+ {
+  "title": "Implicit solution of the material transport in Stokes flow simulation: Toward thermal convection simulation surrounded by free surface",
+  "year": 2015,
+  "doi": "10.1016/j.cpc.2015.02.011",
+  "authors": [
+   "Mikito Furuichi",
+   "Dave A. May"
+  ],
+  "venue": "Computer Physics Communications"
+ },
+ {
+  "title": "Flat‐slab subduction, topography, and mantle dynamics in southwestern Mexico",
+  "year": 2015,
+  "doi": "10.1002/2015tc003908",
+  "authors": [
+   "Mélanie Gérault",
+   "Laurent Husson",
+   "Meghan S. Miller",
+   "E. Humphreys"
+  ],
+  "venue": "Tectonics"
+ },
+ {
+  "title": "Comparison of continuous and discontinuous Galerkin approaches for variable‐viscosity Stokes flow",
+  "year": 2015,
+  "doi": "10.1002/zamm.201400274",
+  "authors": [
+   "Ragnar Lehmann",
+   "Mária Lukáčová-Medviďová",
+   "Boris Kaus",
+   "Anton Popov"
+  ],
+  "venue": "ZAMM ‐ Journal of Applied Mathematics and Mechanics / Zeitschrift für Angewandte Mathematik und Mechanik"
+ },
+ {
+  "title": "Three-dimensional numerical simulation of glacial trough forming process",
+  "year": 2015,
+  "doi": "10.1007/s11430-015-5120-8",
+  "authors": [
+   "Shaohua Yang",
+   "Yao Shi"
+  ],
+  "venue": "Science China Earth Sciences"
+ },
+ {
+  "title": "Numerical Methods for Mantle Convection",
+  "year": 2015,
+  "doi": "10.1016/b978-0-444-53802-4.00130-5",
+  "authors": [
+   "Shijie Zhong",
+   "D. A. Yuen",
+   "Louis Moresi",
+   "Matthew G. Knepley"
+  ],
+  "venue": "Elsevier eBooks"
+ },
+ {
+  "title": "Geodynamic inversion to constrain the non-linear rheology of the lithosphere",
+  "year": 2015,
+  "doi": "10.1093/gji/ggv201",
+  "authors": [
+   "Tobias Baumann",
+   "Boris Kaus"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "Dramatic effect of elasticity on thermal softening and strain localization during lithospheric shortening",
+  "year": 2015,
+  "doi": "10.1093/gji/ggv464",
+  "authors": [
+   "Yoann Jaquet",
+   "Thibault Duretz",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "冰川槽谷形成过程的三维数值模拟",
+  "year": 2015,
+  "doi": "10.1360/zd2015-45-8-1208",
+  "authors": [
+   "耀霖 石",
+   "少华 杨"
+  ],
+  "venue": "SCIENTIA SINICA Terrae"
+ },
+ {
+  "title": "Computational analysis of nonlinear creep of polyphase aggregates: Influence of phase morphology",
+  "year": 2014,
+  "doi": "10.1002/2014jb011197",
+  "authors": [
+   "Alden C. Cook",
+   "Senthil S. Vel",
+   "Christopher Gerbi",
+   "Scott E. Johnson"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "Winged inclusions: Pinch-and-swell objects during high-strain simple shear",
+  "year": 2014,
+  "doi": "10.1016/j.jsg.2014.10.017",
+  "authors": [
+   "Bernhard Grasemann",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Pore-space distribution and transport properties of an andesitic intrusion",
+  "year": 2014,
+  "doi": "10.1016/j.epsl.2014.05.042",
+  "authors": [
+   "Bjørn Jamtveit",
+   "Marcin Krotkiewski",
+   "Maya Kobchenko",
+   "François Renard",
+   "Luiza Angheluta"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "ELEFANT: a user-friendly multipurpose geodynamics code",
+  "year": 2014,
+  "doi": "10.5194/sed-6-1949-2014",
+  "authors": [
+   "Cédric Thieulot"
+  ],
+  "venue": null
+ },
+ {
+  "title": "An efficient way to perform the assembly of finite element matrices in vector languages.",
+  "year": 2014,
+  "doi": null,
+  "authors": [
+   "François Cuvelier",
+   "Caroline Japhet",
+   "Gilles Scarella"
+  ],
+  "venue": "arXiv (Cornell University)"
+ },
+ {
+  "title": "Practical analytical solutions for benchmarking of 2-D and 3-D geodynamic Stokes problems with variable viscosity",
+  "year": 2014,
+  "doi": "10.5194/se-5-461-2014",
+  "authors": [
+   "I. Yu. Popov",
+   "I. S. Lobanov",
+   "С. И. Попов",
+   "Антон Юрьевич Попов",
+   "Taras Gerya"
+  ],
+  "venue": "Solid Earth"
+ },
+ {
+  "title": "Hybrid shallow on-axis and deep off-axis hydrothermal circulation at fast-spreading ridges",
+  "year": 2014,
+  "doi": "10.1038/nature13174",
+  "authors": [
+   "Jörg Hasenclever",
+   "Sonja Theissen‐Krah",
+   "Lars Rüpke",
+   "Jason Phipps Morgan",
+   "Karthik Iyer",
+   "Sven Petersen",
+   "Colin W. Devey"
+  ],
+  "venue": "Nature"
+ },
+ {
+  "title": "A 3‐D Lagrangian finite element algorithm with remeshing for simulating large‐strain hydrodynamic instabilities in power law viscoelastic fluids",
+  "year": 2014,
+  "doi": "10.1002/2014gc005628",
+  "authors": [
+   "M. von Tscharner",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Three‐dimensional necking during viscous slab detachment",
+  "year": 2014,
+  "doi": "10.1002/2014gl060075",
+  "authors": [
+   "M. von Tscharner",
+   "Stefan M. Schmalholz",
+   "Thibault Duretz"
+  ],
+  "venue": "Geophysical Research Letters"
+ },
+ {
+  "title": "Discretization Errors in the Hybrid Finite Element Particle-in-cell Method",
+  "year": 2014,
+  "doi": "10.1007/s00024-014-0808-9",
+  "authors": [
+   "Marcel Thielmann",
+   "Dave A. May",
+   "Boris Kaus"
+  ],
+  "venue": "Pure and Applied Geophysics"
+ },
+ {
+  "title": "Domino boudinage under layer-parallel simple shear",
+  "year": 2014,
+  "doi": "10.1016/j.jsg.2014.09.006",
+  "authors": [
+   "Marcin Dąbrowski",
+   "Bernhard Grasemann"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Finite element modeling of fault-propagation folding above a rigid basement: A case study of the Nysa Kłodzka Graben (Sudetes, SW Poland)",
+  "year": 2014,
+  "doi": null,
+  "authors": [
+   "Marcin Dąbrowski",
+   "Janusz Badura"
+  ],
+  "venue": "Geologia Sudetica"
+ },
+ {
+  "title": "Evolution of tectonic structures within the salt diapirs: a numerical study",
+  "year": 2014,
+  "doi": null,
+  "authors": [
+   "Marta Adamuszek",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Geologia Sudetica"
+ },
+ {
+  "title": "Relationship between tectonic overpressure, deviatoric stress, driving force, isostasy and gravitational potential energy",
+  "year": 2014,
+  "doi": "10.1093/gji/ggu040",
+  "authors": [
+   "Stefan M. Schmalholz",
+   "Sergei Medvedev",
+   "S. M. Lechmann",
+   "Yury Podladchikov"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "Kinematics and dynamics of tectonic nappes: 2-D numerical modelling and implications for high and ultra-high pressure tectonism in the Western Alps",
+  "year": 2014,
+  "doi": "10.1016/j.tecto.2014.05.018",
+  "authors": [
+   "Stefan M. Schmalholz",
+   "Thibault Duretz",
+   "Filippo Schenker",
+   "Yury Podladchikov"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "Viscous overthrusting versus folding: 2-D quantitative modeling and its application to the Helvetic and Jura fold and thrust belts",
+  "year": 2014,
+  "doi": "10.1016/j.jsg.2014.01.010",
+  "authors": [
+   "Yoann Jaquet",
+   "Arthur Bauville",
+   "Stefan M. Schmalholz"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Modeling thermal convection in supradetachment basins: example from western N orway",
+  "year": 2013,
+  "doi": "10.1111/gfl.12042",
+  "authors": [
+   "Alban Souche",
+   "Marcin Dąbrowski",
+   "Torgeir B. Andersen"
+  ],
+  "venue": "Geofluids"
+ },
+ {
+  "title": "Rifting assisted by shear heating and formation of the Lomonosov Ridge",
+  "year": 2013,
+  "doi": "10.1016/j.epsl.2013.04.042",
+  "authors": [
+   "Alexander N. Minakov",
+   "Yury Podladchikov",
+   "Jan Inge Faleide",
+   "Ritske S. Huismans"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "The African Plate: A history of oceanic crust accretion and subduction since the Jurassic",
+  "year": 2013,
+  "doi": "10.1016/j.tecto.2013.05.037",
+  "authors": [
+   "Carmen Gaina",
+   "Trond H. Torsvik",
+   "Douwe J.J. van Hinsbergen",
+   "Sergei Medvedev",
+   "Stéphanie C. Werner",
+   "Cinthia Labails"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "Overview of adaptive finite element analysis in computational geodynamics",
+  "year": 2013,
+  "doi": "10.1016/j.jog.2013.04.002",
+  "authors": [
+   "Dave A. May",
+   "Wouter P. Schellart",
+   "Louis Moresi"
+  ],
+  "venue": "Journal of Geodynamics"
+ },
+ {
+  "title": "DynEarthSol2D: An efficient unstructured finite element method to study long‐term tectonic deformation",
+  "year": 2013,
+  "doi": "10.1002/jgrb.50148",
+  "authors": [
+   "Eunseo Choi",
+   "Eh Tan",
+   "L. L. Lavier",
+   "Victor M. Calo"
+  ],
+  "venue": "Journal of Geophysical Research Solid Earth"
+ },
+ {
+  "title": "Strong intracontinental lithospheric deformation in South China: Implications from seismic observations and geodynamic modeling",
+  "year": 2013,
+  "doi": "10.1016/j.jseaes.2013.08.020",
+  "authors": [
+   "Gang Lü",
+   "Liang Zhao",
+   "Tianyu Zheng",
+   "Boris Kaus"
+  ],
+  "venue": "Journal of Asian Earth Sciences"
+ },
+ {
+  "title": "New observational and experimental evidence for a plume-fed asthenosphere boundary layer in mantle convection",
+  "year": 2013,
+  "doi": "10.1016/j.epsl.2013.02.001",
+  "authors": [
+   "Jason Phipps Morgan",
+   "Jörg Hasenclever",
+   "Congling Shi"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "Processes and properties controlling the formation of lithospheric-scale shear zones",
+  "year": 2013,
+  "doi": "10.3929/ethz-a-010143426",
+  "authors": [
+   "Marcel Thielmann"
+  ],
+  "venue": "ETH Zürich Research Collection"
+ },
+ {
+  "title": "Interplay between metamorphic strengthening and structural softening in inclusion‐bearing layered rocks",
+  "year": 2013,
+  "doi": "10.1111/ter.12047",
+  "authors": [
+   "Marta Adamuszek",
+   "Marcin Dąbrowski",
+   "Daniel W. Schmid"
+  ],
+  "venue": "Terra Nova"
+ },
+ {
+  "title": "Folding of a single polygrain layer",
+  "year": 2013,
+  "doi": null,
+  "authors": [
+   "Marta Adamuszek",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "EGUGA"
+ },
+ {
+  "title": "Shale gas: Opportunities and challenges",
+  "year": 2013,
+  "doi": "10.1306/eg.05311313005",
+  "authors": [
+   "Paul Meakin",
+   "Hai Huang",
+   "Anders Malthe‐Sørenssen",
+   "Kjetil Thøgersen"
+  ],
+  "venue": "Environmental Geosciences"
+ },
+ {
+  "title": "Tectonic overpressure in weak crustal‐scale shear zones and implications for the exhumation of high‐pressure rocks",
+  "year": 2013,
+  "doi": "10.1002/grl.50417",
+  "authors": [
+   "Stefan M. Schmalholz",
+   "Yury Podladchikov"
+  ],
+  "venue": "Geophysical Research Letters"
+ },
+ {
+  "title": "Numerical modelling of magma dynamics coupled to tectonic deformation of lithosphere and crust",
+  "year": 2013,
+  "doi": "10.1093/gji/ggt306",
+  "authors": [
+   "Tobias Keller",
+   "Dave A. May",
+   "Boris Kaus"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "A comparison of numerical surface topography calculations in geodynamic modelling: an evaluation of the ‘sticky air’ method",
+  "year": 2012,
+  "doi": "10.1111/j.1365-246x.2012.05388.x",
+  "authors": [
+   "Fabio Crameri",
+   "Harro Schmeling",
+   "Gregor Golabek",
+   "Thibault Duretz",
+   "R. Orendt",
+   "Susanne Buiter",
+   "Dave A. May",
+   "Boris Kaus",
+   "T. V. Gerya",
+   "Paul Tackley"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "Crystals stirred up: 1. Direct numerical simulations of crystal settling in nondilute magmatic suspensions",
+  "year": 2012,
+  "doi": "10.1029/2012je004066",
+  "authors": [
+   "Jenny Suckale",
+   "James A. Sethian",
+   "Jiun-Der Yu",
+   "L. T. Elkins‐Tanton"
+  ],
+  "venue": "Journal of Geophysical Research Atmospheres"
+ },
+ {
+  "title": "Numerical investigation of deformation mechanics in fold‐and‐thrust belts: Influence of rheology of single and multiple décollements",
+  "year": 2012,
+  "doi": "10.1029/2011tc003047",
+  "authors": [
+   "Jonas B. Ruh",
+   "Boris Kaus",
+   "Jean‐Pierre Burg"
+  ],
+  "venue": "Tectonics"
+ },
+ {
+  "title": "Controls of faulting and reaction kinetics on serpentinization and double Benioff zones",
+  "year": 2012,
+  "doi": "10.1029/2012gc004304",
+  "authors": [
+   "Karthik Iyer",
+   "Lars Rüpke",
+   "Jason Phipps Morgan",
+   "Ingo Grevemeyer"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Shear heating induced lithospheric-scale localization: Does it result in subduction?",
+  "year": 2012,
+  "doi": "10.1016/j.epsl.2012.10.002",
+  "authors": [
+   "Marcel Thielmann",
+   "Boris Kaus"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "A two‐phase composite in simple shear: Effective mechanical anisotropy development and localization potential",
+  "year": 2012,
+  "doi": "10.1029/2012jb009183",
+  "authors": [
+   "Marcin Dąbrowski",
+   "Daniel W. Schmid",
+   "Yury Podladchikov"
+  ],
+  "venue": "Journal of Geophysical Research Atmospheres"
+ },
+ {
+  "title": "Theoretical analysis of large amplitude folding of a single viscous layer",
+  "year": 2012,
+  "doi": "10.1016/j.jsg.2012.11.006",
+  "authors": [
+   "Marta Adamuszek",
+   "Daniel W. Schmid",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "The role of slabs and oceanic plate geometry in the net rotation of the lithosphere, trench motions, and slab return flow",
+  "year": 2012,
+  "doi": "10.1029/2011gc003934",
+  "authors": [
+   "Mélanie Gérault",
+   "T. W. Becker",
+   "Boris Kaus",
+   "Claudio Faccenna",
+   "Louis Moresi",
+   "L. Husson"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Controls of bathymetric relief on hydrothermal fluid flow at mid‐ocean ridges",
+  "year": 2012,
+  "doi": "10.1029/2012gc004041",
+  "authors": [
+   "Nasser Bani‐Hassan",
+   "Karthik Iyer",
+   "Lars Rüpke",
+   "Andrea Borgia"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Folding in power-law viscous multi-layers",
+  "year": 2012,
+  "doi": "10.1098/rsta.2011.0421",
+  "authors": [
+   "Stefan M. Schmalholz",
+   "Daniel W. Schmid"
+  ],
+  "venue": "Philosophical Transactions of the Royal Society A Mathematical Physical and Engineering Sciences"
+ },
+ {
+  "title": "Pinch-and-swell structure and shear zones in viscoplastic layers",
+  "year": 2012,
+  "doi": "10.1016/j.jsg.2012.01.026",
+  "authors": [
+   "Stefan M. Schmalholz",
+   "Xavier Maeder"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Sub-slab mantle anisotropy beneath south-central Chile",
+  "year": 2012,
+  "doi": "10.1016/j.epsl.2012.09.017",
+  "authors": [
+   "Stephen Hicks",
+   "S. Nippress",
+   "Andreas Rietbrock"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "FANTOM: Two- and three-dimensional numerical modelling of creeping flows for the solution of geological problems",
+  "year": 2011,
+  "doi": "10.1016/j.pepi.2011.06.011",
+  "authors": [
+   "Cédric Thieulot"
+  ],
+  "venue": "Physics of The Earth and Planetary Interiors"
+ },
+ {
+  "title": "Effect of Surface Morphology on the Dissipation During Shear and Slip Along a Rock–Rock Interface that Contains a Visco-elastic Core",
+  "year": 2011,
+  "doi": "10.1007/s00024-011-0272-8",
+  "authors": [
+   "Luiza Angheluta",
+   "Thibault Candela",
+   "Joachim Mathiesen",
+   "François Renard"
+  ],
+  "venue": "Pure and Applied Geophysics"
+ },
+ {
+  "title": "A rigid circular inclusion in an anisotropic host subject to simple shear",
+  "year": 2011,
+  "doi": "10.1016/j.jsg.2011.05.003",
+  "authors": [
+   "Marcin Dąbrowski",
+   "Daniel W. Schmid"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "On the Importance of the Stokes-Brinkman Equations for Computing Effective Permeability in Karst Reservoirs",
+  "year": 2011,
+  "doi": "10.4208/cicp.290610.020211a",
+  "authors": [
+   "Marcin Krotkiewski",
+   "Ingeborg Skjelkvåle Ligaarden",
+   "Knut‐Andreas Lie",
+   "Daniel W. Schmid"
+  ],
+  "venue": "Communications in Computational Physics"
+ },
+ {
+  "title": "Fold geometry toolbox – Automated determination of fold shape, shortening, and material properties",
+  "year": 2011,
+  "doi": "10.1016/j.jsg.2011.06.003",
+  "authors": [
+   "Marta Adamuszek",
+   "Daniel W. Schmid",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Coupled mechanical and hydrothermal modeling of crustal accretion at intermediate to fast spreading ridges",
+  "year": 2011,
+  "doi": "10.1016/j.epsl.2011.09.018",
+  "authors": [
+   "Sonja Theissen‐Krah",
+   "Karthik Iyer",
+   "Lars Rüpke",
+   "Jason Phipps Morgan"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "A naturally constrained stress profile through the middle crust in an extensional terrane",
+  "year": 2011,
+  "doi": "10.1016/j.epsl.2010.11.044",
+  "authors": [
+   "Whitney Behr",
+   "J. P. Platt"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "A stabilization algorithm for geodynamic numerical simulations with a free surface",
+  "year": 2010,
+  "doi": "10.1016/j.pepi.2010.04.007",
+  "authors": [
+   "Boris Kaus",
+   "Hans Mühlhaus",
+   "Dave A. May"
+  ],
+  "venue": "Physics of The Earth and Planetary Interiors"
+ },
+ {
+  "title": "Efficient topology optimization in MATLAB using 88 lines of code",
+  "year": 2010,
+  "doi": "10.1007/s00158-010-0594-7",
+  "authors": [
+   "Erik Andreassen",
+   "Anders Clausen",
+   "Mattias Schevenels",
+   "Boyan S. Lazarov",
+   "Ole Sigmund"
+  ],
+  "venue": "Structural and Multidisciplinary Optimization"
+ },
+ {
+  "title": "On the Stokes-Brinkman Equations for Modeling Flow in Carbonate Reservoirs",
+  "year": 2010,
+  "doi": "10.3997/2214-4609.20144924",
+  "authors": [
+   "Ingeborg Skjelkvåle Ligaarden",
+   "Marcin Krotkiewski",
+   "Knut‐Andreas Lie",
+   "Mayur Pal",
+   "Daniel W. Schmid"
+  ],
+  "venue": "Proceedings"
+ },
+ {
+  "title": "Feedbacks between mantle hydration and hydrothermal convection at ocean spreading centers",
+  "year": 2010,
+  "doi": "10.1016/j.epsl.2010.04.037",
+  "authors": [
+   "Karthik Iyer",
+   "Lars Rüpke",
+   "Jason Phipps Morgan"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "Parallel symmetric sparse matrix–vector product on scalar multi-core CPUs",
+  "year": 2010,
+  "doi": "10.1016/j.parco.2010.02.003",
+  "authors": [
+   "Marcin Krotkiewski",
+   "Marcin Dąbrowski"
+  ],
+  "venue": "Parallel Computing"
+ },
+ {
+  "title": "Viscoelastic mantle convection and lithospheric stresses",
+  "year": 2010,
+  "doi": "10.1111/j.1365-246x.2010.04708.x",
+  "authors": [
+   "Marcus Beuchert",
+   "Yuri Y. Podladchikov"
+  ],
+  "venue": "Geophysical Journal International"
+ },
+ {
+  "title": "An analytical benchmark with combined pressure and shear loading for elastoplastic numerical models",
+  "year": 2010,
+  "doi": "10.1029/2010gc003130",
+  "authors": [
+   "Viktoriya Yarushina",
+   "Marcin Dąbrowski",
+   "Yury Podladchikov"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Direct numerical simulation of two-phase flow: Effective rheology and flow patterns of particle suspensions",
+  "year": 2010,
+  "doi": "10.1016/j.epsl.2009.11.041",
+  "authors": [
+   "Y. Deubelbeiss",
+   "Boris Kaus",
+   "J. A. D. Connolly"
+  ],
+  "venue": "Earth and Planetary Science Letters"
+ },
+ {
+  "title": "Strike-slip faulting as a trigger mechanism for overpressure release through piercement structures. Implications for the Lusi mud volcano, Indonesia",
+  "year": 2009,
+  "doi": "10.1016/j.marpetgeo.2009.03.001",
+  "authors": [
+   "Adriano Mazzini",
+   "Anders Nermoen",
+   "Marcin Krotkiewski",
+   "Yury Podladchikov",
+   "Sverre Planke",
+   "Henrik H. Svensen"
+  ],
+  "venue": "Marine and Petroleum Geology"
+ },
+ {
+  "title": "Factors that control the angle of shear bands in geodynamic numerical models of brittle deformation",
+  "year": 2009,
+  "doi": "10.1016/j.tecto.2009.08.042",
+  "authors": [
+   "Boris Kaus"
+  ],
+  "venue": "Tectonophysics"
+ },
+ {
+  "title": "Lithospheric stress-states predicted from long-term tectonic models: Influence of rheology and possible application to Taiwan",
+  "year": 2009,
+  "doi": "10.1016/j.jseaes.2009.04.004",
+  "authors": [
+   "Boris Kaus",
+   "Yingchun Liu",
+   "T. W. Becker",
+   "David A. Yuen",
+   "Yao Shi"
+  ],
+  "venue": "Journal of Asian Earth Sciences"
+ },
+ {
+  "title": "Comment on ‘Folding with thermal-mechanical feedback’",
+  "year": 2009,
+  "doi": "10.1016/j.jsg.2009.10.004",
+  "authors": [
+   "Daniel W. Schmid",
+   "Stefan M. Schmalholz",
+   "Neil S. Mancktelow",
+   "Raymond C. Fletcher"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Paleomagnetic field properties at high southern latitude",
+  "year": 2009,
+  "doi": "10.1029/2008gc002072",
+  "authors": [
+   "K. P. Lawrence",
+   "Lisa Tauxe",
+   "Hubert Staudigel",
+   "Catherine Constable",
+   "Anthony Koppers",
+   "William C. McIntosh",
+   "C. L. Johnson"
+  ],
+  "venue": "Geochemistry Geophysics Geosystems"
+ },
+ {
+  "title": "Mechanical anisotropy of a two-phase composite consisting of aligned elliptical inclusions .",
+  "year": 2009,
+  "doi": null,
+  "authors": [
+   "Marcin Dąbrowski",
+   "Daniel W. Schmid"
+  ],
+  "venue": "Trabajos de Geología"
+ },
+ {
+  "title": "Introduction to Numerical Geodynamic Modelling",
+  "year": 2009,
+  "doi": "10.1017/cbo9780511809101",
+  "authors": [
+   "Taras Gerya"
+  ],
+  "venue": "Cambridge University Press eBooks",
+  "chapters": 9
+ },
+ {
+  "title": "Evolution of large amplitude 3D fold patterns: A FEM study",
+  "year": 2008,
+  "doi": "10.1016/j.pepi.2008.08.007",
+  "authors": [
+   "Daniel W. Schmid",
+   "Marcin Dąbrowski",
+   "Marcin Krotkiewski"
+  ],
+  "venue": "Physics of The Earth and Planetary Interiors"
+ },
+ {
+  "title": "A benchmark comparison of spontaneous subduction models—Towards a free surface",
+  "year": 2008,
+  "doi": "10.1016/j.pepi.2008.06.028",
+  "authors": [
+   "Harro Schmeling",
+   "Andrey Babeyko",
+   "A. Enns",
+   "Claudio Faccenna",
+   "Francesca Funiciello",
+   "Taras Gerya",
+   "Gregor Golabek",
+   "Susanne Grigull",
+   "Boris Kaus",
+   "Gabriele Morra",
+   "Stefan M. Schmalholz",
+   "Jeroen van Hunen"
+  ],
+  "venue": "Physics of The Earth and Planetary Interiors"
+ },
+ {
+  "title": "Fractional Steps methods for transient problems on commodity computer architectures",
+  "year": 2008,
+  "doi": "10.1016/j.pepi.2008.08.008",
+  "authors": [
+   "Marcin Krotkiewski",
+   "Marcin Dąbrowski",
+   "Yury Podladchikov"
+  ],
+  "venue": "Physics of The Earth and Planetary Interiors"
+ },
+ {
+  "title": "Evolution of pinch-and-swell structures in a power-law layer",
+  "year": 2008,
+  "doi": "10.1016/j.jsg.2008.01.002",
+  "authors": [
+   "Stefan M. Schmalholz",
+   "Daniel W. Schmid",
+   "Raymond C. Fletcher"
+  ],
+  "venue": "Journal of Structural Geology"
+ },
+ {
+  "title": "Comparison of Eulerian and Lagrangian numerical techniques for the Stokes equations in the presence of strongly varying viscosity",
+  "year": 2008,
+  "doi": "10.1016/j.pepi.2008.06.023",
+  "authors": [
+   "Y. Deubelbeiss",
+   "Boris Kaus"
+  ],
+  "venue": "Physics of The Earth and Planetary Interiors"
+ }
+]

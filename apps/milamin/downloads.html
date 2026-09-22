@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Downloads – MILAMIN</title>
+    <script type="module" src="./src/landing.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main class="arch-main">
+      <header class="site">
+        <nav class="crumbs"><a href="./index.html">MilAMin</a> / <a href="./original.html">The original MILAMIN</a> / Downloads</nav>
+        <a class="arch-banner" href="./original.html" title="The original MILAMIN">
+          <img src="./archive/Header.jpg" alt="Original milamin.org banner: the 1e6/1 road-sign logo on a finite element mesh" />
+          <span class="arch-banner-title"><strong>MILAMIN</strong><span>Fast Finite Element Solver in MATLAB</span></span>
+        </a>
+        <h1>Downloads</h1>
+        <p class="sub">Getting MILAMIN and its companions from the original milamin.org: the sources and paper, the MUTILS high-performance utilities, and the external packages the solver builds on.</p>
+      </header>
+      <div class="prose archive">
+        <h3>Getting MILAMIN</h3>
+        <p>You can download the original source and the paper from the <a href="https://doi.org/10.1029/2007GC001719">G<sup>3</sup> website</a>. Updated sources are available from <a href="https://sourceforge.net/projects/milamin/files/">https://sourceforge.net/projects/milamin/files/</a>.</p>
+
+        <h3>MUTILS &ndash; MILAMIN utilities</h3>
+        <p>MUTILS is a package that provides a set of utilities we find useful for high-resolution modeling. The tools are written in C and made available in MATLAB through the MEX interface, hence installation requires a working MEX compiler. The code is optimized for modern multi-core CPUs. Many functions are parallelized using OpenMP. Currently, the package includes the following functionality:</p>
+        <ul>
+          <li><code>sparse_create</code> &ndash; a routine that assembles sparse matrices resulting from the Finite Element Method. It is significantly faster than MATLAB&#8217;s <code>sparse</code>, and uses a lot less memory.</li>
+          <li><code>quadtree</code> &ndash; a 2D quad-tree implementation with point-in-triangle location and spatial reordering functionality.</li>
+          <li><code>tsearch2</code> &ndash; a quad-tree based point-in-triangle location routine, similar to MATLAB&#8217;s <code>tsearch</code>, but significantly faster and parallelized with OpenMP.</li>
+          <li><code>einterp</code> &ndash; a FEM interpolation routine using SSE2 instructions and OpenMP parallelization. Currently only the 7-node triangular element is supported, with more elements coming at users request.</li>
+          <li><code>SpMV</code> &ndash; (in progress) fast sparse matrix-vector multiplication for SMP computers, parallelized using OpenMP. Support for symmetric matrices speeds up the execution by factor 2. Details described in <em>Parallel symmetric sparse matrix-vector product on scalar multi-core CPUs</em> by Krotkiewski and Dabrowski.</li>
+        </ul>
+        <p>The package can be downloaded <a href="https://sourceforge.net/projects/milamin/files/">here</a>.</p>
+
+        <h3>External packages</h3>
+        <p>To achieve best performance MILAMIN uses a number of external packages that need to be downloaded and compiled. Installation of these packages requires a working MEX compiler. Automatic download and installation scripts are distributed as part of the MUTILS package.</p>
+        <h4>Triangle</h4>
+        <p>A 2D triangular mesh generator by Jonathan Shewchuk. The initial version of MILAMIN used a modified triangle executable with added binary input-output, which speeds up processing of large models considerably. A Windows executable was hosted on the site (no longer available). For UNIX/Linux computers the sources need to be patched and compiled by the user. Detailed instructions are provided in the MILAMIN_1 package.</p>
+        <p>The new version of MILAMIN uses a MEX interface to triangle that bypasses disk IO altogether. It can be obtained with the MUTILS package.</p>
+        <h4>SuiteSparse and Metis</h4>
+        <p>MILAMIN uses some MEX files provided by Tim Davis in the SuiteSparse package: metis (a MATLAB interface to the METIS graph partitioning library), cs_l(t)solve (<a href="./notes.html#substitution">forward/backward substitution</a>), sparse2 (sparse matrix assembly routine that supports integer indices, faster than MATLAB&#8217;s <code>sparse</code>, but using a larger workspace). On older MATLAB versions lchol is used. These were installed via <code>suitesparse_install.zip</code>, an install script hosted on the site (no longer available).</p>
+        <h4>Documentation</h4>
+        <p>You can download the original MILAMIN manuscript from the <a href="https://doi.org/10.1029/2007GC001719">G<sup>3</sup> website</a>, where the optimized version of FEM implementation is documented. The paper also demonstrates a standard implementation of FEM to provide an educational insight into subjects such as implementation of the numerical method, efficient use of the computer architecture and computational libraries, code structuring, proper data layout, and solution techniques.</p>
+      </div>
+    </main>
+  <!-- site:footer -->
+  </body>
+</html>

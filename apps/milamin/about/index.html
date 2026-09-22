@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About – MilAMin</title>
+    <meta
+      name="description"
+      content="What this site is: the 2008 MILAMIN finite element package, the people behind it and its 2026 revival as a solver that runs in the browser."
+    />
+    <script type="module" src="../src/landing.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main>
+      <header class="site">
+        <nav class="crumbs"><a href="../index.html">MilAMin</a> / About</nav>
+        <h1>About MilAMin</h1>
+        <p class="sub">
+          MilAMin stands for Million A Minute: one million degrees of freedom
+          set up, solved and post-processed in one minute. In 2008 that was a
+          MATLAB package and a paper; today it is also a solver that runs in
+          your browser. This page is the short version of both stories.
+        </p>
+      </header>
+
+      <div class="prose">
+        <h3>2008 - The MATLAB package</h3>
+        <p>
+          MILAMIN was written at PGP, Physics of Geological Processes at the
+          University of Oslo, today part of the university&rsquo;s
+          <a href="https://www.mn.uio.no/njord/">Njord Centre</a>, by Marcin
+          Dabrowski, Marcin Krotkiewski and Dani Schmid. At the time few
+          believed that a production finite element code could be written in
+          native MATLAB, an interpreted language, and keep up with compiled
+          codes. MILAMIN showed that it could. Its
+          point was not one trick but a whole pipeline done with care: meshing, vectorized blocked assembly, fill-reducing reordering,
+          Cholesky factorization and Powell&ndash;Hestenes iterations, so that
+          a general unstructured finite element code in native MATLAB reached a
+          million unknowns per minute on a desktop. The method paper,
+          Dabrowski, M., Krotkiewski, M. &amp; Schmid, D. W. (2008),
+          <a href="https://doi.org/10.1029/2007GC001719">MILAMIN: MATLAB-based
+          finite element method solver for large problems</a>,
+          <em>Geochemistry, Geophysics, Geosystems</em> 9, Q04030, is cited by
+          more than 260 publications to this day. The
+          <a href="../original.html">original milamin.org</a> is preserved on
+          this site: package, application gallery, technical notes and
+          downloads.
+        </p>
+
+        <h3>2026 - The browser</h3>
+        <p>
+          The revival takes the same strategy into the browser with TypeScript
+          and WebAssembly: Shewchuk&rsquo;s Triangle for the mesh, the
+          7-node Crouzeix&ndash;Raviart element assembled in typed arrays,
+          CHOLMOD&rsquo;s supernodal Cholesky with AMD ordering compiled to
+          wasm and threaded where the page is cross-origin isolated and the
+          fields rendered live. On today&rsquo;s machines it clears the 2008
+          line at every size, on a phone included. The
+          <a href="../million.html">million page</a> makes the claim, the
+          <a href="../bench.html">benchmark</a> measures it, the
+          <a href="../playground.html">playground</a> lets you write your own
+          model, <a href="../folder/">Folder</a> grows folds and boudins in
+          layered rock on the same stack, the browser version of the 2016
+          Folder tool by Adamuszek, Dabrowski and Schmid and the
+          <a href="../convergence.html">convergence lab</a>
+          checks the answers against the analytical solution. The browser
+          MilAMin and this site were written by
+          <a href="https://www.linkedin.com/in/danischmid/">Dani Schmid</a>.
+          Marcin Dabrowski reviewed the site before its release; the
+          benchmark page, the playground and the convergence lab are better
+          for his comments.
+        </p>
+
+        <h3>The people</h3>
+        <ul>
+          <li><strong>Marcin Dabrowski</strong>: then PGP, University of Oslo;
+            today head of the Computational Geology Laboratory, Polish
+            Geological Institute (NRI), Wroc&#322;aw.</li>
+          <li><strong>Marcin Krotkiewski</strong>: then PGP, University of Oslo;
+            today Scientific Computing Services, USIT, University of Oslo.</li>
+          <li><strong>Dani Schmid</strong>: then PGP, University of Oslo; today
+            CEO of <a href="https://bergwerk.com">Bergwerk</a>.</li>
+        </ul>
+
+        <h3>Built on</h3>
+        <p>
+          Jonathan Shewchuk&rsquo;s
+          <a href="https://www.cs.cmu.edu/~quake/triangle.html">Triangle</a>
+          does the meshing, in our own WebAssembly build; Tim Davis&rsquo;s
+          <a href="https://github.com/DrTimothyAldenDavis/SuiteSparse">SuiteSparse</a>
+          does the factorization, CHOLMOD&rsquo;s supernodal Cholesky with
+          AMD ordering, on dense kernels from
+          <a href="https://eigen.tuxfamily.org/">Eigen</a>, threaded with
+          OpenMP and compiled with <a href="https://emscripten.org/">Emscripten</a>;
+          <a href="https://katex.org/">KaTeX</a> typesets the mathematics.
+          Citation data comes from <a href="https://openalex.org/">OpenAlex</a>.
+          Every build verifies the solvers against analytical solutions. The
+          <a href="./licenses.html">licenses page</a> lists each component with
+          its terms and offers the source the solver binaries were built from.
+        </p>
+      </div>
+    </main>
+    <!-- site:footer -->
+  </body>
+</html>

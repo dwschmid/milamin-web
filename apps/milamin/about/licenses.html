@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Licenses – MilAMin</title>
+    <meta
+      name="description"
+      content="The open source components behind the browser MilAMin, their licenses and the corresponding source of the solver WebAssembly binaries."
+    />
+    <script type="module" src="../src/landing.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main>
+      <header class="site">
+        <nav class="crumbs"><a href="../index.html">MilAMin</a> / <a href="./index.html">About</a> / Components and licenses</nav>
+        <h1>Components and licenses</h1>
+        <p class="sub">
+          Everything on this site computes inside your browser. The code is
+          written in TypeScript and C++ and delivered to you as JavaScript
+          and WebAssembly; this page says what it is built from, under which
+          terms and where to get the sources of the binaries.
+        </p>
+      </header>
+
+      <div class="prose">
+        <p>
+          <a href="../THIRD-PARTY-NOTICES.txt">Download the license texts and copyright notices</a>
+          distributed with this build, including the fonts and JavaScript dependencies.
+        </p>
+        <h3>The solver binaries (GPL)</h3>
+        <p>
+          The sparse solver, <code>spchol.wasm</code> and its threaded twin
+          <code>spchol-mt.wasm</code>, is CHOLMOD's supernodal Cholesky
+          factorization from SuiteSparse 5.13.0 with AMD ordering, running on
+          dense kernels written on Eigen, behind a small C interface of our
+          own that connects the JavaScript side to CHOLMOD. CHOLMOD's
+          Supernodal module is licensed under the
+          <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GNU
+          General Public License, version 2 or later</a>, so these binaries
+          and the shim compiled into them are distributed under the GPL-2.0-or-later
+          as well. As the GPL requires, the complete corresponding source is
+          offered here:
+        </p>
+        <ul>
+          <li>
+            <a href="../downloads/milamin-solver-wasm-source.zip">milamin-solver-wasm-source.zip</a>:
+            our C interface to CHOLMOD (<code>spchol.cpp</code>), the Eigen-based BLAS layer
+            (<code>blas_shim.cpp</code>), the build script with the exact
+            compiler flags, the SuiteSparse 5.13.0 modules that were compiled
+            (SuiteSparse_config, AMD, COLAMD, CHOLMOD) and the Eigen 3.4.0
+            headers, each with its license text.
+          </li>
+          <li>
+            Upstream: <a href="https://github.com/DrTimothyAldenDavis/SuiteSparse/releases/tag/v5.13.0">SuiteSparse
+            v5.13.0</a> (Timothy A. Davis) and
+            <a href="https://gitlab.com/libeigen/eigen/-/releases/3.4.0">Eigen 3.4.0</a>.
+          </li>
+        </ul>
+        <p>
+          Within SuiteSparse, the CHOLMOD Core and Cholesky modules are
+          LGPL-2.1-or-later, the Supernodal module is GPL-2.0-or-later, and
+          AMD, COLAMD and SuiteSparse_config are BSD-3-Clause. Eigen is under
+          the Mozilla Public License 2.0. The binaries were compiled with
+          <a href="https://emscripten.org/">Emscripten</a> 6.0.3, whose
+          runtime support code is MIT-licensed.
+        </p>
+
+        <h3>The mesher</h3>
+        <p>
+          Meshing is Jonathan Shewchuk's
+          <a href="https://www.cs.cmu.edu/~quake/triangle.html">Triangle</a>
+          (version 1.6), in our own WebAssembly build with growable memory,
+          driven through our TypeScript adapter. Triangle is not
+          under the GPL and not part of the GPL bundle above: its own terms
+          allow free private, research and institutional use and
+          redistribution with its notices intact, while commercial use of the
+          Triangle code requires the author's permission. The sources used
+          for the build sit in the repository under
+          <code>packages/fem-core/wasm-src/triangle</code> with Shewchuk's
+          README and notices unchanged.
+        </p>
+
+        <h3>Everything else</h3>
+        <ul>
+          <li>
+            The finite element assembly, the Powell–Hestenes pressure
+            recovery, the banded Cholesky reference solver, the rendering and
+            the pages themselves are TypeScript written for this site,
+            copyright Dani Schmid, 2026, released with the repository under
+            the GPL-2.0-or-later. Folder's analytical growth rates are ported
+            from the original FOLDER (BSD-3-Clause, notice kept with the
+            code). The typefaces, Schibsted Grotesk and IBM Plex Mono, are
+            under the SIL Open Font License, shipped with the license text.
+          </li>
+          <li>
+            <a href="https://katex.org/">KaTeX</a> (MIT) typesets the
+            mathematics on the technical notes;
+            <a href="https://highlightjs.org/">highlight.js</a> (BSD-3-Clause)
+            colors the MATLAB listings.
+          </li>
+          <li>
+            Citation data on the <a href="../citations.html">citations page</a>
+            comes from <a href="https://openalex.org/">OpenAlex</a> (CC0).
+          </li>
+          <li>
+            The original MILAMIN package (Dabrowski, Krotkiewski &amp; Schmid,
+            2008) and the recovered milamin.org material are described on
+            <a href="../original.html">their own pages</a>; the MATLAB sources
+            are distributed from
+            <a href="https://sourceforge.net/projects/milamin/files/">SourceForge</a>
+            under their own terms.
+          </li>
+        </ul>
+      </div>
+
+    </main>
+  <!-- site:footer -->
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The original MILAMIN – MATLAB package, applications, notes</title>
+    <meta
+      name="description"
+      content="The original MILAMIN (Dabrowski, Krotkiewski & Schmid, 2008): the native MATLAB package, its application gallery, and the technical notes, preserved from milamin.org."
+    />
+    <script type="module" src="./src/landing.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main class="arch-main">
+      <header class="site">
+        <nav class="crumbs"><a href="./index.html">MilAMin</a> / The original MILAMIN</nav>
+        <a class="arch-banner" href="./original.html" title="The original MILAMIN">
+          <img src="./archive/Header.jpg" alt="Original milamin.org banner: the 1e6/1 road-sign logo on a finite element mesh" />
+          <span class="arch-banner-title"><strong>MILAMIN</strong><span>Fast Finite Element Solver in MATLAB</span></span>
+        </a>
+        <h1>The original MILAMIN</h1>
+        <p class="sub">
+          <strong>The vintage site, preserved:</strong> everything on these pages
+          &ndash; the slideshow, the applications gallery, the technical notes and
+          the downloads &ndash; is original milamin.org content, as it served from
+          2008.
+        </p>
+        <p class="sub">
+          MILAMIN, the native MATLAB package, set up, solved and post-processed one
+          million degrees of freedom per minute on a desktop &ndash; from vectorized
+          blocked assembly to Cholesky with fill-reducing reordering and
+          Powell&ndash;Hestenes iterations for incompressible Stokes. Developed at PGP
+          (Physics of Geological Processes, University of Oslo) by Marcin Dabrowski,
+          Marcin Krotkiewski and Dani Schmid. The method paper:
+          Dabrowski, M., Krotkiewski, M. &amp; Schmid, D. W. (2008),
+          <a href="https://doi.org/10.1029/2007GC001719">MILAMIN: MATLAB-based
+          finite element method solver for large problems</a>,
+          <em>Geochemistry, Geophysics, Geosystems</em> 9, Q04030,
+          doi:10.1029/2007GC001719.
+        </p>
+      </header>
+
+      <div class="prose archive">
+        <p>
+          MILAMIN is a finite element method implementation in native MATLAB that is
+          capable of doing one million degrees of freedom per minute on a modern
+          desktop computer. This includes pre-processing, solving, and
+          post-processing. The MILAMIN strategies and package are applicable to a
+          broad class of problems in Earth science.
+        </p>
+        <div class="arch-slider wide">
+          <figure class="active"><img src="./archive/slides/inclusions_collage4.png" alt="Pressure and stress fields around circular inclusions" /><figcaption>Pressure- and stress-distributions in materials embedding circular inclusions: application of MILAMINs mechanical solver.</figcaption></figure>
+          <figure><img src="./archive/slides/multifoldingBW2.png" alt="Folded multilayer stack" /><figcaption>Folding of a multilayer: application of MILAMINs incompressible Stokes solver in studying problems from structural geology.</figcaption></figure>
+          <figure><img src="./archive/slides/collage_sedim_ellip.png" alt="Settling elliptical inclusions" /><figcaption>Elliptical inclusions in a box subjected to vertical gravity field: application of MILAMINs mechanical solver.</figcaption></figure>
+          <figure><img src="./archive/slides/collage_convection.png" alt="Thermomechanical convection collage" /><figcaption>Thermomechanical convection: application of MILAMINs thermal and mechanical solvers to study mantle dynamics.</figcaption></figure>
+          <figure><img src="./archive/slides/collage_mixing.png" alt="Mixing of two materials" /><figcaption>Mixing of two materials with different densities: application of MILAMINs mechanical solver.</figcaption></figure>
+          <figure><img src="./archive/slides/collage_crystal_plasticity.png" alt="Crystal plasticity collage" /><figcaption>Crystal plasticity: application of MILAMINs mechanical solver.</figcaption></figure>
+          <figure><img src="./archive/slides/collage_ellip_incls.png" alt="Pressure around elliptical inclusions" /><figcaption>Pressure-distribution around elliptical inclusions: application of MILAMINs mechanical solver.</figcaption></figure>
+          <figure><img src="./archive/slides/collage_multilayer.png" alt="Multilayer folding collage" /><figcaption>Folding of multilayers: application of MILAMINs incompressible Stokes solver in studying problems from structural geology.</figcaption></figure>
+          <figure><img src="./archive/slides/collage_sedim_circ.png" alt="Settling circular inclusions" /><figcaption>Circular inclusions in a box subjected to vertical gravity field: application of MILAMINs mechanical solver.</figcaption></figure>
+          <figure><img src="./archive/slides/plumes.png" alt="Mantle plumes" /><figcaption>Thermomechanical convection: application of MILAMINs thermal and mechanical solvers to study mantle dynamics.</figcaption></figure>
+          <figure><img src="./archive/slides/pc_cracks_crop.png" alt="Porous convection with cracks" /><figcaption>Porous Convection: applications of MILAMINs thermal and mechanical solvers.</figcaption></figure>
+          <figure><img src="./archive/slides/inclusions_collage3.png" alt="Stress fields around circular inclusions" /><figcaption>Pressure- and stress-distributions in materials embedding circular inclusions: application of MILAMINs mechanical solver.</figcaption></figure>
+          <figure><img src="./archive/slides/collage_multyfold.png" alt="Folded multilayers" /><figcaption>Folding of multilayers: application of MILAMINs incompressible Stokes solver in studying problems from structural geology.</figcaption></figure>
+          <figure><img src="./archive/slides/dense_layer_rho50_crop.png" alt="Convection of a heterogeneous fluid with a dense layer" /><figcaption>Thermomechanical convection of a heterogeneous fluid: application of MILAMIN to study mantle dynamics.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="./applications.html">
+          <img class="thumb" src="./archive/velocity_both.png" alt="Sedimentation velocity field from the applications gallery" loading="lazy" />
+          <h2>Applications gallery</h2>
+          <p>
+            What MILAMIN was used for: rigid inclusions, multilayer folding,
+            sedimentation, thermomechanical convection, mixing, suspensions &ndash; with
+            the original simulation videos, still streaming after fifteen years.
+          </p>
+        </a>
+        <a class="card" href="./notes.html">
+          <img class="thumb" src="./archive/sparse_tri3.png" alt="Sparse assembly timing comparison from the technical notes" loading="lazy" />
+          <h2>Technical notes</h2>
+          <p>
+            The implementation notes behind the speed: sparse assembly, boundary
+            conditions, fill-reducing reordering, Cholesky factorization and
+            substitution, with the original benchmark figures.
+          </p>
+        </a>
+        <a class="card" href="./downloads.html">
+          <img class="thumb" src="./archive/logo_1e6.png" alt="The MILAMIN 1e6/1 road-sign logo" loading="lazy" />
+          <h2>Downloads</h2>
+          <p>
+            Getting MILAMIN: the sources and paper, the MUTILS high-performance
+            utilities &ndash; sparse_create, quadtree, tsearch2, einterp, SpMV &ndash;
+            and the external packages Triangle, SuiteSparse and METIS.
+          </p>
+        </a>
+      </div>
+
+      <h2 class="section-title">The people behind MILAMIN</h2>
+      <div class="prose archive">
+        <p>The people who contributed to the development of MILAMIN:</p>
+        <ul>
+          <li><strong>Marcin Dabrowski</strong> &ndash; then PGP, University of Oslo;
+            today head of the Computational Geology Laboratory,
+            Polish Geological Institute &ndash; NRI, Wroc&#322;aw.</li>
+          <li><strong>Marcin Krotkiewski</strong> &ndash; then PGP, University of Oslo;
+            today Scientific Computing Services, USIT, University of Oslo.</li>
+          <li><strong><a href="https://www.linkedin.com/in/danischmid/">Dani Schmid</a></strong> &ndash; then PGP, University of Oslo;
+            today CEO of <a href="https://bergwerk.com">Bergwerk</a>.</li>
+        </ul>
+        <p>The development of MILAMIN was made possible through the support of PGP: Physics of Geological Processes, University of Oslo &ndash; today part of the <a href="https://www.mn.uio.no/njord/">Njord Centre</a>.</p>
+      </div>
+
+    </main>
+  <!-- site:footer -->
+  </body>
+</html>

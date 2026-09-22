@@ -1,0 +1,16 @@
+node_modules/
+dist/
+apps/*/dist/
+
+# Eigen/SuiteSparse sources for the fem-core wasm build (fetched, not committed)
+packages/fem-core/wasm-src/eigen/
+packages/fem-core/wasm-src/suitesparse/
+packages/fem-core/wasm-src/build-st/
+packages/fem-core/wasm-src/build-mt/
+apps/*/verify/reference*.json
+apps/*/verify/*.raw
+apps/*/verify/preview*.png
+
+# local notes, not part of the repository
+/TODO.md
+/apps/milamin/docs/questions.md

@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technical notes – MILAMIN</title>
+    <script type="module" src="./src/landing.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main class="arch-main">
+      <header class="site">
+        <nav class="crumbs"><a href="./index.html">MilAMin</a> / <a href="./original.html">The original MILAMIN</a> / Technical notes</nav>
+        <a class="arch-banner" href="./original.html" title="The original MILAMIN">
+          <img src="./archive/Header.jpg" alt="Original milamin.org banner: the 1e6/1 road-sign logo on a finite element mesh" />
+          <span class="arch-banner-title"><strong>MILAMIN</strong><span>Fast Finite Element Solver in MATLAB</span></span>
+        </a>
+        <h1>Technical notes</h1>
+        <p class="sub">The implementation notes from the original milamin.org: how MILAMIN computes element matrices, assembles, reorders, factorizes and solves large sparse systems fast in native MATLAB.</p>
+      </header>
+      <nav class="arch-toc">
+        <ul>
+          <li><a href="#assembly">1. Assembling the global matrix</a></li>
+          <li><a href="#system-solution">2. System solution</a>
+            <ul>
+              <li><a href="#boundary-conditions">2.1 Boundary conditions</a></li>
+              <li><a href="#reordering">2.2 Reordering</a></li>
+              <li><a href="#cholesky">2.3 Cholesky factorization</a></li>
+              <li><a href="#substitution">2.4 Forward and backward substitution</a></li>
+            </ul>
+          </li>
+          <li><a href="#architectures">3. Tested computer architectures</a></li>
+        </ul>
+      </nav>
+      <div class="prose archive">
+
+        <h2 class="section-title" id="assembly">1. Assembling the global matrix</h2>
+
+<p>In the Finite Element method a dense element matrix A_el of dimensions [ndofel X ndofel] is computed for every element. Since neighboring elements share nodes, the individual element contributions need to be assembled (summed up) in the global matrix A. During the assembly every element matrix A_el is added to the global matrix A in the row/column positions determined by the node (dofs) numbers stored in the ELEMS (DOFS) arrays.</p>
+<p>Unlike the dense element matrices the global matrix is sparse, i.e., most of its entries are zero. There is a characteristic average number of non-zero entries per row depending on the connectivity structure of the mesh. The exact number of entries per row depends on the element type and the number of degrees of freedom per node. Table 1 below gives an average number of row entries for various types of elements.</p>
+
+<table>
+<thead>
+	<tr>
+		<th></th><th>tri3</th><th>tri6</th><th>tri7</th><th>quad4</th><th>quad9</th><th>tet4</th><th>tet10</th><th>tet15</th><th>brick8</th><th>brick27</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>nnz(row/col)</td><td>7</td><td>11.5</td><td>12</td><td>9</td><td>16</td><td>14.6</td><td>28.4</td><td>31.4</td><td>26.7</td><td>63</td>
+	</tr>
+</tbody>
+</table>
+<p class="caption">Table 1. Average number of non-zero entries in every row/column of assembled system matrix for various element types.</p>
+
+<p>Since the number of entries per row of A is bounded from above by a constant, the total number of non-zero entries constitute a small (and decreasing with increasing the system size) fraction of all the matrix entries (nnz(A)~C*n vs. numel(A)=n<sup>2</sup>). Storing the zero entries and explicitly using them in computations is inefficient from the point of view of the memory and computational resources. For sparse matrices, dedicated storage formats have been developed that allow only the non-zero entries to be kept in the memory and used in computations. This is commonly done by keeping additional row and column index information along with every non-zero matrix entry.</p>
+<p>Below we show how to use the sparse storage and how to assemble the global sparse matrix A in MATLAB.</p>
+<h3>How not to do it in MATLAB</h3>
+<p>Consider the most straightforward implementation of assembling local matrices A_el into the global matrix A for a FEM problem with one dof per node.</p>
+
+<pre>A = sparse&#40;nnod,nnod&#41;;
+for iel=1:nel
+    indx = ELEMS&#40;:,iel&#41;;
+    ...
+    %compute element stiffness matrix A_el
+    ...
+    A&#40;indx,indx&#41; = A&#40;indx,indx&#41; + A_el;
+end</pre>
+
+<p>In the code fragment above the sparse matrix A initially contains only zero entries, i.e., very little memory is used by the data structure. During the execution of the element loop the sparsity pattern (the positions of the non-zero entries) of the global matrix A changes as the contributions from the elements are added. The internal data structure that holds the matrix entries and the auxiliary row/column index arrays need to be constantly reallocated and updated. In practice, in the above approach the time spent on the assembly largely exceeds the time needed to compute the element matrices.</p>
+<p>Since the sparsity pattern is determined by the mesh, the final data structure needed to hold the sparse matrix A can be<br/>
+allocated before the element loop. In this approach A explicitly stores zero entries in places (row/column pairs), which can contain non-zeros after the assembly. The matrix entries can be updated in the element loop. This requires an additional work of finding the correct memory location in the sparse data structure, but the large overhead connected with constant rebuilding of the sparse storage structure is avoided. Unfortunately, this approach is not a viable option in MATLAB for two reasons:</p>
+<ol>
+<li>It is not possible to explicitly store zero entries in sparse matrices in MATLAB, since those are automatically removed. Thus, it is not possible to initialize an empty sparse matrix with a predetermined sparsity pattern.</li>
+<li>In our experience updating a small set of entries of a sparse matrix in MATLAB also involves a substantial overhead. This could be caused by the additional time MATLAB spends on verifying that a sparse matrix only contains non-zero entries, which requires reading all the matrix entries from the memory &#8211; an overhead that grows with the system size.</li>
+</ol>
+<p>Overcoming the two deficiencies would require a major modification of the MATLAB sparse class.</p>
+<h3>Triplet sparse storage</h3>
+<p>A workaround solution is to compute and store all the element matrices A_el first and assemble them in one call to MATLAB <code>sparse</code> function, as shown in the code fragment below.</p>
+
+<pre>A_all = zeros&#40;nnodel*nnodel,nel&#41;;
+for iel=1:nel    
+    ...
+    %compute element stiffness matrix A_el
+    ...
+    A_all&#40;:,iel&#41; = A_all&#40;:,iel&#41; + A_el&#40;:&#41;;
+end
+&nbsp;
+indx_j = repmat&#40;1:nnodel,nnodel,1&#41;; 
+indx_i = indx_j';
+Ai = ELEMS&#40;indx_i&#40;:&#41;,:&#41;;
+Aj = ELEMS&#40;indx_j&#40;:&#41;,:&#41;;
+&nbsp;
+A = sparse&#40;Ai,Aj,A_all&#41;;</pre>
+
+<p>In this approach all the element matrices are first stored in A_all array. Next, the row and column indices for every entry of all the element matrices are computed (Ai, Aj). This method of representing a sparse matrix is called the <em>triplet format</em>: for every matrix entry the corresponding row/column information is stored explicitly. Duplicate Ai, Aj pairs exist in the triplet list. The global matrix assembly is performed in one call to a dedicated MATLAB function <code>sparse</code>, which adds the duplicate entries.</p>
+<p>This implementation is much faster than the first described approach. The disadvantages are that all the element matrices need to be stored in the A_all array prior to the assembly. The memory requirements are additionally increased due to the need to store the arrays containing row/column indices. Due to the duplicates the number of entries in the triplet storage can vary between 6.3 to 1.4 times the number of non-zero entries in the assembled global matrix A. The exact amount of memory overhead depends on the element type (see the Table 2). If the matrix assembly is not followed by the much more memory intensive Cholesky factorization, the elevated memory requirements related to the (Ai, Aj, A_all) arrays might restrict the problem size that can be solved.</p>
+
+<table>
+<thead>
+	<tr>
+		<th>element type</th><th>tri3</th><th>tri6</th><th>tri7</th><th>quad4</th><th>quad9</th><th>tet4</th><th>tet10</th><th>tet15</th><th>brick8</th><th>brick27</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>ratio (triplet/crs)</td><td>2.6</td><td>1.6</td><td>1.4</td><td>1.8</td><td>1.3</td><td>6.3</td><td>2.6</td><td>1.6</td><td>2.4</td><td>1.4</td>
+	</tr>
+</tbody>
+</table>
+<p class="caption">Table 2. Ratio of the number of entries in the triplet to assembled sparse matrix format.</p>
+
+<p>In the triplet sparse format every non-zero matrix entry requires three data values: A_all &#8211; the value of the entry, and Ai/Aj &#8211; row and column index of the entry. The MATLAB function <code>sparse</code> only takes as arguments  A_all/Ai/Aj of type double. This means that in this storage format every triplet requires 3*8=24 bytes of memory. <code>sparse</code> removes the duplicate triplets and converts the matrix into MATLAB native sparse format CCS (<em>Compressed Column Storage</em>). In CCS sparse matrix A is stored column by column and every non-zero entry only requires its row index in addition to the value. In MATLAB Both row indices and data values use 8 bytes of memory per non-zero entry. Hence, the memory requirements for the assembled matrix A are 1.5 times the duplicates ratio lower than for the triplet storage. </p>
+<p>The algorithmic complexity of converting the triplet sparse format to the native MATLAB sparse format (CCS &#8211; <em>Compressed Column Storage</em>) is O(n), i.e., it is linear with the system size n. It means that this approach is scalable with the number of elements and nodes in the mesh &#8211; doubling the mesh size requires twice the number of operations and double the amount of memory to assemble the global matrix A.</p>
+<h3><code>sparse</code> vs. <code>sparse2</code></h3>
+<p>The efficiency of the triplet approach can be further improved by using the <code>sparse2</code> function provided by the SuiteSparse package from Tim Davis [1]. The entire procedure of global matrix assembly is essentially the same as described above, with minor differences that result in significant execution time improvement</p>
+<ol>
+<li>Ai and Aj index arrays must be of type <code>double</code> in the case of MATLAB <code>sparse</code> routine. For <code>sparse2</code> they can be of type <code>int32</code>. Since doubles use 8 bytes and integers use 4 bytes, less memory is required. </li>
+<li>Since accessing memory takes time, using integers for the Ai/Aj index arrays speeds up the code.</li>
+<li><code>sparse2</code> supports creation of logical sparse matrices, i.e., matrices that contain 1 where there is a non-zero entry. In this case the matrix entries are also stored as integers instead of doubles, which further speeds up the code. Logical matrices can be used e.g., to compute the reordering.</li>
+</ol>
+<h3><code>sparse_create</code></h3>
+<p>In the triplet approach shown in the code fragment above the index arrays Ai/Aj are explicitly constructed based on the element dof information by generating all-to-all connections for all the dofs. However, explicit construction of Ai/Aj index arrays is not necessary and the index pairs for every element matrix stored in A_all can be generated on the fly from ELEMS by a <code>sparse</code>-like routine.</p>
+<p><code>sparse_create</code> is a MEX function distributed with MILAMIN that takes as the parameters the ELEMS and A_all arrays and assembles the global system matrix A. It can create symmetric (lower triangular part) and general matrices</p>
+
+<pre>A = sparse_create&#40;ELEMS, A_all, 0&#41;;   % general sparse matrix
+A = sparse_create&#40;ELEMS, A_all, 1&#41;;   % symmetric sparse matrix, lower triangular part</pre>
+
+<p>The memory requirements of <code>sparse_create</code> are significantly smaller than of the approach using triplet storage. Except for the A_all, it does not require any space to be allocated for the duplicate entries. This results in significant memory savings for the &#8216;lighter&#8217; elements like tri3 and tet4 (see Table 2). Thanks to much smaller memory requirements it is usually as fast as or faster than <code>sparse2</code>. In addition, it does not require the Ai/Aj index arrays to be created, which saves even more time. </p>
+<p>Instead of A_all one can supply no arguments or &#8216;true&#8217;, in which case a symbolic sparse matrix is created containing 1 in all the non-zero entries. This syntax is useful when the matrix is only needed to compute reordering of the nodes.</p>
+
+<pre>A = sparse_create&#40;ELEMS&#41;;</pre>
+
+<p>Algorithmic complexity of <code>sparse_create</code> is also O(n).</p>
+<h3>Efficiency tests</h3>
+<img class="arch-fig" src="./archive/sparse_tri3.png" alt="sparse_tri3" loading="lazy" /><p>Figure 1. Time required to perform global sparse matrix assembly for 2D meshes of 3-node triangular elements using different methods. Symmetric sparse matrix is created. Computer: valinor.</p>
+<p>Figure 1 shows the time needed to assemble the lower triangular part of the global sparse matrix A given the element matrices A_all using the described methods. The 3-node triangular element meshes are considered. For this element type <code>sparse_create</code> is clearly better than the approach based on the triplet storage, especially if the time required to compute the Ai/Aj index arrays is included.</p>
+
+<table>
+<thead>
+	<tr>
+		<th></th><th>tri3</th><th>tri6</th><th>tri7</th><th>quad4</th><th>quad9</th><th>tet4</th><th>tet10</th><th>tet15</th><th>brick8</th><th>brick27</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>sparse_create</td><td>2.98</td><td>0.63</td><td>0.46</td><td>3.30</td><td>0.53</td><td>2.57</td><td>0.24</td><td>0.08</td><td>0.86</td><td>0.04</td>
+	</tr>
+	<tr>
+		<td>sparse2</td><td>2.0</td><td>0.39</td><td>0.28</td><td>1.35</td><td>0.28</td><td>0.96</td><td>0.17</td><td>0.07</td><td>0.37</td><td>0.03</td>
+	</tr>
+	<tr>
+		<td>sparse</td><td>0.52</td><td>0.16</td><td>0.12</td><td>0.41</td><td>0.07</td><td>0.34</td><td>0.07</td><td>0.03</td><td>0.12</td><td>0.01</td>
+	</tr>
+</tbody>
+</table>
+<p class="caption">Table 3. Efficiency in millions of elements per second of the different methods to assemble the global matrix A Time needed to compute Ai/Aj index arrays is included in results of sparse2 and sparse. Computer: valinor.</p>
+
+<p>The performance gain of <code>sparse_create</code> in Figure 1 is due to a relatively high number of duplicate entries for this type of mesh, as shown in Table 2. For other element types the advantage of <code>sparse_create</code> in terms of execution time might be lower, as shown in the Table 3. </p>
+<p>The memory requirements of the different implementations are shown in Table 4.</p>
+
+<table>
+<thead>
+	<tr>
+		<th></th><th>sparse_create</th><th>sparse2</th><th>sparse</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>A_elem</td><td>1.6</td><td>1.6</td><td>1.6</td>
+	</tr>
+	<tr>
+		<td>ELEMS</td><td>0.4</td><td>0.4</td><td>0.4</td>
+	</tr>
+	<tr>
+		<td>NODES</td><td>0.3</td><td>0.3</td><td>0.3</td>
+	</tr>
+	<tr>
+		<td>A</td><td>1.2</td><td>1.2</td><td>1.2</td>
+	</tr>
+	<tr>
+		<td>Ai + Aj</td><td>0</td><td>1.6</td><td>3.2</td>
+	</tr>
+	<tr>
+		<td>assembly workspace including Ai/Aj</td><td>3.1</td><td>9.5</td><td>10.9</td>
+	</tr>
+	<tr>
+		<td><b>maximum amount of memory allocated at any time</b></td><td><b>5.4</b></td><td><b>11.8</b></td><td><b>13.2</b></td>
+	</tr>
+	<tr>
+		<td>assembly time (s)</td><td>10</td><td>25</td><td>56</td>
+	</tr>
+</tbody>
+</table>
+<p class="caption">Table 4. Memory usage (in GB) of different global matrix assembly implementations. 3-node triangular element, 33 million elements, 16.5 million nodes.</p>
+        <h2 class="section-title" id="system-solution">2. System solution</h2>
+
+<p>The approximate solution to the original PDE is obtained by solving a linear system of equations</p>
+<p class="eq">A*x = b</p>
+<p>where A is a square coefficients matrix of size n*n (system matrix), x is the solution vector of size n, and b is the right-hand side vector of size n. The solution vector x could be obtained by a direct computation of the inverse of the matrix A as</p>
+<p class="eq">x = A<sup>-1</sup>*b</p>
+<p>However, this approach is not practical. The matrix A is sparse, i.e., the fraction of non-zero entries is low. On the other hand, the inverse matrix A<sup>-1</sup> is a dense matrix even for the simplest tri-diagonal system of equations. Hence, the large memory requirements severely limit the systems that can be solved in practice. A system of 1 million degrees of freedom (unknowns) would require around 8 terabytes of RAM to store the inverse matrix (1e6^2*8).</p>
+<p>There are numerous efficient algorithms that limit the number of arithmetic instructions and bytes of memory required to solve sparse systems of linear equations on modern computers. Possibly the most basic algorithm is the LU factorization &#8211; a variant of the Gaussian elimination. The system matrix A is represented as a product of two matrices L and U</p>
+<p class="eq">A = L*U</p>
+<p>such that L is a lower-triangular matrix, and U is an upper-triangular matrix. The original system of equations is now expressed as</p>
+<p class="eq">(L*U)*x = b</p>
+<p>and the solution vector x can be obtained by</p>
+<p class="eq">x = U<sup>-1</sup>*(L<sup>-1</sup>*b)</p>
+<p>Since the LU factors are triangular, the solution vector can be easily obtained by forward and backward substitution instead of explicitly computing the inverse matrices. Using the MATLAB notation we write</p>
+<p class="eq">x = U\(L\b)</p>
+<p>where the backslash operator (\) denotes the forward/backward substitution.</p>
+<p>Compared to the naive approach of computing A<sup>-1</sup>, sparse factorization can only perform better if the LU factors are sparse. MILAMIN renumbers the unknowns and the matrix to minimize the number of non-zero entries in the factor using various fill-reducing reordering techniques. Essentially, the unknowns are renumbered and the matrix is permuted using a permutation vector</p>
+<p class="eq">perm = f(A)</p>
+<p class="eq">A = A(perm,perm)</p>
+<p>Further savings on memory and operation requirements can be made for special types of matrices. For example, symmetric positive definite matrices can be factorized using the Cholesky factorization</p>
+<p class="eq">A = L*L'</p>
+<p>where L is a lower triangular factor and L&#8217; is its transpose. Computing only one lower triangular factor roughly halves the number of operations and the amount of memory required.</p>
+<p>In short, the algorithm for the solution of the global system of linear equations used in MILAMIN consists of four major steps:</p>
+<ul>
+<li><a title="  Boundary Conditions" href="#boundary-conditions">Application of the boundary conditions to A</a></li>
+<li><a title="  Reordering" href="#reordering">Reordering of the unknowns to reduce the number of non-zero entries in the factor (A=A(perm,perm))</a></li>
+<li><a title="  Cholesky Factorization" href="#cholesky">Factorization of the reordered system matrix (A=L*L&#8217;)</a></li>
+<li><a title="  Backward Forward Substitution" href="#substitution">Solution of the factorized system using backward-forward substitution (x = L\(L&#8217;\b))</a></li>
+</ul>
+<p>We present several approaches to perform the above steps using MATLAB and the MILAMIN software package. Our major interest is the efficiency of the implementation, and the memory consumption. We show how to solve large systems in a reasonable time on modern multi-core shared memory CPU architectures.</p>
+        <h2 class="section-title" id="boundary-conditions">2.1 Boundary conditions</h2>
+
+<p>Consider the linear system of equations</p>
+<p class="eq">A*x = b</p>
+<p>where A is a symmetric matrix discretizing a scalar-valued elliptic PDE (A is a discrete Laplace operator). Finding solutions to elliptic PDEs on finite domains requires setting boundary conditions e.g., the Dirichlet, Neumann, or periodic. </p>
+<p>We consider efficient application of the Dirichlet boundary conditions, i.e., the x value in the boundary nodes is explicitly defined. Assume node with index <em>k</em> is a boundary node. To set the value of x(k)=1 the <em>k</em>&#8216;th row of the system matrix A is modified in the following way</p>
+<p class="eq">A(k,i)=0 for i=1:n and i!=k<br/>
+A(k,k)=1</p>
+<p>In other words, the diagonal entry of the <em>k</em>&#8216;th row is set to one, and all other entries are set to 0. The <em>k</em>&#8216;th entry of the right-hand side vector b is set to 1</p>
+<p class="eq">b(k)=1</p>
+<p>This way the <em>k</em>&#8216;th equation is trivial and reads</p>
+<p class="eq">1*x(k)=1</p>
+<p>Note that after this modification the system matrix A is no longer symmetric. The non-zero columns of the <em>k</em>&#8216;th matrix row have been explicitly set to 0. The symmetry can be regained by setting all the rows in the <em>k</em>&#8216;th matrix column to 0. This is done by eliminating the known x(k) from all the equations it is part of. For every equation <em>i</em>, for which A(i, k) is non-zero the right-hand side vector entry b(k) is modified as</p>
+<p class="eq">b(k) = b(k) - A(i,k)*x(k)</p>
+<p>and the system matrix is modified as</p>
+<p class="eq">A(i,k) = 0</p>
+<p>In general, there are in total n degrees of freedom. Assume there is a set of Dirichlet boundary nodes with indices <em>Bc_ind</em> and boundary values <em>x(Bc_ind) = Bc_val</em>. We denote the indices of the unconstrained nodes as Free_ind. The boundary conditions can be implemented by directly applying the above described modifications to A and b for every boundary node separately.</p>
+
+<pre>Free_ind = 1:n;
+Free_ind&#40;Bc_ind&#41; = &#91;&#93;;
+&nbsp;
+% for all boundary nodes
+for id=1:length&#40;Bc_ind&#41;
+&nbsp;
+    % deal with equation k
+    k = Bc_ind&#40;id&#41;;
+&nbsp;
+    % eliminate the k'th variable
+    rows = A&#40;Free_ind,k&#41;;
+    b&#40;Free_ind&#41; = b&#40;Free_ind&#41; - rows*Bc_val&#40;id&#41;;
+&nbsp;
+    % modify A and b
+    A&#40;:,k&#41; = 0;
+    A&#40;k,:&#41; = 0;
+    A&#40;k,k&#41; = 1;
+    b&#40;k&#41; = Bc_val&#40;id&#41;;
+end</pre>
+
+<p>This implementation is very inefficient since every boundary node is processed independently. In particular, resetting row (and column) entries of a sparse matrix to zero introduces costly changes to the sparsity pattern. Avoiding multiple modifications of the sparsity pattern of A is expected to minimize the related overhead.</p>
+<p>The code fragment below presents two different approaches to apply the Dirichlet boundary conditions in MATLAB efficiently. Instead of modifying matrix entries, the rows and columns corresponding to the boundary nodes can be all together removed from the system. The update to the right hand side vector is recast into a (dense) matrix-vector multiplication. For symmetric matrices only the upper- or lower-triangular part of A needs to be stored and the implementation is modified accordingly.</p>
+
+<pre> Free = 1:n;
+ Free&#40;Bc_ind&#41; = &#91;&#93;;
+ b = zeros&#40;n,1&#41;;
+ b&#40;Bc_ind&#41; = Bc_val;
+&nbsp;
+% Approach Ia:
+ b = b - &#40;A&#40;:,Bc_ind&#41; + cs_transpose&#40;A&#40;Bc_ind,:&#41;&#41;&#41;*Bc_val';
+% Approach Ib:
+ b = b - &#40;A&#40;:,Bc_ind&#41; + &#40;A&#40;Bc_ind,:&#41;&#41;'&#41;*Bc_val';
+% Approach IIa:
+ b = b - A*x - &#40;x'*A&#41;';
+% Approach IIb:
+ b = b - A*x - A'*x;
+&nbsp;
+% Elimination of trivial equations 1
+ A = A&#40;Free_ind,Free_ind&#41;;
+&nbsp;
+% Elimination of trivial equations 2
+ A&#40;:,Bc_ind&#41; = &#91;&#93;;
+ A&#40;Bc_ind,:&#41; = &#91;&#93;;</pre>
+
+<p>Execution time of the above implementations on an example desktop architecture is compared in Figure 2 below. The system size is approximately one million degrees of freedom. The number of <em>Bc_ind</em> nodes in the system varies. When the fraction of the boundary nodes is smaller than 1% we observe no substantial difference in the performance of the four methods (Ia,Ib,IIa,IIb) to modify the right-hand side vector <em>b</em>. Most practical two-dimensional models are in this regime. For higher fractions of up to 40% the approaches <em>IIa</em> and <em>IIb</em> perform equally well as for the lower fractions. Implementations <em>Ia</em> and <em>Ib</em> are significantly less efficient in this regime.</p>
+<p>Figure 3 below presents the execution time of the two studied methods to eliminate the rows and columns corresponding to the boundary nodes from the system matrix A. When the fraction of the boundary nodes is smaller than 1% the <em>Elimination 1</em> is slightly more efficient than <em>Elimination 2</em>. For higher fractions of boundary nodes <em>Elimination 1</em> becomes increasingly more efficient, while the performance of <em>Elimination 2</em> remains unchanged.</p>
+<p>In summary, approaches <em>IIa</em> or <em>IIb</em> should be used to modify the right-hand side vector <em>b</em>, and <em>Elimination 1</em> should be used to remove the trivial equations for the boundary nodes <em>Bc_ind</em> from the system matrix A.</p>
+
+<div class="arch-slider">
+  <figure class="active"><img src="./archive/BCtest_4apps.png" alt="Figure 2: CPU time to modify the right-hand side, four approaches" /><figcaption>Figure 2. Computational time required to modify the right-hand side of the linear system of equations, in order to apply the boundary conditions. Results using four different approaches, described in the code fragment above, are presented.</figcaption></figure>
+  <figure><img src="./archive/BCtest_2elims.png" alt="Figure 3: CPU time to eliminate boundary rows and columns, two approaches" /><figcaption>Figure 3. Computational time required to eliminate the rows and columns, corresponding to the Dirichlet boundary indexes, from the stiffness matrix. Results using two different approaches, described in the code fragment above, are presented.</figcaption></figure>
+</div>
+        <h2 class="section-title" id="reordering">2.2 Reordering</h2>
+
+<p>Direct solvers of linear systems of equations factorize the system matrix A into a product of lower- and upper-triangular matrices, e.g. A=L*U in case of LU factorization, or A=L*L<sup>T</sup> in case of Cholesky factorization. Although for the problems considered here the system matrix A is sparse (nnz(A) &lt;&lt; n<sup>2</sup>), usually the number of non-zero entries in the factors is significantly larger than in the system matrix. New non-zero entries are added in the factors compared to the system matrix A and in the worst case scenario the factors can be dense triangular matrices.</p>
+<p>The number of the additional non-zero entries introduced during the factorization, often referred to as the <em>fill-in</em>, depends on the structure of A. Renumbering of the unknowns prior to the factorization alters the non-zero structure (the sparsity pattern) of A and therefore affects the fill-in. The aim of the reordering step is to find a permutation of the unknowns that minimizes the fill-in. To summarize, the fill-reducing reordering is crucial since it decreases both memory and computational requirements:</p>
+<ul>
+<li>The fill-in determines the amount of memory required to store the factors. If the memory requirements are larger than the available RAM the factorization will either fail, or will be significantly slower due to swapping.</li>
+<li>The amount of fill-in affects the flop count, and consequently the computational time required to perform the factorization.</li>
+<li>The number of non-zero entries in the factors affects the flop count and the computational time required to perform the backward and forward substitution.</li>
+</ul>
+<p>Finding the optimal reordering that would result in a minimum fill-in is an NP-hard problem. Essentially, this means that for a general sparse matrix there is no efficient algorithm to find the best permutation and effectively all of the permutations need to be checked. Clearly, this is not practical even for systems with hundred unknowns. Various heuristic reordering techniques have been developed that aim at decreasing the fill-in during sparse factorization well enough and in a reasonable time. In this section we present a comparison of the AMD and METIS algorithms. AMD (Approximate Minimum Degree) is an built-in MATLAB routine, while METIS is accessible in MATLAB through the SuiteSparse package. These techniques are very effective for matrices resulting from discretization of PDEs using local methods.</p>
+<h4>Reordering, Fill-in, and Flop Count during factorization</h4>
+<p>Figure 4 presents a comparison of the effectiveness of AMD and METIS reorderings. The number of non-zero entries in the factor nnz(L) is shown as a function of the system size for 2D and 3D domains discretized with 3-node triangles and 4-node tetrahedrons, respectively. In the log-log space nnz(L) can be fitted by a linear function of the number of mesh nodes n. This means that nnz(L) is a power-law function of n</p>
+<p class="eq">nnz(L) = n<sup>&alpha;</sup></p>
+<p>The larger the exponent &alpha;, the faster the number of non-zero entries in the factor grows with the system size. In practice this means that lower exponents allow larger systems to be solved on a computer with a given memory configuration. In the shown comparison the exponent is larger for AMD reordering in both 2D and 3D: 1.19 and 1.59, respectively, compared to 1.13 and 1.42 obtained using METIS. </p>
+<img class="arch-fig" src="./archive/amd_vs_metis.png" alt="amd_vs_metis" loading="lazy" /><p>Figure 4. Number of non-zero entries in the factor for AMD and METIS reorderings. Matrices resulting from FEM meshes with 2D 3-node triangular elements and 3D 4-node tetrahedral elements. One degree of freedom per mesh node.</p>
+<p>Figure 5 presents nnz(L) as a function of the system size n for two- and three-dimensional meshes and for various elements. Only METIS reordering is shown. Sparse matrices considered result from Finite Element discretization of the Poisson&#8217;s equation (1 degree of freedom per mesh node). The power-law exponent is different in two and three dimensions, but similar for different element types. </p>
+<img class="arch-fig" src="./archive/metis_nnzL.png" alt="metis_nnzL" loading="lazy" /><p>Figure 5. Number of non-zero entries in the factor depending on spatial dimension of the mesh, system size and element type. One degree of freedom per mesh node. METIS fill-reducing reordering. Memory requirements for the factors assuming MATLAB sparse storage marked for reference.</p>
+<p>Figure 6 presents the number of floating point operations (flop count) required to perform the factorization of the global stiffness matrix after reordering. Also in this case the number of flops required is a power-law function of the system size. The table below summarizes the power-law exponents for matrices resulting from 2D and 3D problems averaged for different element types.</p>
+<img class="arch-fig" src="./archive/metis_flops.png" alt="metis_flops" loading="lazy" /><p>Figure 6. Flop count of the Cholesky factorization depending on spatial dimension of the mesh, system size and element type. One degree of freedom per mesh node. METIS fill-reducing reordering.</p>
+<table>
+<tbody>
+<tr>
+<td></td>
+<td>2D</td>
+<td></td>
+<td>3D</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>nnz(L)</td>
+<td>flop count</td>
+<td>nnz(L)</td>
+<td>flop count</td>
+</tr>
+<tr>
+<td>AMD</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>METIS</td>
+<td>1.13</td>
+<td>1.56</td>
+<td>1.40</td>
+<td>2.06</td>
+</tr>
+<tr>
+<td>Theoretical bounds</td>
+<td>n log(n)</td>
+<td>1.50</td>
+<td>1.33</td>
+<td>2.00</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h4>A system size of one million nodes<br/>
+</h4>
+<p>As seen in Figure 4, for systems with around 1 million nodes in 2D the difference in memory consumption is not very signifficant. The memory usage due to the factor is 1.7 GB and 1.2 GB for AMD and METIS reorderings, respectively. The difference shows much more in 3D: with AMD the factor uses 43 GB of RAM, while with METIS only 13 GB.</p>
+<p>For a system size of one million degrees of freedom in 2D the number of non-zero entries in the factor resulting from the METIS reordering is approximately two times lower than that obtained using AMD. The difference is approximately five times for the 3D problems. Considering the flop count, for 2D and 3D problems METIS results in 2 times and 15 times less work, respectively.</p>
+<h4>CPU Time Required to Compute Reordering</h4>
+<p>The reordering step is itself a rather costly operation. The time required to find the permutation of the unknowns should be considered in view of the number of times the permutation vectors can be reused. Note that the permutation only needs to be computed when the mesh topology changes. Hence, whether a best possible reordering is crucial, or whether the reordering time also contributes significantly to the total solution time depends on the problem at hand.</p>
+<p>Figure 4 above shows the CPU time required to find the reordering using AMD and METIS. Reordering is computed using sparse matrices resulting from two-dimensional meshes of 7-node triangular elements, one degree of freedom per node. Note that the CPU time spent on the reordering scales non-linearly with the system size, with power-law exponents varying from 1.06 &#8211; 1.16 for both reordering schemes. AMD appears to be generally more efficient than METIS, with approximately 6 times shorter CPU times for all system sizes.</p>
+<h4>Summary of the Comparison of AMD and METIS Reordering Schemes<br/>
+</h4>
+<p>We have presented the results from three different studies, in which we compared the performance of the AMD and METIS reordering schemes. While it takes less CPU time to compute the reordering using AMD scheme, it results in a larger number of operations (<em>nop</em>) required to perform the Cholesky factorization, as well as higher fill-in (<em>nnz</em>) of the matrix. The benefit from using METIS, in terms of <em>nop</em> and <em>nnz</em>, is higher for larger system sizes, as a result of super-linear scaling, and is especially significant for the three-dimensional problems. If the reordering can be reused for a large number of steps, it is recommended to use the METIS scheme.</p>
+<h4>Application of the Reordering to the Global System of Linear Equations</h4>
+<p>In this subsection we discuss two different approaches to apply the computed permutation vectors to the global stiffness matrix, only the lower part of which is stored. First approach is presented in Code Fragment 1, and utilizes the external libraries <em>cs_transpose</em> and <em>cs_symperm</em>, provided by the Suite Sparse package. The second approach is presented in Code Fragment 2, and only utilizes the inbuilt MATLAB-routines. The computational time required to carry out each of these code fragments, as a function of system size, is presented in the figure below. We observe that the Code Fragment 2 is more efficient, with an increasing gain for larger system sizes.</p>
+<p><strong>Code Fragment 1:</strong></p>
+
+<pre> A = cs_transpose&#40;A&#41;;
+ A = cs_symperm&#40;A,perm&#41;;
+ A = cs_transpose&#40;A&#41;;</pre>
+
+<p><strong>Code Fragment 2:</strong></p>
+
+<pre> A = A&#40;perm,perm&#41;;
+ A = tril&#40;A&#41; + triu&#40;A,1&#41;';</pre>
+        <h2 class="section-title" id="cholesky">2.3 Cholesky factorization</h2>
+
+<p>In the cases when the system matrix A is <em>symmetric positive definite</em> (SPD) the Cholesky factorization can be used to decompose the system matrix A into a product of two triangular matrices</p>
+<p class="eq">A = L*L'</p>
+<p>where L is a lower triangular factor and L&#8217; is its transpose. Whenever applicable, the Cholesky algorithm is advantageous to other direct methods of solving linear systems of equations.</p>
+<ol>
+<li>Only the lower triangular part of matrix A needs to be computed and assembled in the memory.</li>
+<li>The Cholesky algorithm only computes the lower triangular factor, which roughly halves the number of operations and the amount of memory required.</li>
+<li>Cholesky factorization is fully deterministic and does not depend on the matrix entries, i.e., it does not require pivoting. Consequently, <em>symbolic factorization</em> can be used to determine the exact non-zero structure of the factor based on the non-zero structure of A before the actual factorization is computed. This improves the performance significantly because required memory structures can be pre-allocated beforehand.</li>
+</ol>
+<p>MATLAB is distributed with CHOLMOD, a fast Cholesky algorithm implementation by Tim Davis [1]. Factorization of a symmetric sparse matrix A, of which only the lower triangular part is stored in the memory, is invoked with the following syntax</p>
+<p class="eq">L = chol(A,'lower');</p>
+<p><strong>Remark:</strong> For MATLAB versions older than 2011a it is recommended to download the newest version of CHOLMOD directly and compile it to have a better performing Cholesky solver. MILAMIN2 will attempt to do this automatically.</p>
+<h3>Sequential Factorization Performance</h3>
+<p>The time required to compute the factor is determined by two major factors: the system size n, which determines the factorization operation count, and the computational capabilities of the computer. As shown in the <a title="  Reordering" href="#reordering">Reordering</a> section, using METIS reordering the number of FLOPs required to compute the factor is proportional to n<sup>1.56</sup> and n<sup>2.06</sup> for 2D and 3D problems, respectively.</p>
+<h4>2D Problems</h4>
+<p>Assuming the computer used to perform the calculations has a performance of X floating point operations per second (FLOP/s), the time required to factorize a matrix for a 2D thermal problem can be estimated as</p>
+<p class="eq">t<sub>2D</sub>(n) = C * n<sup>1.56</sup> / X</p>
+<p>where C depends on the element type used and the number of degrees of freedom per node. In practice the above performance model is modified by the fact that the computational performance during factorization also depends on the system size n, i.e., X=X(n), see Figure 7.</p>
+<img class="arch-fig" src="./archive/2d_cpueff.png" alt="2d_cpueff" loading="lazy" /><p>Figure 7. Efficiency on 1 CPU core (or fraction of peak FLOP/s performance) of Cholesky factorization for matrices resulting from 2D thermal problems discretized using a variety of elements. The computer used in the tests was Valinor - a Dell server with Xeon E7- 4870 CPUs (see Tested Computer Architectures section). Peak per-core performance of 11.2 GFLOP/s.</p>
+<p>One conclusion that can be drawn from this figure is that the CPU can compute the factorization more efficiently for larger matrices. There are a number of reasons for this behavior.</p>
+<ol>
+<li>The performance of Cholesky factorization largely depends on the performance of BLAS Level 3 dense matrix-matrix multiplication (GEMM) and triangular solve with multiple right-hand sides (TRSM) implementations. On modern multi-core CPU architectures BLAS L3 is often advertised to run close to (more than 90%) the peak multi-core performance for <em>large enough</em> matrices. However, for small matrices the performance is well below the peak of even a single CPU core. Thus, performance of the Cholesky solver depends on the types of dense matrices being multiplied. (Note that in tests presented in Figure 7. we used a single-threaded BLAS. Parallel performance is considered later.)</li>
+<li>During sparse Cholesky factorization BLAS L3 routines are executed for a variety of dense matrices with different dimensions. In the <a title="  Reordering" href="#reordering">Reordering</a> section it has been demonstrated that the number of non-zeros in the factor grows like system size n to some power greater than 1. In fact, it can be observed that for the growing system size n the dimensions of the matrices that need to be multiplied also grow. For large enough n BLAS L3 calls for the largest matrices start to dominate the total execution time, hence the improved overall efficiency of Cholesky factorization.</li>
+<li>For larger systems the overhead connected with initialization of the Cholesky algorithm is relatively smaller. In the symbolic factorization stage the number of non-zero entries in every row of the factor is computed. The complexity of symbolic factorization is linear with respect to the system size. Hence, the overhead introduced by this stage disappears with the system size.</li>
+</ol>
+<p>Figure 7 demonstrates that for 2D thermal problems the factorization achieves only around 50% of the peak CPU performance for systems as large as 4 million degrees of freedom. 70-80% of the peak is achieved for systems with roughly 100 million degrees of freedom. Note that the performance is better for quad elements and the 6-node triangular element, while lower performance is observed for the 3- and 7-node elements.</p>
+<h4>3D Problems</h4>
+<img class="arch-fig" src="./archive/3d_cpueff.png" alt="3d_cpueff" loading="lazy" /><p>Figure 8. Efficiency on 1 CPU core (or fraction of peak FLOP/s performance) of Cholesky factorization for matrices resulting from 3D thermal problems discretized using a variety of elements. The computer used in the tests was Valinor - a Dell server with Xeon E7- 4870 CPUs (see Tested Computer Architectures section). Peak per-core performance of 11.2 GFLOP/s.</p>
+<p>Figure 8 shows factorization efficiency results for 3D thermal problems and various element types. Clearly, factorization efficiency for 3D problems is significantly better than for 2D. On the tested computer 50% of peak FLOP/s performance is achieved for problems with approximately 10<sup>4</sup> mesh nodes. For models with approximately 3-4 million nodes the solver runs at over 10 GFLOP/s, around 90% of a single core peak performance.</p>
+<h3>Parallel Factorization Performance</h3>
+<p>The literature on parallel direct solvers for various types of linear systems of equations is vast. Obtaining a scalable and highly parallel direct solver implementation is quite challenging considering both the technical requirements and the complexity of the algorithms. The approach used in MATLAB can be implemented relatively easily on multi-core systems with shared memory. It is based on the observation that the Cholesky solver makes extensive use of the BLAS library, especially of the GEMM/TRSM implementations. Hence, even though the CHOLMOD solver used by MATLAB is sequential, it can be parallelized to some extent by providing a parallel BLAS implementation.</p>
+<h4>2D Problems</h4>
+<img class="arch-fig" src="./archive/2d_quad4_pargflops.png" alt="2d_quad4_pargflops" loading="lazy" /><p>Figure 9. Parallel factorization performance, 2D thermal problem, 4-node quad element.</p>
+<p>Figure 9 presents the parallel performance of the Cholesky solver for a chosen 2D element on the 40-core Valinor SMP server. The peak performance of a single core on this computer is 11.2 GFLOP/s. For the largest studied system size (100 million dofs) the observed single core performance is roughly 9 GFLOP/s, 80% of peak (compare this to single core efficiency shown in Figure 7). Increasing the number of cores up to 16 results in some speedup. Further increase in the number of cores is ineffective or even degrades the performance. Similar behavior is observed for the smaller system sizes.</p>
+<p>For the largest problem size the highest achieved performance of ~50 GFLOP/s is more than 5 times the single core performance. Considering that 16 cores were used to achieve the 5 times speedup it is clear that the per-core efficiency significantly degrades in the parallel run. Indeed, 16 cores have a peak performance of 16*11.2=179.2 GFLOP/s. Hence, the observed 50 GFLOP/s corresponds to around 28% of the theoretical peak, while the single-core efficiency was 80%.</p>
+<img class="arch-fig" src="./archive/2d_quad4.png" alt="2d_quad4" loading="lazy" /><p>Figure 10. Efficiency (fraction of peak multi-core performance) of parallel Cholesky factorization. Matrices resulting from 2D meshes using quad4 elements. Valinor server.</p>
+<p>Figure 10 shows a systematic study of the efficiency of the parallel factorization for many 2D problem sizes and the 4-node quad element. Factorization efficiency defined as the fraction of the peak FLOP/s performance is shown for different number of CPU cores. For every parallel configuration the peak performance is calculated taking into account the number of cores actually used.</p>
+<p>As also seen in Figure 7, the single core factorization efficiency increases with the system size reaching 80% for the largest studied systems. Figure 10 demonstrates that when factorizing a given system of equations using an increasing number of cores the efficiency quickly degrades. However, as in the sequential case, for a fixed number of cores the efficiency clearly increases with an increasing system size. One can now ask how fast does the system size n need to grow to assure the same factorization efficiency on increasing number of cores. For example, in the considered 2D case 50% efficiency is obtained on 1 core for a problem size of roughly 2*10<sup>6</sup> nodes. What is the problem size for which the Cholesky solver will run with 50% efficiency on 2 cores? Such relation between the problem size n and the number of cores is called <em>isoefficiency function</em>.</p>
+<img class="arch-fig" src="./archive/2d_quad4_collapse.png" alt="2d_quad4_collapse" loading="lazy" /><p>Figure 11. Efficiency of parallel Cholesky factorization as a function of the system size scaled by the number of CPU cores squared. Matrices resulting from 2D meshes using quad4 elements. Valinor server.</p>
+<p>Figure 11 presents the same performance results as Figure 10, but the X axis &#8211; the problem size n &#8211; is in this case scaled by the number of cores squared. All the lines for parallel configurations with different number of CPU cores plot on the same curve. This means that with the employed parallelization technique, for the studied architecture, and for the 2D thermal problems discretized using 4-node quad element</p>
+<p class="eq">E = f(n/(ncores<sup>2</sup>))</p>
+<p>where E denotes efficiency. The above relation also holds for other tested 2D elements. Since for the single core case ncores<sup>2</sup>=1 and hence E=f(n), Figure 7 in fact shows the isoefficiency functions for different 2D element types. The usefulness of the above considerations can be demonstrated by the following practical examples.</p>
+<p><strong>Example 1.</strong> Assuming we want to use the 32 cores on Valinor with 50% efficiency to solve a 2D thermal problem, what is the system size n required? From Figure 11 we see that for 50% efficiency</p>
+<p class="eq">n/ncores<sup>2</sup> = 2*10<sup>6</sup></p>
+<p>Hence, if we use ncores=32</p>
+<p class="eq">n = 2*10<sup>6</sup>*32<sup>2</sup> = 2*10<sup>9</sup></p>
+<p><strong>Example 2.</strong> How much time will it take to factorize a system of size n=10<sup>8</sup> dofs using 32 CPU cores assuming METIS reordering is used?</p>
+<p class="eq">n/ncores<sup>2</sup> = 10<sup>8</sup>/32<sup>2</sup> = 10<sup>5</sup></p>
+<p>From Figure 11 we read that the expected factorization efficiency is in this case 18%. Hence, the expected factorization performance is roughly 0.18*32*11.2 = 64 GFLOP/s. From Figure 12 in the <a title="  Reordering" href="#reordering">Reordering</a> section we can infer that factorization of the given system will require around 5*10<sup>13</sup> floating point operations. Hence, with the expected performance it will take roughly</p>
+<p class="eq">t = 5*10<sup>13</sup> [FLOP] / 64*10<sup>9</sup> [FLOP/s] = 781 [s]</p>
+<p>The actual measured performance for the 4-node quad element and a system with 103 million dofs is 52 GFLOP/s and the factorization time on 32 CPU cores was 847 seconds.</p>
+<h4>3D Problems</h4>
+<img class="arch-fig" src="./archive/3d_tet4_collapse.png" alt="3d_tet4_collapse" loading="lazy" /><p>Figure 12. Efficiency of parallel Cholesky factorization as a function of the system size scaled by the number of CPU cores in 1.5 power. Matrices resulting from 3D meshes using tet4 elements. Valinor server.</p>
+<p>Figure 12 shows the isoefficiency function for the 4-node tetrahedral element. Parallel Cholesky solver is more scalable in 3D since in order to keep constant efficiency the problem needs to grow slower with the system size than in the 2D case</p>
+<p class="eq">E = f(n/(ncores<sup>1.5</sup>))</p>
+<p>or the system size needs to grow with the number of processors in power 1.5. These results are in agreement with other studies found in the literature on massively parallel sparse factorization [2].</p>
+<p>Clearly, sparse factorization for 3D problems is both more efficient for smaller system sizes, and more amenable to parallelization than in the 2D case. However, as shown in the <a title="  Reordering" href="#reordering">Reordering</a> section, the operation count and the number of non-zero entries in the factor grows much faster for 3D problems.</p>
+<p><strong>Example 3.</strong> In Example 2. above we considered a 2D problem with 10<sup>8</sup> nodes. In this case factorization required approximately 10<sup>14</sup> operations. For 3D problems similar number of operations is needed already for problems of size n=3*10<sup>6</sup>. Using 32 CPU cores to factorize this problem yields</p>
+<p class="eq">n/ncores<sup>1.5</sup> = 3*10<sup>6</sup>/(32<sup>1.5</sup>) = 2*10<sup>5</sup></p>
+<p>From Figure 12 we can see that in this case the expected factorization efficiency is around 75%, i.e., 265 GFLOP/s. This is more than 4 times faster than in the corresponding 2D case. However, in terms of the number of mesh nodes the 3D problem is 35 times smaller than its 2D counterpart. Consequently, in this example the 3D models are roughly 9 times more expensive per grid node.</p>
+<h3>References</h3>
+<ul class="refs">
+<li>[1] T. Davis, <em>SuiteSparse</em>, http://www.cise.ufl.edu/research/sparse/SuiteSparse/</li>
+<li>[2] A. Gupta, S. Koric, T. George, <em>Sparse Matrix Factorization on Massively Parallel Computers</em>, IBM Research Report, 2009</li>
+</ul>
+        <h2 class="section-title" id="substitution">2.4 Forward and backward substitution</h2>
+
+<p>Once the system matrix A has been factorized using the Cholesky factorization the original linear system of equations can be represented as </p>
+<p class="eq">LL<sup>T</sup>x<sub>perm</sub> = b<sub>perm</sub></p>
+<p>Note that the x and b vectors are permuted using the fill-reducing reordering used. The permuted solution vector x<sub>perm</sub> is obtained using forward substitution</p>
+<p class="eq">L<sup>T</sup>x<sub>perm</sub> = L<sup>-1</sup>b<sub>perm</sub></p>
+<p>followed by backward substitution</p>
+<p class="eq">x<sub>perm</sub> = (L<sup>T</sup>)<sup>-1</sup>L<sup>-1</sup>b<sub>perm</sub></p>
+<p>Using MATLAB the above can be implemented as</p>
+<p><strong>Code Fragment 1:</strong></p>
+
+<pre>x&#40;Free_ind&#40;perm&#41;&#41; = L'\&#40;L\b&#40;Free_ind&#40;perm&#41;&#41;&#41;;</pre>
+
+<p>where <em>perm</em> is the permutation vector and Free_ind is a vector holding the indices of unconstrained nodes (see the Boundary Conditions section).</p>
+<p>Since the same number of floating point operations needs to be performed in the forward (L\) and backward (L&#8217;\) substitutions, in the ideal scenario each step should take the same amount of time. However, in the above implementation the factor L needs to be explicitly transposed in order to perform backward substitution. The additional work causes this implementation to be sub-optimal.</p>
+<p>One option is to implement the above using the &#8216;/&#8217; (or mrdivide MATLAB function). This avoids explicit computation of L&#8217;, i.e., only L is used in the MATLAB code:</p>
+<p><strong>Code Fragment 2:</strong></p>
+
+<pre>x&#40;Free_ind&#40;perm&#41;&#41; = &#40;L\b&#40;Free_ind&#40;perm&#41;&#41;&#41;'/L;</pre>
+
+<p>However, according to the documentation mrdivide performs the transposition of the matrix internally:</p>
+<pre> /   Slash or right matrix divide.
+    A/B is the matrix division of B into A, which is roughly the
+    same as A*INV(B) , except it is computed in a different way.
+    More precisely, A/B = (B'\A')'. See MLDIVIDE for details.</pre>
+<p>Effectively, both above implementations have the same performance.</p>
+<p>The performance of backward substitution can be significantly improved with the help of the external library <em>SuiteSparse</em>. The function <em>cs_ltsolve</em> uses the lower-triangular factor L and performs the backward substitution without explicit matrix transposition</p>
+<p><strong>Code Fragment 3:</strong></p>
+
+<pre>x&#40;Free_ind&#40;perm&#41;&#41; = cs_ltsolve&#40;L,cs_lsolve&#40;L,b&#40;Free_ind&#40;perm&#41;&#41;&#41;&#41;;</pre>
+
+<p>As seen in Figure 13, this has a major impact on performance. Using SuiteSparse to perform both the forward and backward substitution improves the performance roughly four times over a native MATLAB implementation. The red curve shows the time needed to perform the native MATLAB forward substitution (L\) only. It takes roughly half the time needed by the SuiteSparse implementation to compute both substitution steps, which agrees with our expectations that the two stages should take the same time. The blue curve shows the time taken by the native MATLAB backward substitution (L&#8217;\). Clearly, the speedup of SuiteSparse comes from avoiding the explicit transposition of the factor.</p>
+<img class="arch-fig" src="./archive/substitution_time.png" alt="substitution_time" loading="lazy" /><p>Figure 13. Performance of forward and backward substitution using native MATLAB and SuiteSparse implementations.</p>
+        <h2 class="section-title" id="architectures">3. Tested computer architectures</h2>
+
+<p>The performance results presented throughout this website have been obtained using the following computers</p>
+
+<table>
+<thead>
+	<tr>
+		<th>Name</th><th>Model Name</th><th>CPU GHz</th><th>Num. CPUs</th><th>Num. CPU cores</th><th>Operating System</th><th>MATLAB-version</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>Valinor</td><td>Intel(R) Xeon(R) CPU E7- 4870  @ 2.40GHz</td><td>2.4 (2.8)</td><td>4</td><td>10</td><td>Red Hat Enterprise Linux Server release 6.1 (Santiago)</td><td></td>
+	</tr>
+	<tr>
+		<td>Hemlokk</td><td>Intel(R) Xeon(R) CPU E5530  @ 2.40GHz</td><td>2.4 (2.66)</td><td></td><td>4</td><td>Red Hat Enterprise Linux Client release 5.7 (Tikanga)</td><td></td>
+	</tr>
+	<tr>
+		<td>Palme</td><td>Intel(R) Xeon(R) CPU X5472  @ 3.00GHz</td><td>2.3</td><td></td><td>4</td><td>Linux 2.6.18-238.5.1.el5</td><td></td>
+	</tr>
+	<tr>
+		<td>Kauri</td><td>Dual-Core AMD Opteron(tm) Processor 2220</td><td>2.8</td><td>2</td><td>2</td><td>Red Hat Enterprise Linux Client release 5.7 (Tikanga)</td><td></td>
+	</tr>
+	<tr>
+		<td>Seder</td><td>Intel(R) Core(TM)2 Quad CPU    Q9550  @ 2.83GHz</td><td>2.8</td><td></td><td>4</td><td>Linux 2.6.18-238.12.1.el5</td><td></td>
+	</tr>
+</tbody>
+</table>
+<p class="caption">System specifics of all the computers used to investigate the performance of MILAMIN</p>
+      </div>
+    </main>
+  <!-- site:footer -->
+  </body>
+</html>

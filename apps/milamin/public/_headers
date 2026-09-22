@@ -1,0 +1,23 @@
+# COOP/COEP make the pages cross-origin isolated so the solver workers get
+# SharedArrayBuffer for the threaded sparse-solver wasm (spchol-mt).
+# applications.html opts out: its Vimeo embeds are cross-origin iframes that
+# COEP would block.
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+
+# HTML must always revalidate so phones pick up new deploys immediately;
+# the hashed assets under /assets/ stay long-cached.
+/*.html
+  Cache-Control: no-cache
+
+/
+  Cache-Control: no-cache
+
+/applications
+  ! Cross-Origin-Opener-Policy
+  ! Cross-Origin-Embedder-Policy
+
+/applications.html
+  ! Cross-Origin-Opener-Policy
+  ! Cross-Origin-Embedder-Policy

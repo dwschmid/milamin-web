@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: If you use MilAMin, please cite it as below, together with the 2008 MILAMIN paper.
+type: software
+title: "MilAMin: MILAMIN in the browser"
+abstract: >-
+  The MILAMIN finite element pipeline in the browser: Stokes flow on
+  unstructured triangular meshes with 7-node Crouzeix-Raviart elements,
+  Triangle meshing, supernodal Cholesky factorization and Powell-Hestenes
+  pressure iterations, in TypeScript and WebAssembly. A million unknowns a
+  minute on a phone, verified against analytical solutions. Playground,
+  benchmark, convergence lab and Folder for folding and boudinage.
+authors:
+  - family-names: Schmid
+    given-names: Daniel W.
+    orcid: https://orcid.org/0000-0002-4271-0858
+    affiliation: Bergwerk, Sandefjord, Norway
+    email: dani.schmid@bergwerk.com
+version: 1.0.0
+date-released: 2026-09-22
+license: GPL-2.0-or-later
+repository-code: https://github.com/dwschmid/milamin-web
+url: https://milamin.org
+keywords:
+  - finite element method
+  - Stokes flow
+  - WebAssembly
+  - TypeScript
+  - sparse Cholesky
+  - MILAMIN
+  - geodynamics
+  - structural geology
+references:
+  - type: article
+    title: "MILAMIN: MATLAB-based finite element method solver for large problems"
+    authors:
+      - family-names: Dabrowski
+        given-names: Marcin
+      - family-names: Krotkiewski
+        given-names: Marcin
+      - family-names: Schmid
+        given-names: Daniel W.
+    journal: Geochemistry, Geophysics, Geosystems
+    volume: 9
+    issue: 4
+    year: 2008
+    doi: 10.1029/2007GC001719

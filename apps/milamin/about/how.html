@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How it works – MilAMin</title>
+    <meta
+      name="description"
+      content="How the browser MilAMin is built and how to use it: the pipeline from mesh to picture, WebAssembly and threads, verification, the playground, Folder and how to reproduce the numbers."
+    />
+    <script type="module" src="../src/landing.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main>
+      <header class="site">
+        <nav class="crumbs"><a href="../index.html">MilAMin</a> / <a href="./index.html">About</a> / How it works</nav>
+        <h1>How it works</h1>
+        <p class="sub">
+          What runs when you press Run, what it is built on, how it is checked,
+          and how to get the most out of the playground and Folder. The short
+          version: the whole finite element pipeline, from mesh to picture,
+          executes in your browser, in TypeScript and WebAssembly, in a Web
+          Worker so the page stays responsive.
+        </p>
+      </header>
+
+      <div class="prose">
+        <h3>The pipeline</h3>
+        <p>
+          MILAMIN was never one trick. The 2008 paper showed that a general
+          unstructured finite element code reaches a million unknowns per
+          minute when every stage gets equal care: meshing, assembly,
+          factorization and postprocessing all have to scale, because the
+          moment one of them is neglected it dominates the total time. That
+          strategy, not any single component, is what runs here, stage by
+          stage:
+        </p>
+        <ul>
+          <li>
+            <strong>Meshing.</strong> Shewchuk&rsquo;s Triangle, the mesher
+            MILAMIN used, in our own WebAssembly build whose memory grows to
+            what the browser allows. Triangle&rsquo;s exact geometric
+            predicates need strict IEEE arithmetic, so it is compiled without
+            fast-math or SIMD.
+          </li>
+          <li>
+            <strong>Element matrices and assembly.</strong> One fused stage as
+            in the original blocked MILAMIN loop: the 7-point quadrature, the
+            augmented-Lagrangian penalty term and the bubble condensation for
+            each 7-node Crouzeix&ndash;Raviart element, scattered straight into
+            the lower-triangular sparse matrix, in plain TypeScript over typed
+            arrays.
+          </li>
+          <li>
+            <strong>Factorization.</strong> CHOLMOD&rsquo;s supernodal Cholesky
+            (SuiteSparse, the solver behind MATLAB&rsquo;s <code>chol</code>)
+            with AMD ordering, compiled to WebAssembly. Its dense kernels run
+            through an Eigen-based BLAS layer with wasm SIMD and, where the
+            page is cross-origin isolated (this site is), split across worker
+            threads with OpenMP.
+          </li>
+          <li>
+            <strong>Pressure recovery.</strong> Powell&ndash;Hestenes
+            iterations: factor once, back-substitute per iteration, until the
+            element pressures stop changing.
+          </li>
+          <li>
+            <strong>Postprocessing.</strong> The fields are evaluated per
+            pixel from the element solution and drawn with a quantized
+            colormap; pan and zoom re-evaluate, they do not upscale.
+          </li>
+        </ul>
+        <p>
+          Unknowns are counted as in 2008: two velocities at every node of
+          the 7-node element, the bubble node included; the pressure is
+          eliminated element by element and never enters the global system.
+          The browser solver condenses the bubble before assembly, so the
+          system it factorizes has about two thirds of that count, which is
+          part of its speed. The stage times shown on the pages add up to the
+          quoted totals; outside them are the one-off start of the worker and
+          its wasm modules and a few milliseconds of bookkeeping.
+        </p>
+
+        <h3>Threads and memory</h3>
+        <p>
+          The default thread count is deliberately not the maximum your
+          machine offers. Two-dimensional factorizations gain little beyond
+          about four threads and lose ground when every hardware thread is
+          used, which is what a memory-bandwidth limit looks like, so the pages
+          start at four on a desktop and at two on a phone, and let you try
+          more. On the one phone we measured, with its mix of large and small
+          cores, one and two threads were equally fast at a million unknowns.
+          Everything is in the <a href="../bench.html">benchmark</a> and its
+          log. A run with a million unknowns needs about 2.5 gigabytes and the
+          largest settings allocate several. The solver modules are 32-bit
+          WebAssembly, so each can address at most 4 GB, and that memory lives
+          inside the browser&rsquo;s own process: a 32-bit browser cannot hand
+          one module anything near that, a 64-bit browser can, so the largest
+          settings need a 64-bit browser with memory to spare. Numbers depend
+          on your machine; the benchmark runs on yours.
+        </p>
+
+        <h3>Checked, not just fast</h3>
+        <p>
+          The solvers come with verification suites, run before every
+          release: 46 checks against the
+          analytical circular-inclusion and rigid-polygon solutions and
+          between the two independent factorization paths, plus 26 checks of
+          Folder&rsquo;s growth rates against the analytical small-amplitude
+          theory. The <a href="../convergence.html">convergence lab</a> runs the
+          inclusion comparison live on finer and finer meshes and shows where
+          the error lives.
+        </p>
+
+        <h3>Using the playground</h3>
+        <p>
+          A model is a short JavaScript function body returning
+          <code>{ mesh, mu, bc }</code>: closed boundary polylines or an
+          explicit point-and-segment list, region seeds with a material
+          attribute and a local mesh size, a viscosity per material and a
+          Dirichlet or free-slip velocity per boundary marker. The
+          <a href="../playground.html">playground</a> documents the API under
+          its editor and starts from three presets. Boundaries may not cross
+          or touch, which is checked before meshing. Your model is remembered
+          in your browser; <em>Share link</em> puts it in the address, and
+          opening such a link loads it. The panels save as PNG, zoom with the
+          wheel or the buttons and the colour range can be set by hand.
+          <kbd>Ctrl</kbd>+<kbd>Enter</kbd> runs, Stop ends a runaway model.
+        </p>
+
+        <h3>Using Folder</h3>
+        <p>
+          <a href="../folder/">Folder</a> steps a layered model through
+          shortening or extension: the box is remeshed at every step, Stokes
+          is solved (with Picard iterations for power-law materials, each
+          step starting from the previous solution), and the interfaces are
+          advected. Changing an input redraws the initial geometry at once,
+          before any meshing; the dominant wavelength for the chosen layer is
+          shown under the perturbation controls so the perturbation can be set
+          in relation to it. Inputs are remembered and can be shared as a
+          link; the field panel enlarges, saves as PNG and takes manual
+          colour limits.
+        </p>
+
+        <h3>Reproducing the numbers</h3>
+        <p>
+          The benchmark sweep, the convergence study and the playground
+          presets can also be run from the command line with Node, using the
+          same code as the pages, so every number on the site can be
+          recomputed without a browser. The benchmark log in the repository
+          records the measurements on the devices we had.
+        </p>
+
+        <h3>The repository</h3>
+        <p>
+          The site and the solver are
+          <a href="https://github.com/dwschmid/milamin-web">one repository on
+          GitHub</a>, written in TypeScript with a little C++ for the parts
+          compiled to WebAssembly, and delivered to your browser as JavaScript
+          and wasm:
+        </p>
+        <ul>
+          <li><code>apps/milamin</code>: this site, its pages and the scripts
+            that reproduce its numbers.</li>
+          <li><code>apps/folder</code>: the Folder app.</li>
+          <li><code>packages/fem-core</code>: the solver. Meshing, the 7-node
+            element and its assembly, the Powell&ndash;Hestenes iterations, the
+            sparse Cholesky in WebAssembly with the C++ sources and build
+            scripts, a banded Cholesky as an independent reference and the
+            verification checks.</li>
+          <li><code>packages/analytic</code>: the analytical solutions the
+            solver is checked against.</li>
+          <li><code>packages/viz</code>: colormaps, pan and zoom, rendering.</li>
+        </ul>
+      </div>
+    </main>
+    <!-- site:footer -->
+  </body>
+</html>

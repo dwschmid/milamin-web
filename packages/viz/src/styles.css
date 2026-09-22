@@ -1,0 +1,713 @@
+/* Chrome tokens from the reference dataviz palette, light + dark. */
+:root {
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #3d3c38;
+  --muted: #706e68;
+  --grid: #e1e0d9;
+  --baseline: #c3c2b7;
+  --accent: #2a78d6;
+  --border: rgba(11, 11, 11, 0.1);
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --accent: #3987e5;
+    --border: rgba(255, 255, 255, 0.1);
+  }
+}
+
+* { box-sizing: border-box; }
+
+/* Dotted rate symbols are KaTeX-rendered inline (span.tex, see the page
+   scripts); scale KaTeX's default 1.21em down to blend with the UI text. */
+.tex .katex {
+  font-size: 1.05em;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+header.site h1 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0 0.2rem;
+}
+header.site p.sub {
+  color: var(--ink-2);
+  margin: 0 0 1rem;
+  /* Reading text shares one measure with .prose; UI and figures may go wider. */
+  max-width: 760px;
+}
+main.arch-main header.site p.sub { max-width: none; }
+a { color: var(--accent); }
+
+h2.section-title {
+  font-size: 1.1rem;
+  color: var(--ink-2);
+  margin: 1.6rem 0 0.2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3rem;
+}
+
+nav.crumbs { font-size: 0.9rem; color: var(--muted); }
+nav.crumbs a { color: var(--muted); }
+
+/* Controls */
+.controls {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 6px 28px;
+  margin: 18px 0;
+}
+.control {
+  display: grid;
+  grid-template-columns: minmax(11em, max-content) 1fr 5.5em;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+}
+.control label { color: var(--ink-2); white-space: nowrap; }
+.control.wide { grid-column: 1 / -1; }
+.control output {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.control input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+.control input[type='checkbox'] {
+  justify-self: start;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+.control select {
+  justify-self: start;
+  min-width: 9em;
+  max-width: 100%;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--baseline);
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+/* Benchmark-style control rows: no slider column, so give the whole width to
+ * the label + input and let long select labels breathe. */
+.bench-controls {
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
+.bench-controls .control {
+  grid-template-columns: minmax(9em, max-content) minmax(0, 1fr) auto;
+}
+.bench-controls .control input[type='number'] {
+  max-width: 6em;
+  justify-self: start;
+}
+.control input[type='number'],
+.panel-tools input[type='number'] {
+  font: inherit;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--baseline);
+  border-radius: 6px;
+  padding: 2px 6px;
+  width: 100%;
+  text-align: right;
+}
+
+.panel-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.panel-tools label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+.panel-tools button {
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--baseline);
+  border-radius: 6px;
+  padding: 2px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.panel-tools button:hover { border-color: var(--accent); color: var(--accent); }
+.presets {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+}
+.presets span { color: var(--muted); font-size: 0.9rem; align-self: center; }
+.presets button {
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--baseline);
+  border-radius: 999px;
+  padding: 2px 12px;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Stats */
+.stats {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin: 0 4px 14px;
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+.stats b {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Viscosity-profile strip (multirim page) */
+.panel.profile {
+  margin: 0 0 14px;
+}
+.panel.profile canvas {
+  display: block;
+  width: 100%;
+  height: 150px;
+}
+
+/* Field panels */
+.panels {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.panel {
+  flex: 1 1 380px;
+  min-width: 300px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px 12px;
+}
+.panel h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+.panel canvas.field {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  cursor: crosshair;
+  transition: opacity 0.25s;
+}
+/* while a background solve runs: progress cursor + dimmed stale fields */
+body.solving,
+body.solving canvas.field {
+  cursor: progress;
+}
+body.solving canvas.field {
+  opacity: 0.45;
+}
+.cbar { margin-top: 10px; }
+.cbar canvas {
+  display: block;
+  width: 100%;
+  height: 10px;
+  border-radius: 3px;
+}
+.cbar .ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+.readout {
+  margin: 10px 4px 0;
+  min-height: 1.4em;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Notes / equations */
+section.notes {
+  margin-top: 28px;
+  max-width: 760px;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+}
+section.notes h2 { color: var(--ink); font-size: 1.1rem; }
+.eq {
+  margin: 10px 0;
+  overflow-x: auto;
+  color: var(--ink);
+}
+section.notes details {
+  margin: 10px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+section.notes summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.92rem;
+}
+
+footer {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--grid);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* Landing page cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+a.card:hover { border-color: var(--accent); }
+.card img.thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.card h2 { font-size: 1.02rem; margin: 0 0 6px; }
+.card p { color: var(--ink-2); font-size: 0.9rem; margin: 0; }
+.card.planned { opacity: 0.55; }
+.card .tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 1px solid var(--baseline);
+  border-radius: 999px;
+  padding: 0 8px;
+  margin-bottom: 8px;
+}
+
+/* --- MILAMIN landing prose + citations page ------------------------------ */
+.prose {
+  max-width: 760px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.prose h3 { color: var(--ink); }
+.prose p.fine {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.cite-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 120px;
+  max-width: 760px;
+  margin: 1rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 18px;
+  position: relative;
+}
+.cite-bar {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  min-width: 6px;
+}
+.cite-bar-fill {
+  background: var(--accent);
+  opacity: 0.75;
+  border-radius: 2px 2px 0 0;
+}
+.cite-bar span {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.cite-filter {
+  max-width: 760px;
+}
+.cite-filter input {
+  width: 60%;
+  max-width: 340px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: inherit;
+}
+.cite-filter span {
+  margin-left: 0.8rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+h2.cite-year {
+  font-size: 1.05rem;
+  margin: 1.4rem 0 0.4rem;
+  color: var(--ink-2);
+}
+ul.cite-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 860px;
+}
+ul.cite-list li {
+  margin: 0.35rem 0;
+  line-height: 1.45;
+}
+.cite-authors {
+  color: var(--ink-2);
+}
+.cite-venue {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* --- Model playground ------------------------------------------------------ */
+.model-editor {
+  display: block;
+  width: 100%;
+  min-height: 340px;
+  margin: 14px 0 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  tab-size: 2;
+  white-space: pre;
+  resize: vertical;
+}
+.model-editor:focus { outline: 1px solid var(--accent); }
+.code-listing {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  tab-size: 2;
+  overflow-x: auto;
+}
+.model-error {
+  color: #c43d3d;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+  margin: 2px 0 6px;
+}
+
+/* --- Archive pages (recovered milamin.org content) ------------------------ */
+/* One content column for the recovered-site pages, the banner's width:
+   banner, sub, prose, TOC and cards all align. */
+main.arch-main { max-width: 922px; }
+main.arch-main .prose,
+main.arch-main .arch-toc { max-width: none; }
+
+a.arch-banner {
+  position: relative;
+  display: block;
+  max-width: 882px;
+  margin: 0.9rem 0 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+a.arch-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.arch-banner-title {
+  position: absolute;
+  top: 50%;
+  left: 19%;
+  transform: translateY(-50%);
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.arch-banner-title strong {
+  display: block;
+  font-size: clamp(0.95rem, 3.2vw, 1.8rem);
+  letter-spacing: 0.05em;
+}
+.arch-banner-title span {
+  display: block;
+  font-size: clamp(0.55rem, 1.5vw, 0.9rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+/* Figure slider, the modern take on the original vslider carousels. */
+.arch-slider {
+  position: relative;
+  max-width: 700px;
+  margin: 1rem auto 1.8rem;
+}
+.arch-slider.wide { max-width: none; }
+.arch-slider figure { display: none; margin: 0; }
+/* Content sliders show images at natural size - no upscaling. */
+.arch-slider:not(.wide) img {
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.arch-slider figure.active { display: block; }
+.arch-slider img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  cursor: zoom-in;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  background: rgba(0, 0, 0, 0.85);
+  cursor: zoom-out;
+}
+.lightbox img {
+  max-width: 92vw;
+  max-height: 82vh;
+  border-radius: 4px;
+  background: #fff;
+}
+.lightbox p {
+  margin-top: 0.9rem;
+  max-width: 70ch;
+  color: #d5d4cd;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.arch-slider figcaption {
+  margin: 0.5rem 0 0 1.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.arch-slider .slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.9;
+}
+.arch-slider .slider-btn:hover { color: var(--accent); }
+.arch-slider .slider-prev { left: 10px; }
+.arch-slider .slider-next { right: 10px; }
+.slider-dots { text-align: center; margin-top: 0.6rem; }
+.slider-dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  margin: 0 4px;
+  border: 1px solid var(--baseline);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.slider-dots button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.archive h3 {
+  font-size: 1.15rem;
+  margin: 1.8rem 0 0.5rem;
+}
+.archive h4 {
+  font-size: 1rem;
+  color: var(--ink-2);
+  margin: 1.3rem 0 0.4rem;
+}
+.arch-fig {
+  max-width: min(100%, 500px);
+  height: auto;
+  display: block;
+  margin: 1rem auto 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  cursor: zoom-in;
+}
+/* The paragraph directly after a figure is its caption; p.caption marks
+   table captions. Left-aligned, indented like tables and code blocks. */
+.archive .arch-fig + p,
+.archive p.caption {
+  margin: 0.2rem 0 1.4rem 1.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.video-embed {
+  position: relative;
+  max-width: 640px;
+  aspect-ratio: 4 / 3;
+  margin: 0.8rem auto;
+}
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: #000;
+}
+.archive table {
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin: 0.8rem 0 0.8rem 1.5rem;
+  display: block;
+  overflow-x: auto;
+}
+.archive ul, .archive ol {
+  margin-left: 1.5rem;
+}
+.archive th, .archive td {
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  text-align: left;
+}
+.archive th { background: var(--surface); }
+.archive pre, .archive code {
+  font-size: 0.85em;
+}
+.archive pre {
+  margin-left: 1.5rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow-x: auto;
+}
+/* MATLAB-editor-inspired syntax colors for highlighted code fragments. */
+.archive pre .hljs-keyword, .code-listing .hljs-keyword { color: #0e00ff; }
+.archive pre .hljs-comment, .code-listing .hljs-comment { color: #228b22; }
+.archive pre .hljs-string, .code-listing .hljs-string { color: #a020f0; }
+.code-listing .hljs-number { color: #a0522d; }
+@media (prefers-color-scheme: dark) {
+  .archive pre .hljs-keyword, .code-listing .hljs-keyword { color: #6db1ff; }
+  .archive pre .hljs-comment, .code-listing .hljs-comment { color: #6fbf73; }
+  .archive pre .hljs-string, .code-listing .hljs-string { color: #cf8ef1; }
+  .code-listing .hljs-number { color: #d9a066; }
+}
+.archive p.eq { text-align: center; }
+/* Reference lists: hanging indent under the [n] labels. */
+.archive ul.refs {
+  list-style: none;
+  margin-left: 1.5rem;
+  padding: 0;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+.archive ul.refs li {
+  padding-left: 2.2em;
+  text-indent: -2.2em;
+  margin: 0.3rem 0;
+}
+/* Page TOC. */
+.arch-toc {
+  max-width: 760px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.9rem 1.4rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.arch-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.arch-toc ul ul { padding-left: 1.6rem; }
+.arch-toc li { margin: 0.3rem 0; }
+
+[hidden] { display: none !important; }

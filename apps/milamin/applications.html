@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applications gallery – MILAMIN</title>
+    <script type="module" src="./src/landing.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main class="arch-main">
+      <header class="site">
+        <nav class="crumbs"><a href="./index.html">MilAMin</a> / <a href="./original.html">The original MILAMIN</a> / Applications</nav>
+        <a class="arch-banner" href="./original.html" title="The original MILAMIN">
+          <img src="./archive/Header.jpg" alt="Original milamin.org banner: the 1e6/1 road-sign logo on a finite element mesh" />
+          <span class="arch-banner-title"><strong>MILAMIN</strong><span>Fast Finite Element Solver in MATLAB</span></span>
+        </a>
+        <h1>Applications gallery</h1>
+        <p class="sub">The application examples from the original milamin.org: what MILAMIN’s mechanical, Stokes and thermal solvers were used for. The simulation videos stream from the original PGP Vimeo account, fifteen years on.</p>
+      </header>
+      <nav class="arch-toc">
+        <ul>
+          <li><a href="#rigid-inclusions">1. Rigid Inclusions</a></li>
+          <li><a href="#multilayer-folding">2. Multilayer Folding</a></li>
+          <li><a href="#sedimentation">3. Sedimentation</a></li>
+          <li><a href="#thermomechanical-modeling">4. Thermomechanical Modeling</a></li>
+          <li><a href="#mixing">5. Mixing</a></li>
+          <li><a href="#suspensions">6. Suspensions</a></li>
+          <li><a href="#mesh">7. Mesh</a></li>
+        </ul>
+      </nav>
+      <div class="prose archive">
+
+        <h2 class="section-title" id="rigid-inclusions">1. Rigid inclusions</h2>
+
+<h3>Rigid Circular Inclusions Subject to Simple Shear</h3>
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27907869?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+<h3>A Rigid Circular Inclusion in Anisotropic Host Subject to Simple Shear</h3>
+<p>We used MILAMINs fast MATLAB-based incompressible Stokes solver to study the flow around a circular rigid inclusion embedded in an anisotropic linear viscous matrix. A schematic representation of the studied model is presented in the figure below.</p>
+<img class="arch-fig" src="./archive/incl_folding_scetch.png" alt="incl_folding_scetch" loading="lazy" /><p>A schematic representation of the studied model. In the limit N -&gt; infinity, the host is modeled as an anisotropic fluid. Constant horizontal velocity on the top and bottom walls is prescribed and periodic velocity is imposed on the lateral boundaries in numerical simulations.</p>
+<p>Evolution of the structure and shear rate distribution with increasing shear strain are presented. The anisotropy factor is equal to 10. An arbitrarily spaced set of lines is used as passive markers for visualizing the structure.</p>
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27854324?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+        <h2 class="section-title" id="multilayer-folding">2. Multilayer folding</h2>
+
+<div class="arch-slider">
+  <figure class="active"><img src="./archive/run17_i100_s65_v100_scale.png" alt="Multilayer folding simulation, run 17" /><figcaption>Multilayer folding: application of MILAMINs incompressible Stokes solver.</figcaption></figure>
+  <figure><img src="./archive/run8_i64_s48_v1000_highpert_scale.png" alt="Multilayer folding simulation, run 8" /><figcaption>Multilayer folding: application of MILAMINs incompressible Stokes solver.</figcaption></figure>
+  <figure><img src="./archive/run15_i100_s65_v100_scale.png" alt="Multilayer folding simulation, run 15" /><figcaption>Multilayer folding: application of MILAMINs incompressible Stokes solver.</figcaption></figure>
+  <figure><img src="./archive/run14_i59_s45_v100_scale.png" alt="Multilayer folding simulation, run 14" /><figcaption>Multilayer folding: application of MILAMINs incompressible Stokes solver.</figcaption></figure>
+</div>
+
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27869943?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+        <h2 class="section-title" id="sedimentation">3. Sedimentation</h2>
+
+<h3>Sedimentation</h3>
+<p>In this section we present the results of our sedimentation study, which is another application example of the MILAMINs mechanical solver. The circular deformable inclusions in a box are subjected to vertical gravity field. Black (heavy) and white (light) inclusions have the same density contrast with respect to the matrix. They are hundred times more viscous than the matrix. The color-scale represents the magnitude of the velocity field, with warm colors corresponding to high values and cold colors to low values.</p>
+
+<div class="arch-slider">
+  <figure class="active"><img src="./archive/pressure_both.png" alt="Sedimentation study: pressure perturbations" /><figcaption>Pressure perturbations.</figcaption></figure>
+  <figure><img src="./archive/dissipation_both.png" alt="Sedimentation study: maximum shear strain rate" /><figcaption>Maximum shear strain rate.</figcaption></figure>
+  <figure><img src="./archive/velocity_both.png" alt="Sedimentation study: velocity magnitude with arrows" /><figcaption>Magnitude of the velocity field with superposed velocity arrows (random positions).</figcaption></figure>
+</div>
+
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27868612?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+<p>In the following movie we present results from a sedimentation study with rigid inclusions shaped as ellipses.</p>
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27864244?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+<p>We also present results from a sedimentation study with rigid circular inclusions with varying sizes.</p>
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27862854?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+        <h2 class="section-title" id="thermomechanical-modeling">4. Thermomechanical modeling</h2>
+
+<p>We have devised a numerical tool for studying processes that take place in the deeper mantle, using MILAMINs fast MATLAB-based Stokes and thermal solvers.</p>
+<p>A thermomechanical Finite Element Method (FEM) code is developed to model convection of a viscous fluid in a rectangular domain. The fluid is confined in an impermeable box and is heated from below, with no internal heating. It is assumed that the fluid is of infinite Prandtl number, with Newtonian rheology and that the Boussinesq approximation applies. The fluid is comprised by two chemically distinct materials: a dense layer along the bottom boundary overlain by a material of lower density and higher viscosity. Density and viscosity of the entire fluid are both temperature- and chemistry-dependent. Mechanical boundary conditions are free slip on all four sides of the box. Thermal boundary conditions are isotherms on top and bottom boundaries and zero heat flux on lateral boundaries.</p>
+<p>The governing equations include the conservation laws of mass, energy, and momentum, as well as the thermal and chemical dependence of viscosity. Density variations are expressed as a linear combination of thermal and chemical contributions.</p>
+<p>Two independent grids are used for spatial discretization of the temperature and velocity fields. We use a structured grid, and the resolution is determined by the number of mechanical elements in vertical direction and the number of thermal elements per mechanical element. Different materials in the model are represented by markers, and material transport associated with convection is modeled using marker-in-cell technique.</p>
+<p>Temporal evolution of the temperature field and distribution of the dense layer are presented below. The resolution is determined by 100 mechanical elements in vertical direction and 2&#215;2 thermal elements per mechanical element. We use second order quadratic elements for the velocity, and first order quadratic elements for the temperature.</p>
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27910928?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+        <h2 class="section-title" id="mixing">5. Mixing</h2>
+
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27899737?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+        <h2 class="section-title" id="suspensions">6. Suspensions</h2>
+
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27907542?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27907228?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27907395?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+        <h2 class="section-title" id="mesh">7. Mesh</h2>
+
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27872170?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+<p><div class="video-embed"><iframe src="https://player.vimeo.com/video/27872307?dnt=1" loading="lazy" allowfullscreen title="MILAMIN video"></iframe></div></p>
+
+      </div>
+    </main>
+  <!-- site:footer -->
+  </body>
+</html>

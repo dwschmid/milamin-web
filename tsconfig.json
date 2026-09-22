@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fem/*": ["packages/fem-core/src/*"],
+      "@viz/*": ["packages/viz/src/*"],
+      "@ana/*": ["packages/analytic/src/*"]
+    }
+  },
+  "include": ["packages", "apps", "scripts", "vite.shared.ts", "vite.config.ts"]
+}

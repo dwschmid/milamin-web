@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground – MilAMin</title>
+    <meta
+      name="description"
+      content="Write your own Stokes FEM model — geometry, viscosities, boundary conditions — and solve it live in the browser with the MilAMin pipeline."
+    />
+    <script type="module" src="./src/playground-page.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main>
+      <header class="site">
+        <nav class="crumbs"><a href="./index.html">MilAMin</a> / Apps / Playground</nav>
+        <h1>Playground</h1>
+        <p class="sub">
+          The original MILAMIN was a package you downloaded and edited in MATLAB.
+          This is the browser equivalent: define a model below &ndash; geometry,
+          viscosities, boundary conditions, in plain JavaScript &ndash; press Run,
+          and the full MilAMin pipeline meshes, assembles, factorizes and renders
+          it locally. Nothing to install; start from a preset and change things.
+        </p>
+      </header>
+
+      <div class="controls bench-controls">
+        <div class="control">
+          <label for="in-preset">Preset</label>
+          <select id="in-preset"></select>
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-threads">Solver threads</label>
+          <select id="in-threads"></select>
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-cmap">Colormap</label>
+          <select id="in-cmap"></select>
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-levels">Colors</label>
+          <select id="in-levels">
+            <option value="0">Smooth</option>
+            <option value="64" selected>64</option>
+            <option value="32">32</option>
+            <option value="16">16</option>
+            <option value="8">8</option>
+          </select>
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-mesh">Show mesh</label>
+          <input id="in-mesh" type="checkbox" />
+          <span></span>
+        </div>
+        <div class="control">
+          <label for="in-crange">Color range</label>
+          <select id="in-crange">
+            <option value="auto" selected>Automatic</option>
+            <option value="manual">Set below</option>
+          </select>
+          <span></span>
+        </div>
+        <div class="control" data-crange>
+          <label for="in-pmin">Pressure min / max</label>
+          <input id="in-pmin" type="number" step="any" />
+          <input id="in-pmax" type="number" step="any" />
+        </div>
+        <div class="control" data-crange>
+          <label for="in-tmin">Shear stress min / max</label>
+          <input id="in-tmin" type="number" step="any" />
+          <input id="in-tmax" type="number" step="any" />
+        </div>
+        <div class="control">
+          <button type="button" id="run">Run</button>
+          <span id="status">idle</span>
+        </div>
+        <div class="control">
+          <button type="button" id="share" title="Copy a link that carries this model">Share link</button>
+          <span id="share-note"></span>
+        </div>
+      </div>
+
+      <div id="save-note" class="presets" hidden>
+        <span id="save-note-text"></span>
+        <button type="button" id="save-model">Save as my model</button>
+      </div>
+      <textarea id="editor" class="model-editor" spellcheck="false"
+        aria-label="Model definition (JavaScript)"></textarea>
+      <div id="model-error" class="model-error"></div>
+
+      <div id="summary"></div>
+
+      <div class="panels">
+        <div class="panel">
+          <h2>Pressure p</h2>
+          <canvas id="cv-p" class="field"></canvas>
+          <div class="cbar">
+            <canvas id="cb-p"></canvas>
+            <div class="ticks"><span id="tick-p-min"></span><span id="tick-p-mid"></span><span id="tick-p-max"></span></div>
+          </div>
+          <div class="panel-tools">
+            <button type="button" id="dl-p" title="Download this panel as PNG">Save PNG</button>
+            <button type="button" class="zoom-in" title="Zoom in">+</button>
+            <button type="button" class="zoom-out" title="Zoom out">−</button>
+            <button type="button" class="zoom-reset" title="Reset view">1:1</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Maximum shear stress τ</h2>
+          <canvas id="cv-tau" class="field"></canvas>
+          <div class="cbar">
+            <canvas id="cb-tau"></canvas>
+            <div class="ticks"><span id="tick-tau-min"></span><span id="tick-tau-mid"></span><span id="tick-tau-max"></span></div>
+          </div>
+          <div class="panel-tools">
+            <button type="button" id="dl-tau" title="Download this panel as PNG">Save PNG</button>
+            <button type="button" class="zoom-in" title="Zoom in">+</button>
+            <button type="button" class="zoom-out" title="Zoom out">−</button>
+            <button type="button" class="zoom-reset" title="Reset view">1:1</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="notes">
+        <h2>The model API</h2>
+        <p>
+          A model is a JavaScript function body that ends with
+          <code>return { mesh, mu, bc }</code>:
+        </p>
+        <ul>
+          <li>
+            <code>mesh.boundaries</code> &ndash; closed polylines
+            (<code>{ pts, marker }</code>); the marker tags the nodes on that
+            polyline for the <code>bc</code> function. For geometries with open
+            internal interfaces, use explicit <code>mesh.points</code> and
+            <code>mesh.segments</code> (<code>[i, j, marker]</code>) instead
+            &ndash; the multilayer preset shows how.
+          </li>
+          <li>
+            <code>mesh.regions</code> &ndash; one seed per enclosed region:
+            <code>[x, y, attribute, maxArea]</code>. The attribute names the
+            material; <code>maxArea</code> sets the local mesh density (smaller
+            = finer). Meshes are capped at ~3 million unknowns (counted as in
+            2008, the bubble node included). Boundaries may
+            not cross or touch one another: an inclusion must lie inside the
+            box and clear of its neighbours, which is checked before meshing
+            (Triangle would otherwise mesh the slivers where they overlap).
+          </li>
+          <li>
+            <code>mu(attr)</code> &ndash; viscosity for a region attribute.
+          </li>
+          <li>
+            <code>view</code> &ndash; optional initial view
+            <code>[cx, cy, halfWidth]</code>; without it the panels frame the
+            whole model. The automatic colour range is taken from the fields
+            inside the view.
+          </li>
+          <li>
+            <code>bc(marker, x, y)</code> &ndash; Dirichlet velocity
+            <code>[vx, vy]</code> for a boundary node, <code>null</code> to
+            leave it unconstrained or a <code>NaN</code> component for free
+            slip in that direction.
+          </li>
+        </ul>
+        <p>
+          Helpers in scope: <code>rect(x0, y0, x1, y1)</code>,
+          <code>circle(cx, cy, r, n)</code>,
+          <code>ellipse(cx, cy, rx, ry, n, angleDeg)</code>. The code runs in a
+          Web Worker in your browser; <kbd>Ctrl</kbd>+<kbd>Enter</kbd> runs the
+          model, Stop terminates a runaway one. What you write is kept in your
+          browser: edits to your own model save as you type, while a preset or
+          a shared link you start editing is held apart from it until you press
+          &ldquo;Save as my model&rdquo;. The solver is the same
+          MILAMIN pipeline as the <a href="./million.html">million page</a>:
+          7-node Crouzeix&ndash;Raviart triangles from Shewchuk&rsquo;s Triangle,
+          CHOLMOD&rsquo;s supernodal Cholesky, Powell&ndash;Hestenes pressure
+          recovery.
+        </p>
+        <p>
+          Limits: linear viscous Stokes only (no gravity body
+          force, no time stepping yet), Dirichlet or free-slip conditions, and
+          one solve per Run &ndash; the <a href="./folder/">Folder app</a> shows
+          what a time-stepping loop on the same stack looks like.
+        </p>
+      </section>
+
+    </main>
+  <!-- site:footer -->
+  </body>
+</html>

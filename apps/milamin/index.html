@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MilAMin – Million A Minute</title>
+    <meta
+      name="description"
+      content="MilAMin: fast finite element solvers, a million unknowns a minute in your browser. The original MATLAB package (Dabrowski, Krotkiewski & Schmid, 2008) and its revival in the browser."
+    />
+    <script type="module" src="./src/landing.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main class="home">
+      <section class="hero">
+        <div class="hero-stage">
+          <div class="hero-copy">
+            <p class="eyebrow">Million A Minute · since 2008</p>
+            <h1>A million unknowns, in your browser on your phone - faster than ever.</h1>
+            <p class="lede">
+              MILAMIN set up, solved and post-processed one million degrees of
+              freedom per minute in native MATLAB
+              (<a href="https://doi.org/10.1029/2007GC001719">Dabrowski, Krotkiewski
+              &amp; Schmid, 2008</a>). This site carries the same solver strategy into
+              the browser, where it runs live on whatever device opens the
+              page, and keeps the original package and its record.
+            </p>
+          </div>
+          <div>
+            <a class="hero-band" href="./million.html" aria-label="Open the Million A Minute page">
+              <img src="./thumbs/million.png" alt="Pressure field of the million-unknown inclusion benchmark, solved in the browser" />
+            </a>
+            <p class="hero-caption">pressure around an inclusion<br />one million unknowns</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p class="eyebrow">What you can do with it</p>
+        <h2>Run models, use apps, build on the stack</h2>
+        <p class="section-lede">
+          The browser MilAMin is not a package to download but a solver stack
+          that runs in the browser, and applications built on it. You can run
+          your own two-dimensional Stokes models in the playground, use Folder
+          to grow folds and boudins in layered rock, or take the stack itself,
+          as Folder does and build something of your own.
+        </p>
+        <div class="card-grid">
+          <a class="card" href="./million.html">
+            <img class="thumb" src="./thumbs/million.png" alt="Pressure field of the million-unknown inclusion benchmark" loading="lazy" />
+            <span class="card-kicker">See the claim</span>
+            <h3>Million A Minute</h3>
+            <p>Mesh, assemble, factorize, iterate and render a one-million-unknown inclusion problem, with every stage on the clock.</p>
+            <span class="arrow-link">Run it</span>
+          </a>
+          <a class="card" href="./bench.html">
+            <img class="thumb" src="./thumbs/bench.png" alt="Browser solver timings against MILAMIN 2008" loading="lazy" />
+            <span class="card-kicker">Measure it</span>
+            <h3>Benchmark</h3>
+            <p>Run the solver on your machine at increasing size and compare assembly and solution times with MILAMIN's 2008 reference.</p>
+            <span class="arrow-link">Measure it</span>
+          </a>
+          <a class="card" href="./playground.html">
+            <img class="thumb" src="./thumbs/playground.png" alt="Pressure around a swarm of stiff ellipses, solved in the playground" loading="lazy" />
+            <span class="card-kicker">Run your own model</span>
+            <h3>Playground</h3>
+            <p>Geometry, viscosities and boundary conditions in a few lines of JavaScript: inclusions of any shape and contrast, layered stacks, swarms, up to two million unknowns. Share a model as a link, save the figures.</p>
+            <span class="arrow-link">Build a model</span>
+          </a>
+          <a class="card" href="./folder/">
+            <img class="thumb" src="./thumbs/folder.png" alt="A stiff layer folded in a weaker matrix, from the Folder app" loading="lazy" />
+            <span class="card-kicker">An app built on it</span>
+            <h3>Folder</h3>
+            <p>Folding and boudinage of viscous layers under shortening or extension: time stepping with remeshing, power-law rheology, growth rates against the analytical ones. The browser version of the 2016 Folder tool.</p>
+            <span class="arrow-link">Grow a fold</span>
+          </a>
+        </div>
+        <p class="section-lede build-on">
+          <strong>Build on it.</strong> Under both apps is one stack: Triangle
+          for the mesh, the 7-node Crouzeix&ndash;Raviart element assembled in
+          typed arrays, CHOLMOD&rsquo;s supernodal Cholesky in WebAssembly, and
+          the rendering, all TypeScript and wasm with no server behind it.
+          MILAMIN was never one trick: the 2008 paper showed that a million
+          unknowns a minute comes from giving every stage equal care, and that
+          is what the stack carries into the browser, verified against
+          analytical solutions on every build (the
+          <a href="./convergence.html">convergence lab</a> shows the check
+          live). See <a href="./about/how.html">how it works</a> for what it
+          is built on and the <a href="./about/licenses.html">licenses</a> for
+          the terms. The code is on
+          <a href="https://github.com/dwschmid/milamin-web">GitHub</a>.
+        </p>
+      </section>
+
+      <section>
+        <p class="eyebrow">The original MILAMIN</p>
+        <div class="original-band">
+          <div>
+            <h2>MATLAB, 2008</h2>
+            <p class="section-lede">
+              The native package: one million degrees of freedom per minute on
+              a desktop, from vectorized blocked assembly to Cholesky with
+              fill-reducing reordering and Powell&ndash;Hestenes iterations.
+              The original milamin.org is preserved here: the technical notes
+              behind the speed, the application gallery with its simulation
+              videos, the sources and the paper.
+            </p>
+            <div class="links">
+              <a class="arrow-link" href="./original.html">The package</a>
+              <a class="arrow-link" href="./applications.html">Applications</a>
+              <a class="arrow-link" href="./notes.html">Technical notes</a>
+              <a class="arrow-link" href="./downloads.html">Downloads</a>
+              <a class="arrow-link" href="./citations.html">Citations</a>
+            </div>
+          </div>
+          <a class="banner" href="./original.html" aria-label="The original MILAMIN">
+            <img src="./archive/Header.jpg" alt="Original milamin.org banner: the 1e6/1 road-sign logo on a finite element mesh" loading="lazy" />
+          </a>
+        </div>
+      </section>
+
+    </main>
+    <!-- site:footer -->
+  </body>
+</html>

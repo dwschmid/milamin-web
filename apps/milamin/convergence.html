@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convergence lab – MilAMin</title>
+    <meta
+      name="description"
+      content="Is the browser solver right? Solve the inclusion benchmark on finer and finer meshes, measure the true error against the analytical solution and read off the convergence order."
+    />
+    <script type="module" src="./src/convergence-page.ts"></script>
+  </head>
+  <body>
+    <!-- site:header -->
+    <main>
+      <header class="site">
+        <nav class="crumbs"><a href="./index.html">MilAMin</a> / Convergence lab</nav>
+        <h1>Convergence lab</h1>
+        <p class="sub">
+          Speed is worthless if the answer is wrong &ndash; so how do you know a
+          finite element solution is right? For the circular-inclusion benchmark
+          the exact solution is known analytically, which allows the one test
+          numerics cannot argue with: solve on finer and finer meshes and watch
+          the true error fall at the rate theory predicts. This page runs that
+          study live &ndash; five meshes, each halving the element size &ndash;
+          and measures every error against the exact solution.
+        </p>
+      </header>
+
+      <div class="controls bench-controls">
+        <div class="control">
+          <label for="in-threads">Solver threads</label>
+          <select id="in-threads"></select>
+          <span></span>
+        </div>
+        <div class="control run-row">
+          <button type="button" id="run">Run the study</button>
+          <span id="status">idle</span>
+        </div>
+      </div>
+
+      <div class="prose archive">
+        <table>
+          <thead>
+            <tr>
+              <th>h</th><th>unknowns</th>
+              <th>velocity L2 error</th><th>order</th>
+              <th>stress L2 error</th><th>order</th>
+              <th>of it in the sliver</th>
+              <th>solve</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <p class="caption" id="orders"></p>
+      </div>
+
+      <div class="panels">
+        <div class="panel">
+          <h2>Error vs element size</h2>
+          <canvas id="chart"></canvas>
+        </div>
+        <div class="panel">
+          <h2>Where the error lives (finest mesh)</h2>
+          <canvas id="cv-err" class="field"></canvas>
+          <div class="cbar">
+            <canvas id="cb-err"></canvas>
+            <div class="ticks" id="ticks-err"></div>
+          </div>
+          <p class="caption" id="err-scale"></p>
+        </div>
+      </div>
+
+      <section class="notes">
+        <h2>How to read it</h2>
+        <p>
+          The errors are relative L2 norms over the whole domain, inclusion
+          included: &#8214;f<sub>h</sub> &minus; f&#8214; / &#8214;f&#8214; with
+          &#8214;g&#8214;&sup2; = &int; g&sup2; dA, integrated element by
+          element with the same 7-point, degree-5 quadrature rule the assembly
+          uses, the finite element velocity (nodal plus bubble) and stress
+          evaluated at the quadrature points against the exact fields there,
+          with the analytical branch continued smoothly through each element.
+          In the sliver between the polygonal interface and the true circle,
+          a separate polar Gauss rule subtracts the continued matrix-side
+          contribution and adds the correct inclusion-side contribution.
+          This accounts for the stress jump without counting the sliver twice. The <em>order</em> column is
+          the observed convergence rate: when halving the element size h
+          divides the error by 2<sup>p</sup>, the method is of order p.
+        </p>
+        <p>
+          For the quadratic velocity of MILAMIN&rsquo;s 7-node
+          Crouzeix&ndash;Raviart element, theory promises third-order
+          velocities and second-order stresses in these norms. The velocity
+          measures &asymp;2 here, and that is the first lesson of this page:
+          the circle exists in the mesh only as straight element edges, and the
+          polygonal approximation of the curved interface is itself an
+          O(h&sup2;) error that caps the velocity order. The control experiment
+          proves it: on a square domain, where straight edges are exact, the
+          same element measures its full O(h&sup3;&middot;&#8304;) velocity
+          order &ndash; with constant-pressure and rotational (non-trivial
+          pressure) manufactured solutions alike
+          (<code>scripts/convtest.ts</code> in the repository). Recovering
+          cubic order on curved boundaries is what curved (isoparametric)
+          element edges are for; MILAMIN's meshes from Triangle have straight
+          edges, so its isoparametric mapping is affine, and like most
+          practical codes it trades that last order for refinement.
+        </p>
+        <p>
+          The stress tells the second lesson: it converges at first order,
+          not second, and the table says why. The maximum shear stress jumps
+          by a factor of nearly the viscosity ratio across the interface, and
+          in the sliver between the polygon and the true circle the mesh has
+          the wrong material. The stress error there is O(1) regardless of
+          refinement; the sliver's area shrinks as O(h&sup2;), so its
+          contribution to the L2 error falls only as O(h), and from the third
+          level on it is more than 90% of the squared stress error. Away from
+          the interface the stress converges at its natural second order. A
+          velocity is continuous across the interface, which is why it does
+          not suffer the same way: the price of a viscosity jump on a
+          polygonal interface is paid exactly where the error map lights up.
+        </p>
+        <p>
+          The error map tells the spatial story: the solution is most exact far
+          from the inclusion and the error concentrates at the interface, where
+          the polygonal approximation of the circle, the viscosity jump and the
+          pressure jump all live. The meshes of this study are refined
+          uniformly, the interface only through the number of polygon vertices,
+          so the map is a fair picture of where refinement would pay.
+        </p>
+        <p>
+          Two things are being checked at once here. <em>Verification</em>: the
+          discrete solution approaches the exact one, so the assembly, solver
+          and boundary conditions are implemented correctly &ndash; the same
+          analytical solutions guard this codebase in its verification
+          suite, 46 checks, run before every release. And <em>discretization economics</em>: a level
+          in the table halves the element size h, which in two dimensions
+          quadruples the number of elements and unknowns; what that buys is in
+          the order columns, four times smaller velocity errors and two times
+          smaller stress errors per level.
+        </p>
+        <p>
+          Reference: Dabrowski, M., Krotkiewski, M. &amp; Schmid, D. W. (2008),
+          <a href="https://doi.org/10.1029/2007GC001719">MILAMIN: MATLAB-based
+          finite element method solver for large problems</a>,
+          <em>Geochemistry, Geophysics, Geosystems</em> 9, Q04030,
+          doi:10.1029/2007GC001719, section 4.
+        </p>
+      </section>
+
+    </main>
+  <!-- site:footer -->
+  </body>
+</html>

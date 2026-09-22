@@ -1,0 +1,28 @@
+{
+  "name": "milamin-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config apps/milamin/vite.config.ts",
+    "dev:folder": "vite --config apps/folder/vite.config.ts",
+    "build": "vite build --config apps/milamin/vite.config.ts --outDir ../../dist --emptyOutDir && vite build --config apps/folder/vite.config.ts --outDir ../../dist/folder --emptyOutDir",
+    "preview": "vite preview --config apps/milamin/vite.config.ts --outDir ../../dist",
+    "verify": "node scripts/verify-all.mjs fem-core",
+    "verify:folder": "node scripts/verify-all.mjs folder",
+    "verify:folder-accuracy": "node scripts/verify-all.mjs folder-accuracy",
+    "verify:convergence": "node scripts/verify-all.mjs milamin",
+    "citations": "python3 apps/milamin/scripts/fetch_citations.py"
+  },
+  "dependencies": {
+    "highlight.js": "^11.11.1",
+    "katex": "^0.16.11"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.7",
+    "@types/node": "^26.1.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vite": "^7.0.0"
+  }
+}
