@@ -45,7 +45,7 @@ quotes this run.
 bench.html on the Pixel 10, Chrome for Android, supernodal Cholesky (AMD),
 2 threads (the phone default), unknowns in 2008 counting. One session up to
 2.0 M, then the largest size on its own. This sweep is the phone curve
-of Figure 1 of the paper.
+of Figure 2 of the paper.
 
 | unknowns | elements | mesh | matrices & assembly | factorization | PH | total |
 |---|---|---|---|---|---|---|
@@ -76,7 +76,7 @@ so the sweep's 4.4 s was a fast outlier and the million.html table stands;
 run-to-run spread on the factorization is up to ±20%, not ±10-15%.
 
 Full ladder to 2.5 M in one session, same day, 2 threads (the phone curve of
-Figure 1 of the paper, data/pixel10-sweep.tsv there):
+Figure 2 of the paper, data/pixel10-sweep.tsv there):
 
 | unknowns | elements | mesh | matrices & assembly | factorization | PH | total |
 |---|---|---|---|---|---|---|
@@ -95,7 +95,7 @@ Ladder vs standalone at 2.5 M: 25.7 s vs 33.5 s, factorization 17.7 vs
 a standalone run pays for wasm memory growth to the factor's size and for
 V8's tier-up of the wasm code inside the timed factorization; in a ladder
 both are done by the time the top size runs. Ladders are the "warm" numbers
-(Figure 1), largest-only runs the conservative ones (thread sweeps,
+(Figure 2), largest-only runs the conservative ones (thread sweeps,
 million.html).
 
 ## Devices

@@ -65,6 +65,13 @@ production server.
 Open issues and pull requests here. If you build something on the stack, say
 so: apps worth sharing get a place on the site.
 
+## Citing
+
+Schmid, D. W. (2026). MilAMin: MILAMIN in the browser. Zenodo,
+[doi:10.5281/zenodo.22895505](https://doi.org/10.5281/zenodo.22895505)
+(all versions; each release has its own DOI). Please cite the 2008 paper
+alongside it. `CITATION.cff` carries the same in machine-readable form.
+
 ## License
 
 GPL-2.0-or-later (see `LICENSE`), which the CHOLMOD supernodal solver in the
