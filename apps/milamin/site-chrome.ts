@@ -131,10 +131,16 @@ const footer = (root: string) => `<footer class="site-footer">
   </div>
 </footer>`;
 
+/** the site's address, for the canonical link of every page */
+const SITE = 'https://milamin.org/';
+
 export interface ChromeOptions {
   /** path from the app's pages to the MilAMin root ('./' for MilAMin itself,
    *  '../' for an app that lives in a subdirectory such as folder/) */
   root?: string;
+  /** the app's directory under the site root ('' for MilAMin itself,
+   *  'folder/' for Folder); with the page path it gives the canonical URL */
+  base?: string;
   /** menu id of the page when it is not the html filename (e.g. 'folder/') */
   page?: string;
 }
@@ -156,6 +162,9 @@ export function siteChrome(opts: ChromeOptions = {}): Plugin {
         const depth = dirname(rel) === '.' ? 0 : dirname(rel).split('/').length;
         const page = opts.page ?? pageId;
         const root = opts.root ?? (depth ? '../'.repeat(depth) : './');
+        // one canonical address per page, so search engines index the site
+        // under its own name whatever host they crawled it on
+        const canonical = SITE + (opts.base ?? '') + pageId;
         return {
           html: html
             .replace('<!-- site:header -->', header(page, root))
@@ -165,6 +174,7 @@ export function siteChrome(opts: ChromeOptions = {}): Plugin {
           // tab icons are the ring with "1e6" alone (public/favicon-tab.svg);
           // the 180 and 192 px app icons carry the full mark (public/favicon.svg).
           tags: [
+            { tag: 'link', attrs: { rel: 'canonical', href: canonical }, injectTo: 'head' },
             { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '16x16', href: `${root}favicon-16.png` }, injectTo: 'head' },
             { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '32x32', href: `${root}favicon-32.png` }, injectTo: 'head' },
             { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '192x192', href: `${root}icon-192.png` }, injectTo: 'head' },

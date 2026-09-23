@@ -7,6 +7,6 @@ export default defineConfig({
   ...sharedConfig,
   // FOLDER is an app of the MilAMin site: same header, menu and footer, served
   // at milamin/folder/ (root = '../' points the chrome's links at MilAMin)
-  plugins: [coopCoep(), siteChrome({ root: '../', page: 'folder/' }), distributionNotices()],
+  plugins: [coopCoep(), siteChrome({ root: '../', page: 'folder/', base: 'folder/' }), distributionNotices()],
   resolve: { alias: sharedAliases },
 });
